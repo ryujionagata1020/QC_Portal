@@ -1,0 +1,28 @@
+{
+  "name": "qc_portal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryujionagata1020/QC_Portal.git"
+  },
+  "author": "Ryujiro Nagata",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ryujionagata1020/QC_Portal/issues"
+  },
+  "homepage": "https://github.com/ryujionagata1020/QC_Portal#readme",
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  },
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}
