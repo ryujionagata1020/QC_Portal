@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QC-Portal</title>
+    <meta name="description" content="サイトの説明（SEO用）" />
+
+    <!-- 外部CSSを使う場合 -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <!-- 自前CSS設定 -->
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- 必要ならここに追加のmetaやfaviconなど -->
+    <!--<link rel="icon" href="../public/favicon.ico"> -->
+  </head>
+
+  <body>
+    <!-- 全体のラッパー -->
+    <div id="site-wrapper">
+      <!-- サイトのヘッダー（ロゴ、グローバルナビなど） -->
+      <header id="site-header" role="banner">
+        <div class="container">
+          <a class="site-title" href="index.ejs">QC-Portal</a>
+          <!-- ナビゲーション -->
+          <nav
+            id="global-nav"
+            role="navigation"
+            aria-label="グローバルナビゲーション"
+          >
+            <ul>
+              <li><a href="/qcis">品質管理（QC）検定とは</a></li>
+              <li><a href="#">品質管理の時間</a></li>
+              <li><a href="#">検定の時間</a></li>
+              <li><a href="#">統計情報</a></li>
+              <li><a href="#">参考書・問題集</a></li>
+              <li><a href="#">用語集</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <!-- メインコンテンツ領域 -->
+      <main id="main-content" role="main">
+        <div class="container">
+          <!-- パンくず（必要なら） -->
+
+          <!-- メインのセクション（複数セクション可能） -->
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">QC-Portalのサイト目的</h2>
+            <p>
+              QC-Portalは、QC検定の合格を目指している方への情報提供や、<br />合格のサポートを目的としたサイトです。<br />2025年9月から3級・4級の試験はCBT方式に変更になりました。
+            </p>
+          </section>
+
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">QC検定一問一答</h2>
+            <p>品質とは何か正しいものどれか</p>
+          </section>
+
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">管理人からの一言</h2>
+            <p>
+              QC検定は資格取得にとどまらず、仕事の仕方や引き出しの多さなど日常の様々なことに応用できます。<br />一人でも多くこの検定に合格できるよう全力でサポートできるとうれしいです。
+            </p>
+          </section>
+
+          <!-- サイドバー（必要な場合） -->
+          <aside
+            id="sidebar"
+            role="complementary"
+            aria-labelledby="sidebar-heading"
+          >
+            <h3 id="sidebar-heading">サイドバー</h3>
+            <p>補足情報、リンク、最新記事一覧など。</p>
+          </aside>
+        </div>
+      </main>
+
+      <!-- フッター（コピーライトや連絡先情報） -->
+      <footer id="site-footer" role="contentinfo">
+        <div class="container">
+          <nav id="global-footer" aria-label="フッターナビ">
+            <ul>
+              <li><a href="#">利用規約</a></li>
+              <li><a href="#">プライバシーポリシー</a></li>
+              <li><a href="#">サイトマップ</a></li>
+            </ul>
+          </nav>
+        </div>
+      </footer>
+    </div>
+    <div class="copyright">
+      <p id="copyright-1">&copy; 2025 QC-Portal. All rights reserved.</p>
+    </div>
+
+    <!-- 必要ならスクリプトをここに -->
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>

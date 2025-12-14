@@ -23,6 +23,8 @@
     "eslint": "^7.25.0"
   },
   "dependencies": {
-    "express": "4.17.1"
+    "ejs": "^3.1.10",
+    "express": "4.17.1",
+    "serve-favicon": "^2.5.0"
   }
 }

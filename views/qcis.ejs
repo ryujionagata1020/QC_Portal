@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QC-Portal</title>
+    <meta name="description" content="サイトの説明（SEO用）" />
+
+    <!-- 外部CSSを使う場合 -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <!-- 自前CSSを使う場合 -->
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- 必要ならここに追加のmetaやfaviconなど -->
+    <!--<link rel="icon" href="../public/favicon.ico"> -->
+  </head>
+
+  <body>
+    <!-- 全体のラッパー -->
+    <div id="site-wrapper">
+      <!-- サイトのヘッダー（ロゴ、グローバルナビなど） -->
+      <header id="site-header" role="banner">
+        <div class="container">
+          <a class="site-title" href="index.ejs">QC-Portal</a>
+          <!-- ナビゲーション -->
+          <nav
+            id="global-nav"
+            role="navigation"
+            aria-label="グローバルナビゲーション"
+          >
+            <ul>
+              <li><a href="/qcis>品質管理（QC）検定とは</a></li>
+              <li><a href="#">品質管理の時間</a></li>
+              <li><a href="#">検定の時間</a></li>
+              <li><a href="#">統計情報</a></li>
+              <li><a href="#">参考書・問題集</a></li>
+              <li><a href="#">用語集</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <!-- メインコンテンツ領域 -->
+      <main id="main-content" role="main">
+        <div class="container">
+          <!-- パンくず（必要なら） -->
+
+          <!-- メインのセクション（複数セクション可能） -->
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">品質管理（QC）検定とは</h2>
+            <p>
+              品質管理（QC）検定とは一般財団法人
+              日本規格協会と日本科学技術連盟が主催し、日本品質管理学会が認定する検定試験です。<br />
+              2005年に第1回試験が実施され、現在は年に2度実施されています。社会人のみならず、就活や社会人の準備として学生にも<br />
+              人気のある試験です。各級によって認定する知識と能力レベルがそれぞれ求められ、特に1級/準1級の合格者は<br />
+              <strong
+                >部門横断の品質問題を解決をリードできるスタッフ、品質問題解決の指導的立場の品質技術者</strong
+              >
+              と位置づけられています。 <br /><br />
+              QC検定は、企業が品質管理の教育システムを評価する手段として重要です。受験者は品質管理に関する基礎知識や実践的なスキルを<br />
+              身に着けることができ、社内での品質管理活動を推進するための基盤を築くことができます。<br />
+              これからも多くの企業や教育機関で取得が推奨されていくことは間違えありません。<br />
+            </p>
+          </section>
+
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">QC検定各級の対象者像</h2>
+            <p>
+              品質管理検定レベル表には対象となる人材像として、<br />
+              1級/準1級：部門横断の品質問題を解決をリードできるスタッフ、品質問題解決の指導的立場の品質技術者<br />
+              2級：自部門の品質問題解決をリードできるスタッフ、品質にかかわる部署の管理職・スタッフ<br />
+              3級：業種・業態にかかわらず自分たちの職場の問題解決を行う全社員、品質管理を学ぶ大学生、高専生、高校生<br />
+              4級：初めて品質管理を学ぶ人、新入社員、初めて品質管理を学ぶ大学生、高専生、高校生<br />
+              と記されています。<br />
+              <br />
+              基本的に品質管理・問題解決能力を問う試験であり、それぞれ各級に応じて役割の規模が変化します。<br />
+              品質管理の初めて学ぶ方や社会人になりたての場合3級からの取得がおすすめです。<br />
+              各級の受験者平均は1級で41～42歳、2級で37～38歳、3級で34～35歳、4級で31～32歳であることから<br />
+              業務経験10～15年の中堅メカニックエンジニアやシステムエンジニア、その他社会人が受験者の中心であることが分かります。<br />
+              一方で3,4級の合格者の3割以上は10代～20代であり、若手の基本教育にも活用されています。<br />
+              <br />
+              <!-- １級として仕事している風の画像の挿入-->
+            </p>
+          </section>
+
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">各級の認定する知識と能力水準</h2>
+            <dl>
+              <dt>1級/準1級</dt>
+              <dd>
+                　組織内で発生するさまざまな問題に対して、品質管理の側面からどのようにすれば解決や改善ができるかを把握しており、<br />
+                　それらを主導していくことができる。また、自分自身で解決できないようなかなり専門的な問題については、<br />
+                　少なくともどのような手法を使えばよいのかという解決に向けた筋道を立てることができる力を有しているようなレベルです。<br />
+                　組織内で品質管理活動のリーダーである（となる可能性のある）人に最低限要求される知識を有し、その活用の仕方を理解しています。<br />
+              </dd>
+              <dt>2級</dt>
+              <dd>
+                　職場で発生する品質に関係した問題の多くをQC七つ道具及び新QC七つ道具を含む統計的な手法も活用して、<br />
+                　自らが中心となって解決や改善をしていくことができ、品質管理の実践についても、十分理解し、適切な活動ができる。<br />
+                　基本的な管理・改善活動を自立的に実施できるレベルです。<br />
+              </dd>
+              <dt>3級</dt>
+              <dd>
+                　QC七つ道具について、作り方・使い方をほぼ理解しており、改善の進め方の支援・指導を受ければ、<br />
+                　職場において発生する問題をQC的問題解決法により、解決していくことができ、品質管理の実践についても、知識としては理解しているレベルです。<br />
+                　基本的な管理・改善活動を必要に応じて支援を受けながら実施できるレベルです。<br />
+              </dd>
+              <dt>4級</dt>
+              <dd>
+                　組織で仕事をするにあたって、品質管理の基本を含めて企業活動の基本常識を理解しており、企業等で行われている改善活動も言葉としては理解できる。<br />
+                　社会人として最低限知っておいてほしい仕事の進め方や品質管理に関する用語の知識は有しているというレベルです。<br />
+              </dd>
+            </dl>
+
+            <!-- QC関連の画像の挿入-->
+          </section>
+
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">試験の略称は「QC検定」</h2>
+            <p>
+              品質管理は英語で"Quality Contorol"なので略してQC検定です。<br />
+              当サイトのURLドメイン『QC-Portal』も品質管理の入り口・入門を表す"QC","Portal"を<br />
+              冠しています。さて、QC検定について大まかに説明しましたが、試験制度の概要、難易度<br />
+              合格率などの情報については当サイトのコンテンツごとまとめてあるので参考にしてください<br />
+              <br />
+              <!-- １級として仕事している風の画像の挿入-->
+            </p>
+
+            <!-- QC関連の画像の挿入-->
+          </section>
+          <!-- サイドバー（必要な場合） -->
+          <aside
+            id="sidebar"
+            role="complementary"
+            aria-labelledby="sidebar-heading"
+          >
+            <h3 id="sidebar-heading">サイドバー</h3>
+            <p>補足情報、リンク、最新記事一覧など。</p>
+          </aside>
+        </div>
+      </main>
+
+      <!-- フッター（コピーライトや連絡先情報） -->
+      <footer id="site-footer" role="contentinfo">
+        <div class="container">
+          <nav id="global-footer" aria-label="フッターナビ">
+            <ul>
+              <li><a href="#">利用規約</a></li>
+              <li><a href="#">プライバシーポリシー</a></li>
+              <li><a href="#">サイトマップ</a></li>
+            </ul>
+          </nav>
+        </div>
+      </footer>
+    </div>
+    <div class="copyright">
+      <p id="copyright-1">&copy; 2025 QC-Portal. All rights reserved.</p>
+    </div>
+
+    <!-- 必要ならスクリプトをここに -->
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>
