@@ -11,6 +11,7 @@ const app = express();
 
 //EJSのテンプレートエンジンを使う宣言
 app.set("view engine", "ejs");
+app.disable("x-powered-by");
 
 //静的コンテンツ
 //faviconを使う
