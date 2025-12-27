@@ -21,6 +21,22 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 //動的コンテンツ
 //ルーティングの実施のためファイルを呼び出す
 app.use("/", require("./routes/index.js"));
+app.use("/test", async (req, res, next) => {
+  const { MySQLClient, sql } = require("./lib/database/client.js");
+  var data;
+
+  try {
+    await MySQLClient.connect();
+    data = await MySQLClient.query(await sql("SELECT_quiz_questions"));
+    console.log(data);
+  } catch (err) {
+    next(err);
+  } finally {
+    await MySQLClient.end();
+  }
+
+  res.end("OK");
+});
 
 //アプリの実行
 app.listen(PORT, () => {

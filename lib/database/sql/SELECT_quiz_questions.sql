@@ -1,0 +1,1 @@
+SELECT * FROM quiz_questions WHERE question_id = "Q1001";
