@@ -7,7 +7,7 @@
     <!-- 外部CSSを使う場合 -->
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
     <!-- 自前CSSを使う場合 -->
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="/public/index.css" />
 
     <!-- 必要ならここに追加のmetaやfaviconなど -->
     <!--<link rel="icon" href="../public/favicon.ico"> -->
@@ -20,21 +20,27 @@
       <%- include("./_share/navbar.ejs") %>
 
       <!-- メインコンテンツ領域 -->
-      <main id="main-content" role="main">
+      <main class="qcis-container">
         <div class="container">
           <!-- パンくず（必要なら） -->
 
           <!-- メインのセクション（複数セクション可能） -->
           <section id="primary" aria-labelledby="primary-heading">
-            <h2 id="primary-heading">品質管理（QC）検定とは</h2>
+            <h2 id="primary-heading">QC検定®とは</h2>
             <p>
-              品質管理（QC）検定とは一般財団法人
+              QC検定®とは一般財団法人
               日本規格協会と日本科学技術連盟が主催し、日本品質管理学会が認定する検定試験です。<br />
               2005年に第1回試験が実施され、現在は年に2度実施されています。社会人のみならず、就活や社会人の準備として学生にも<br />
               人気のある試験です。各級によって認定する知識と能力レベルがそれぞれ求められ、特に1級/準1級の合格者は<br />
               <strong
                 >部門横断の品質問題を解決をリードできるスタッフ、品質問題解決の指導的立場の品質技術者</strong
               >
+            </p>
+            <!-- ✅ 画像表示エリア -->
+          <div class="qcis-img">
+            <img src="../public/branch_pengin.png" alt="QC検定を案内するペンギン" />
+          </div>
+            <p>
               と位置づけられています。 <br /><br />
               QC検定は、企業が品質管理の教育システムを評価する手段として重要です。受験者は品質管理に関する基礎知識や実践的なスキルを<br />
               身に着けることができ、社内での品質管理活動を推進するための基盤を築くことができます。<br />

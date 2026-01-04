@@ -3,5 +3,9 @@ module.exports = {
   PORT: process.env.MYSQL_HOST || "3306",
   USERNAME: process.env.MYSQL_HOST || "admin",
   PASSWORD: process.env.MYSQL_HOST || "i2679nm3328",
-  DATABASE: process.env.MYSQL_HOST || "qc-portal"
+  DATABASE: process.env.MYSQL_HOST || "qc_portal",
+  CONNECTION_LIMIT: process.env.MYSQL_CONNECTION_LIMIT ?
+    parseInt(process.env.MYSQL_CONNECTION_LIMIT) : 10,
+  QUEUE_LIMIT: process.env.MYSQL_QUEUE_LIMIT ?
+    parseInt(process.env.MYSQL_QUEUE_LIMIT) : 0
 };

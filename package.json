@@ -25,7 +25,8 @@
   "dependencies": {
     "@garafu/mysql-fileloader": "^0.0.3",
     "ejs": "^3.1.10",
-    "express": "4.17.1",
+    "express": "^5.2.1",
+    "express-session": "^1.18.2",
     "mysql2": "^3.16.0",
     "serve-favicon": "^2.5.0"
   }

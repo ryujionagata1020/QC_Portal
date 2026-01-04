@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <%- include("../_share/metadata.ejs") %>
+  <title>問題 <%= question_id %></title>
+  <link rel="stylesheet" href="/public/index.css">
+</head>
+
+<body>
+  <%- include("../_share/navbar.ejs") %>
+
+  <main class="question-container">
+    <h2>問題ID：<%= question_id %></h2>
+    <div class="meta">
+      <div>カテゴリ：<%= large_category_name %> ＞ <%= small_category_name %></div>
+      <div>難易度：<%= testlevel %>級</div>
+    </div>
+
+    <% if (image_data) { %>
+      <div class="img-area">
+        <img src="/public/<%= image_data %>" alt="問題図" width="400">
+      </div>
+    <% } %>
+
+    <div class="body">
+      <p><%= body %></p>
+    </div>
+
+    <div class="blanks-area">
+      <% blanks.forEach(function(blank) { %>
+        <div class="blank-block">
+          <h3>（<%= blank.blank_number %>）</h3>
+          <div class="choice-grid" id="choices_<%= blank.blank_id %>">
+            <% choices.forEach(function(choice) { %>
+              <div class="choice-cell">
+                <button class="choice-btn"
+                        id="btn_<%= blank.blank_id %>_<%= choice.choice_id %>"
+                        onclick="checkAnswer('<%= blank.blank_id %>', '<%= choice.choice_id %>')">
+                  <%= choice.label %>
+                </button>
+                <span><%= choice.text %></span>
+              </div>
+            <% }); %>
+          </div>
+          <div id="result_<%= blank.blank_id %>" class="resultArea"></div>
+        </div>
+      <% }); %>
+    </div>
+
+    <button class="btn" id="toggleExplanation">解説をみる</button>
+    <div id="explanation" style="display:none;"><%= explanation %></div>
+
+    <form method="GET" id="nextForm">
+      <% if (nextId) { %>
+        <button type="button" class="btn" onclick="goNextQuestion()">次の問題へ</button>
+      <% } else { %>
+        <button type="button" class="btn" disabled>これで終了です</button>
+      <% } %>
+    </form>
+
+    <!-- ✅ オーバーレイ -->
+    <div id="overlay" class="overlay">
+      <div class="overlay-content" id="overlayMessage"></div>
+    </div>
+  </main>
+
+  <%- include("../_share/footer.ejs") %>
+
+  <script>
+    // ==== 解説の開閉 ====
+    const exp = document.getElementById("explanation");
+    const toggleBtn = document.getElementById("toggleExplanation");
+    toggleBtn.addEventListener("click", () => {
+      const show = exp.style.display === "none";
+      exp.style.display = show ? "block" : "none";
+      toggleBtn.textContent = show ? "解説を隠す" : "解説をみる";
+    });
+
+    // ==== 回答チェック ====
+    async function checkAnswer(blankId, selectedChoiceId) {
+      try {
+        const response = await fetch("/questions/answer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            blank_id: blankId,
+            choice_id: selectedChoiceId
+          })
+        });
+        const result = await response.json();
+
+        const choiceButtons = document.querySelectorAll(`#choices_${blankId} .choice-btn`);
+        choiceButtons.forEach(btn => {
+          btn.style.backgroundColor = "";
+          btn.style.borderColor = "#888";
+        });
+
+        const selectedBtn = document.getElementById(`btn_${blankId}_${selectedChoiceId}`);
+        if (result.isCorrect) {
+          selectedBtn.style.backgroundColor = "#c8facc";
+          selectedBtn.style.borderColor = "green";
+        } else {
+          selectedBtn.style.backgroundColor = "#fdd";
+          selectedBtn.style.borderColor = "red";
+        }
+
+        const resultArea = document.getElementById(`result_${blankId}`);
+        resultArea.innerHTML = result.isCorrect
+          ? "<span style='color: green; font-weight:bold;'>〇 正解</span>"
+          : "<span style='color: red; font-weight:bold;'>× 不正解</span>";
+        resultArea.style.display = "block";
+
+        // ✅ オーバーレイを表示
+        showOverlay(result.isCorrect);
+
+      } catch (err) {
+        console.error("答えチェック失敗:", err);
+      }
+    }
+
+    // ==== オーバーレイを表示する関数 ====
+    function showOverlay(isCorrect) {
+      const overlay = document.getElementById("overlay");
+      overlay.className = "overlay " + (isCorrect ? "correct" : "incorrect");
+      overlay.style.display = "flex";
+
+      setTimeout(() => {
+        overlay.style.display = "none";
+      }, 1800);
+    }
+
+    // ==== 次の問題 ====
+    function goNextQuestion() {
+      const next = "<%= nextId %>";
+      if (next) window.location.href = "/questions/" + next;
+    }
+  </script>
+</body>
+</html>

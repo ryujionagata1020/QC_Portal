@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ✅ 共通メタデータ -->
+  <%- include("../_share/metadata.ejs") %>
+
+  <title>出題条件選択</title>
+  <link rel="stylesheet" href="/public/index.css">
+</head>
+
+<body>
+  <!-- ✅ 共通ナビバー -->
+  <%- include("../_share/navbar.ejs") %>
+
+  <main class="select-container">
+    <h1>出題条件を選択してください</h1>
+
+    <form id="selectForm" action="/questions/start" method="POST">
+      <!-- 難易度選択 -->
+      <div class="section-title">難易度（testlevel）</div>
+      <div id="testLevelArea">
+        <label><input type="checkbox" name="testlevels" value="1"> 1級</label>
+        <label><input type="checkbox" name="testlevels" value="2"> 2級</label>
+        <label><input type="checkbox" name="testlevels" value="3" checked> 3級</label>
+      </div>
+
+      <!-- 出題範囲選択 -->
+      <div class="section-title">出題範囲（scope_exam）</div>
+      <div id="examScopeArea">
+        <label><input type="checkbox" name="scope_exams" value="1" onclick="setScope(1)"> 1級</label>
+        <label><input type="checkbox" name="scope_exams" value="2" onclick="setScope(2)"> 2級</label>
+        <label><input type="checkbox" name="scope_exams" value="3" onclick="setScope(3)" checked> 3級</label>
+      </div>
+      
+            <div class="buttons">
+        <button type="button" onclick="checkAll(true)">すべて選択</button>
+        <button type="button" onclick="checkAll(false)">すべて解除</button>
+        <button type="submit">出題開始</button>
+      </div>
+
+      <!-- カテゴリ選択 -->
+      <div class="section-title">カテゴリ選択</div>
+
+      <div class="large-category-grid" id="categoryGrid">
+        <% Object.keys(categories).forEach(function(lid){ %>
+          <% const large = categories[lid]; %>
+          <div class="large-category">
+            <div class="large-header" onclick="toggleSection('<%= lid %>')">
+              ▶ <%= large.name %>
+            </div>
+            <div id="small_<%= lid %>" class="small-list">
+              <% large.smalls.forEach(function(small){ %>
+                <label data-scope="<%= small.scope_exam %>">
+                  <input type="checkbox" name="smalls" value="<%= small.id %>">
+                  <%= small.name %>（範囲：<%= small.scope_exam %>）
+                </label><br>
+              <% }); %>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </form>
+  </main>
+
+  <!-- ✅ 共通フッター -->
+  <%- include("../_share/footer.ejs") %>
+
+  <script>
+  // === 出題範囲（scope_exam）制御 ===
+  function setScope(selected) {
+    // （1）単一選択（他のチェックを解除）
+    document.querySelectorAll("input[name='scope_exams']").forEach(cb => {
+      cb.checked = (parseInt(cb.value, 10) === selected);
+    });
+
+    // （2）すべて未チェックにリセット
+    document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = false);
+
+    // （3）該当 scope_exam を持つカテゴリをON
+    document.querySelectorAll("label[data-scope]").forEach(lbl => {
+      const scopeValue = parseInt(lbl.dataset.scope, 10);
+      const cb = lbl.querySelector("input");
+      if (!cb) return;
+
+      if (selected === 1 && [1, 2, 3].includes(scopeValue)) cb.checked = true;
+      else if (selected === 2 && [2, 3].includes(scopeValue)) cb.checked = true;
+      else if (selected === 3 && [3].includes(scopeValue)) cb.checked = true;
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // ✅ 初期化デフォルト：3級反映
+    setScope(3);
+
+    // ✅ 範囲チェックボックスのイベント設定
+    document.querySelectorAll("input[name='scope_exams']").forEach(cb => {
+      cb.addEventListener("change", ev => {
+        if (ev.target.checked) {
+          const selected = parseInt(ev.target.value, 10);
+          setScope(selected);
+        }
+      });
+    });
+  });
+
+  // === 大分類開閉 ===
+  function toggleSection(id) {
+    const section = document.getElementById("small_" + id);
+    section.style.display = (section.style.display !== "block") ? "block" : "none";
+  }
+
+  // === カテゴリ全選択・全解除 ===
+  function checkAll(flag) {
+    document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = flag);
+  }
+</script>
+</body>
+</html>

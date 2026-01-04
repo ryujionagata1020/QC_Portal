@@ -1,0 +1,20 @@
+<!-- views/_share/result_display.ejs -->
+<div id="resultArea" style="display:none; text-align:center; font-size:2em; margin-top:20px;">
+  <span id="resultMessage"></span>
+</div>
+
+<script>
+  // 正誤を視覚的に表示する関数（どの画面でも利用可能）
+  function showResult(isCorrect) {
+    const area = document.getElementById("resultArea");
+    const msg = document.getElementById("resultMessage");
+    if (isCorrect) {
+      msg.textContent = "〇 正解！";
+      msg.style.color = "green";
+    } else {
+      msg.textContent = "× 不正解...";
+      msg.style.color = "red";
+    }
+    area.style.display = "block";
+  }
+</script>

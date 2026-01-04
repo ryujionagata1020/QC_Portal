@@ -1,0 +1,590 @@
+/* =========================================================
+   共通スタイル (全画面)
+   ========================================================= */
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fafafa;
+  color: #333;
+  font-size: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================================================
+   ナビバー
+   ========================================================= */
+#site-header {
+  background-color: #2f2f2f;
+  color: #f2f2f2;
+  border-bottom: 1px solid #444;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem;
+}
+
+.site-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #8b6ccf;
+  /* 紫系ポイントカラー */
+  transition: color 0.3s ease;
+}
+
+.site-title:hover {
+  color: #a48cef;
+}
+
+#global-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#global-nav li {
+  position: relative;
+  padding: 0 1rem;
+}
+
+#global-nav li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background-color: #555;
+}
+
+#global-nav a {
+  display: block;
+  padding: 0.75rem 0;
+  color: #e0e0e0;
+  font-weight: 500;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+#global-nav a:hover {
+  color: #b49cf5;
+  border-bottom: 2px solid #8b6ccf;
+}
+
+/* =========================================================
+   フッター
+   ========================================================= */
+#global-footer {
+  background-color: #2b2b2b;
+  color: #d0d0d0;
+  border-top: 1px solid #444;
+  padding: 20px 0;
+}
+
+#global-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#global-footer li {
+  position: relative;
+  padding: 0 1rem;
+}
+
+#global-footer li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 30%;
+  height: 40%;
+  width: 1px;
+  background-color: #555;
+}
+
+#global-footer a {
+  color: #d0d0d0;
+  transition: color 0.3s ease;
+}
+
+#global-footer a:hover {
+  color: #9c80ff;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 0.9em;
+  color: #777;
+  padding-top: 10px;
+}
+
+/* =========================================================
+   question.ejs 用スタイル
+   ========================================================= */
+.question-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 1.5em;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.question-container h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.3em;
+}
+
+.meta {
+  color: #555;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+}
+
+.img-area {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.img-area img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+
+.body {
+  font-size: 1.1em;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.blank-block {
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background: #f9f9f9;
+}
+
+.choice-btn {
+  display: inline-block;
+  margin: 5px 0;
+  padding: 8px 15px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.choice-btn:hover {
+  background: #e0e0e0;
+}
+
+.resultArea {
+  display: none;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px 16px;
+  border-radius: 5px;
+  border: 1px solid #777;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* =========================================================
+   select_question.ejs 用スタイル
+   ========================================================= */
+.select-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.select-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 1.1em;
+}
+
+.large-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 15px;
+}
+
+.large-category {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #f8f8f8;
+  transition: box-shadow 0.2s ease;
+}
+
+.large-category:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.large-header {
+  cursor: pointer;
+  font-weight: bold;
+  background: #e0e0e0;
+  padding: 5px 8px;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.large-header:hover {
+  background: #d0d0d0;
+}
+
+.small-list {
+  margin-top: 5px;
+  margin-left: 5px;
+  display: none;
+  font-size: 0.95em;
+}
+
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+button {
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+/* =========================================================
+   レスポンシブ対応
+   ========================================================= */
+@media screen and (max-width: 1000px) {
+  .large-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .large-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .select-container {
+    padding: 15px;
+  }
+
+  .large-header {
+    font-size: 1em;
+  }
+
+  #global-nav ul {
+    flex-wrap: wrap;
+  }
+
+  #global-nav li {
+    padding: 0.5rem;
+  }
+}
+
+/* =========================================================
+   選択肢ボタンのレイアウト
+   ========================================================= */
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 18px;
+  margin-top: 10px;
+  justify-items: start;
+}
+
+.choice-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media screen and (max-width: 700px) {
+  .choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   オーバーレイ正解・不正解アニメーション
+   ========================================================= */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  animation: overlayFadeOut 1.8s forwards ease-in;
+}
+
+@keyframes overlayFadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* === 正解（緑の〇） === */
+.overlay.correct {
+  background: rgba(144, 238, 144, 0.15);
+}
+
+.overlay.correct .overlay-content {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.overlay.correct .overlay-content::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 10px solid green;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  transform: scale(0);
+  animation: drawCircle 0.5s ease-out forwards;
+}
+
+@keyframes drawCircle {
+  0% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.overlay.correct::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(144, 238, 144, 0.4);
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleGreen 0.5s ease-out forwards;
+}
+
+@keyframes rippleGreen {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(5);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(7);
+    opacity: 0;
+  }
+}
+
+/* === 不正解（赤の×）=== */
+.overlay.incorrect {
+  background: rgba(255, 192, 203, 0.15);
+}
+
+.overlay.incorrect .overlay-content {
+  position: relative;
+  width: 140px;
+  height: 140px;
+}
+
+.overlay.incorrect .overlay-content::before,
+.overlay.incorrect .overlay-content::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 8px;
+  background-color: red;
+  opacity: 0.3;
+  transform-origin: center center;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  animation: drawXLine 0.5s ease-out forwards;
+}
+
+.overlay.incorrect .overlay-content::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.overlay.incorrect .overlay-content::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@keyframes drawXLine {
+  0% {
+    width: 0;
+    opacity: 0.3;
+  }
+
+  100% {
+    width: 140px;
+    opacity: 1;
+  }
+}
+
+.overlay.incorrect::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  background: rgba(255, 100, 100, 0.4);
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleRed 0.5s ease-out forwards;
+}
+
+@keyframes rippleRed {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: translate(-50%, -50%) scale(5);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(7);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   qcis.ejs 用スタイル
+   ========================================================= */
+.qcis-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 2em;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  line-height: 1.8;
+}
+
+.qcis-container h2 {
+  margin-top: 1.5em;
+  color: #444;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.3em;
+}
+
+.qcis-container p,
+.qcis-container dd,
+.qcis-container dt {
+  font-size: 1em;
+  color: #333;
+}
+
+.qcis-container dl {
+  margin-left: 1.5em;
+}
+
+.qcis-container dt {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.qcis-img {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.qcis-img img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
