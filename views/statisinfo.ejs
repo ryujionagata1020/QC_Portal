@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./_share/metadata.ejs")%>
+    <title>統計情報 - QC-Portal</title>
+
+    <!-- 外部CSSを使う場合 -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <!-- 自前CSS設定 -->
+    <link rel="stylesheet" href="/public/index.css" />
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- 級別データ -->
+    <script src="/public/gradeData.js"></script>
+  </head>
+
+  <body>
+    <!-- 全体のラッパー -->
+    <div id="site-wrapper">
+      <!-- サイトのヘッダー（ロゴ、グローバルナビなど） -->
+      <%- include("./_share/navbar.ejs") %>
+
+      <!-- メインコンテンツ領域 -->
+      <main class="statisinfo-container">
+        <div class="container">
+          <h1>QC検定® 統計情報</h1>
+
+          <!-- カテゴリ選択ドロップダウン -->
+          <div class="category-selector">
+            <label for="gradeSelect">級を選択：</label>
+            <select id="gradeSelect">
+              <option value="grade1">1級</option>
+              <option value="grade2" selected>2級</option>
+              <option value="grade3">3級</option>
+              <option value="grade4">4級</option>
+            </select>
+          </div>
+
+          <!-- グラフ表示エリア -->
+          <div class="chart-wrapper">
+            <div class="chart-container">
+              <h2 id="chartTitle">2級 受験者数・合格者数の推移</h2>
+              <canvas id="barChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+              <h2 id="rateChartTitle">2級 合格率の推移</h2>
+              <canvas id="lineChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- フッター（共通化） -->
+      <%- include("./_share/footer.ejs") %>
+    </div>
+
+    <!-- グラフ描画スクリプト -->
+    <script>
+      let barChart, lineChart;
+
+      // グラフを初期化
+      function initCharts() {
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+
+        // 棒グラフ（受験者数・合格者数）
+        barChart = new Chart(barCtx, {
+          type: 'bar',
+          data: {
+            labels: [],
+            datasets: [
+              {
+                label: '受験者数',
+                data: [],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+              },
+              {
+                label: '合格者数',
+                data: [],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return value.toLocaleString() + '人';
+                  }
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top'
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return context.dataset.label + ': ' + context.parsed.y.toLocaleString() + '人';
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        // 折れ線グラフ（合格率）
+        lineChart = new Chart(lineCtx, {
+          type: 'line',
+          data: {
+            labels: [],
+            datasets: [{
+              label: '合格率',
+              data: [],
+              borderColor: 'rgba(255, 99, 132, 1)',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderWidth: 2,
+              fill: true,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  callback: function(value) {
+                    return value + '%';
+                  }
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top'
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return '合格率: ' + context.parsed.y.toFixed(1) + '%';
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // グラフを更新
+      function updateCharts(gradeKey) {
+        const data = gradeData[gradeKey];
+
+        // タイトル更新
+        document.getElementById('chartTitle').textContent = `${data.title} 受験者数・合格者数の推移`;
+        document.getElementById('rateChartTitle').textContent = `${data.title} 合格率の推移`;
+
+        // 棒グラフ更新
+        barChart.data.labels = data.years;
+
+        if (data.hasSubGrade) {
+          // 1級の場合：4本の棒グラフ（受験者、1級合格者、準1級合格者、合計合格者）
+          barChart.data.datasets = [
+            {
+              label: '受験者数',
+              data: data.examinees,
+              backgroundColor: `${data.color}44`,
+              borderColor: data.color,
+              borderWidth: 1
+            },
+            {
+              label: '1級合格者数',
+              data: data.passers1,
+              backgroundColor: `${data.color}99`,
+              borderColor: data.color,
+              borderWidth: 1
+            },
+            {
+              label: '準1級合格者数',
+              data: data.passers2,
+              backgroundColor: `${data.color2}99`,
+              borderColor: data.color2,
+              borderWidth: 1
+            },
+            {
+              label: '合計合格者数',
+              data: data.passersTotal,
+              backgroundColor: `${data.color3}99`,
+              borderColor: data.color3,
+              borderWidth: 1
+            }
+          ];
+        } else {
+          // 2級/3級/4級の場合：2本の棒グラフ（受験者、合格者）
+          barChart.data.datasets = [
+            {
+              label: '受験者数',
+              data: data.examinees,
+              backgroundColor: `${data.color}66`,
+              borderColor: data.color,
+              borderWidth: 1
+            },
+            {
+              label: '合格者数',
+              data: data.passers,
+              backgroundColor: `${data.color}99`,
+              borderColor: data.color,
+              borderWidth: 1
+            }
+          ];
+        }
+        barChart.update();
+
+        // 折れ線グラフ更新
+        lineChart.data.labels = data.years;
+
+        if (data.hasSubGrade) {
+          // 1級の場合：3本の折れ線（1級合格率、準1級合格率、合計合格率）
+          lineChart.data.datasets = [
+            {
+              label: '1級合格率',
+              data: data.passRates1,
+              borderColor: data.color,
+              backgroundColor: `${data.color}33`,
+              borderWidth: 2,
+              fill: false,
+              tension: 0.3
+            },
+            {
+              label: '準1級合格率',
+              data: data.passRates2,
+              borderColor: data.color2,
+              backgroundColor: `${data.color2}33`,
+              borderWidth: 2,
+              fill: false,
+              tension: 0.3
+            },
+            {
+              label: '合計合格率',
+              data: data.passRatesTotal,
+              borderColor: data.color3,
+              backgroundColor: `${data.color3}33`,
+              borderWidth: 2,
+              fill: false,
+              tension: 0.3
+            }
+          ];
+        } else {
+          // 2級/3級/4級の場合：1本の折れ線（合格率）
+          lineChart.data.datasets = [
+            {
+              label: '合格率',
+              data: data.passRates,
+              borderColor: data.color,
+              backgroundColor: `${data.color}33`,
+              borderWidth: 2,
+              fill: true,
+              tension: 0.3
+            }
+          ];
+        }
+        lineChart.update();
+      }
+
+      // ページ読み込み時の初期化
+      window.addEventListener('DOMContentLoaded', function() {
+        initCharts();
+        updateCharts('grade2'); // デフォルトは2級
+
+        // ドロップダウン変更時の処理
+        document.getElementById('gradeSelect').addEventListener('change', function(e) {
+          updateCharts(e.target.value);
+        });
+      });
+    </script>
+  </body>
+</html>

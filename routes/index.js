@@ -10,4 +10,8 @@ router.get("/qcis", (req, res) => {
   res.render("./qcis.ejs");
 });
 
+router.get("/statisinfo", (req, res) => {
+  res.render("./statisinfo.ejs");
+});
+
 module.exports = router;
