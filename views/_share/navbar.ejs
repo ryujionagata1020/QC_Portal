@@ -10,14 +10,48 @@ aria-label="グローバルナビゲーション"
 >
 <ul>
 <li><a href="/qcis">QC検定®とは</a></li>
+<li><a href="#">試験情報・制度</a></li>
 <li><a href="#">品質管理の時間</a></li>
-<li><a href="/questions/select">検定の時間</a></li>
+<li><a href="/questions/select">試験対策</a></li>
 <li><a href="/statisinfo">統計情報</a></li>
 <li><a href="#">参考書・問題集</a></li>
-<li><a href="#">用語集</a></li>
 </ul>
-<a class="login-btn" href="account/login">ログイン・ユーザ登録</a>
 
 </nav>
+
+<!-- ユーザーメニュー -->
+<% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+<div class="user-menu">
+  <button class="btn-logout" onclick="handleNavLogout()">ログアウト</button>
+  <button class="account-btn" onclick="openAccountModal()" title="アカウント管理">
+    <img src="/public/account_oengin.jpg" alt="アカウント">
+  </button>
+</div>
+<% } %>
+
 </div>
 </header>
+
+<% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+  <%- include('./account_modal.ejs') %>
+<% } %>
+
+<script>
+// ログアウト処理（navbar用）
+async function handleNavLogout() {
+  if (!confirm('ログアウトしますか？')) return;
+
+  try {
+    const response = await fetch('/auth/logout', {
+      method: 'POST'
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      location.reload();
+    }
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
+}
+</script>

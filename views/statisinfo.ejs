@@ -23,7 +23,6 @@
 
       <!-- メインコンテンツ領域 -->
       <main class="statisinfo-container">
-        <div class="container">
           <h1>QC検定® 統計情報</h1>
 
           <!-- カテゴリ選択ドロップダウン -->
@@ -49,7 +48,23 @@
               <canvas id="lineChart"></canvas>
             </div>
           </div>
-        </div>
+
+          <!-- データ表表示エリア -->
+          <div class="data-table-container">
+            <h2 id="tableTitle">2級 詳細データ</h2>
+            <div class="table-scroll-wrapper">
+              <table class="data-table" id="dataTable">
+                <thead>
+                  <tr id="tableHeader">
+                    <!-- JavaScriptで動的に生成 -->
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <!-- JavaScriptで動的に生成 -->
+                </tbody>
+              </table>
+            </div>
+          </div>
       </main>
 
       <!-- フッター（共通化） -->
@@ -162,6 +177,65 @@
         });
       }
 
+      // 表を更新
+      function updateTable(gradeKey) {
+        const data = gradeData[gradeKey];
+        const headerRow = document.getElementById('tableHeader');
+        const tableBody = document.getElementById('tableBody');
+
+        // タイトル更新
+        document.getElementById('tableTitle').textContent = `${data.title} 詳細データ`;
+
+        // ヘッダーとボディをクリア
+        headerRow.innerHTML = '';
+        tableBody.innerHTML = '';
+
+        // 級に応じたヘッダー色を設定
+        const thStyle = `background-color: ${data.color}; color: white; border-bottom: 2px solid ${data.color}cc;`;
+
+        if (data.hasSubGrade) {
+          // 1級/準1級の場合
+          headerRow.innerHTML = `
+            <th style="${thStyle}">試験回数</th>
+            <th style="${thStyle}">申込者数</th>
+            <th style="${thStyle}">受験者数</th>
+            <th style="${thStyle}">1級合格者数</th>
+            <th style="${thStyle}">準1級合格者数</th>
+          `;
+
+          for (let i = 0; i < data.years.length; i++) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${data.years[i]}</td>
+              <td>${data.applicants[i].toLocaleString()}</td>
+              <td>${data.examinees[i].toLocaleString()}</td>
+              <td>${data.passers1[i].toLocaleString()}</td>
+              <td>${data.passers2[i].toLocaleString()}</td>
+            `;
+            tableBody.appendChild(row);
+          }
+        } else {
+          // 2級/3級/4級の場合
+          headerRow.innerHTML = `
+            <th style="${thStyle}">試験回数</th>
+            <th style="${thStyle}">申込者数</th>
+            <th style="${thStyle}">受験者数</th>
+            <th style="${thStyle}">合格者数</th>
+          `;
+
+          for (let i = 0; i < data.years.length; i++) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${data.years[i]}</td>
+              <td>${data.applicants[i].toLocaleString()}</td>
+              <td>${data.examinees[i].toLocaleString()}</td>
+              <td>${data.passers[i].toLocaleString()}</td>
+            `;
+            tableBody.appendChild(row);
+          }
+        }
+      }
+
       // グラフを更新
       function updateCharts(gradeKey) {
         const data = gradeData[gradeKey];
@@ -169,6 +243,9 @@
         // タイトル更新
         document.getElementById('chartTitle').textContent = `${data.title} 受験者数・合格者数の推移`;
         document.getElementById('rateChartTitle').textContent = `${data.title} 合格率の推移`;
+
+        // 表も更新
+        updateTable(gradeKey);
 
         // 棒グラフ更新
         barChart.data.labels = data.years;

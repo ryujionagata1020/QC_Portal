@@ -86,7 +86,11 @@ router.get("/:question_id", async (req, res, next) => {
         ? req.session.questionIds[idx + 1]
         : null;
 
-    res.render("questions/question", { ...question, nextId });
+    // 問題数カウント情報
+    const currentNumber = idx >= 0 ? idx + 1 : 1;
+    const totalCount = req.session.questionIds.length;
+
+    res.render("questions/question", { ...question, nextId, currentNumber, totalCount });
   } catch (err) {
     next(err);
   }

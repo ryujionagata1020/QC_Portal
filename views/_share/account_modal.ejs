@@ -1,0 +1,466 @@
+<!-- アカウント管理モーダル -->
+<div id="accountModal" class="account-modal">
+  <div class="account-modal-content account-management">
+    <span class="account-modal-close" onclick="closeAccountModal()">&times;</span>
+
+    <div class="account-modal-header">
+      <h2>アカウント管理</h2>
+    </div>
+
+    <div class="account-management-body">
+      <!-- 左側メニュー -->
+      <nav class="account-menu">
+        <ul>
+          <li>
+            <button class="account-menu-item" data-section="profile" onclick="switchAccountSection('profile')">
+              <span class="menu-icon">👤</span>
+              <span class="menu-label">プロフィール</span>
+            </button>
+          </li>
+          <li>
+            <button class="account-menu-item" data-section="settings" onclick="switchAccountSection('settings')">
+              <span class="menu-icon">⚙️</span>
+              <span class="menu-label">設定</span>
+            </button>
+          </li>
+          <li>
+            <button class="account-menu-item active" data-section="history" onclick="switchAccountSection('history')">
+              <span class="menu-icon">📚</span>
+              <span class="menu-label">学習履歴</span>
+            </button>
+          </li>
+          <li>
+            <button class="account-menu-item" data-section="achievement" onclick="switchAccountSection('achievement')">
+              <span class="menu-icon">📊</span>
+              <span class="menu-label">達成度</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- 右側コンテンツエリア -->
+      <div class="account-content">
+        <!-- 学習履歴セクション -->
+        <div id="section-history" class="account-section active">
+          <h3>学習履歴</h3>
+
+          <!-- タブ切り替え -->
+          <div class="account-tabs">
+            <button class="account-tab" data-level="4" onclick="switchAccountTab(4)">4級</button>
+            <button class="account-tab active" data-level="3" onclick="switchAccountTab(3)">3級</button>
+            <button class="account-tab" data-level="2" onclick="switchAccountTab(2)">2級</button>
+            <button class="account-tab" data-level="1" onclick="switchAccountTab(1)">1級</button>
+          </div>
+
+          <!-- 履歴コンテンツ -->
+          <div class="account-history-content">
+            <div id="historyLoading" class="history-loading">
+              <span>読み込み中...</span>
+            </div>
+            <div id="historyEmpty" class="history-empty" style="display: none;">
+              <span>この級の学習履歴はありません</span>
+            </div>
+            <div id="historyList" class="history-list"></div>
+          </div>
+        </div>
+
+        <!-- プロフィールセクション -->
+        <div id="section-profile" class="account-section">
+          <h3>プロフィール</h3>
+          <div class="profile-content">
+            <div class="profile-item">
+              <span class="profile-label">ユーザー名</span>
+              <span class="profile-value"><%= typeof user !== 'undefined' && user ? user.username : '-' %></span>
+            </div>
+            <div class="profile-item">
+              <span class="profile-label">メールアドレス</span>
+              <span class="profile-value"><%= typeof user !== 'undefined' && user ? user.email : '-' %></span>
+            </div>
+            <p class="profile-note">プロフィールの編集機能は準備中です。</p>
+          </div>
+        </div>
+
+        <!-- 達成度セクション -->
+        <div id="section-achievement" class="account-section">
+          <h3>達成度</h3>
+
+          <!-- タブ切り替え -->
+          <div class="account-tabs achievement-tabs">
+            <button class="account-tab" data-level="4" onclick="switchAchievementTab(4)">4級</button>
+            <button class="account-tab active" data-level="3" onclick="switchAchievementTab(3)">3級</button>
+            <button class="account-tab" data-level="2" onclick="switchAchievementTab(2)">2級</button>
+            <button class="account-tab" data-level="1" onclick="switchAchievementTab(1)">1級</button>
+          </div>
+
+          <!-- 達成度コンテンツ -->
+          <div class="achievement-content">
+            <div id="achievementLoading" class="history-loading">
+              <span>読み込み中...</span>
+            </div>
+            <div id="achievementEmpty" class="history-empty" style="display: none;">
+              <span>この級の学習データはありません</span>
+            </div>
+            <div id="achievementData" class="achievement-data" style="display: none;">
+              <!-- 網羅度レポート -->
+              <div class="achievement-section coverage-section">
+                <h4>網羅度レポート</h4>
+                <div class="coverage-bar-container">
+                  <div class="coverage-bar">
+                    <div id="coverageBarFill" class="coverage-bar-fill"></div>
+                  </div>
+                  <div class="coverage-stats">
+                    <span id="coverageText">0 / 0 問</span>
+                    <span id="coveragePercent">0%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- カテゴリ別正解率 -->
+              <div class="achievement-section category-section">
+                <h4>カテゴリ別正解率</h4>
+                <div id="categoryAccuracyList" class="category-accuracy-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 設定セクション -->
+        <div id="section-settings" class="account-section">
+          <h3>設定</h3>
+          <div class="settings-content">
+            <!-- ユーザーID -->
+            <div class="settings-item">
+              <span class="settings-label">ユーザーID</span>
+              <span class="settings-value"><%= typeof user !== 'undefined' && user ? user.user_id : '-' %></span>
+            </div>
+
+            <!-- パスワード -->
+            <div class="settings-item">
+              <span class="settings-label">パスワード</span>
+              <span class="settings-value">********</span>
+              <button class="btn-settings-action" onclick="openPasswordChangeModal()">パスワード変更</button>
+            </div>
+
+            <!-- メールアドレス -->
+            <div class="settings-item">
+              <span class="settings-label">メールアドレス</span>
+              <span class="settings-value"><%= typeof user !== 'undefined' && user && user.mail ? user.mail : '未登録' %></span>
+              <button class="btn-settings-action" onclick="openEmailRegisterModal()">
+                <%= typeof user !== 'undefined' && user && user.mail ? '変更' : '登録' %>
+              </button>
+            </div>
+
+            <!-- 総学習問題数 -->
+            <div class="settings-item">
+              <span class="settings-label">総学習問題数</span>
+              <span class="settings-value" id="totalLearnedCount">読み込み中...</span>
+            </div>
+
+            <!-- アカウント削除ボタン -->
+            <div class="settings-danger-zone">
+              <button class="btn-danger" onclick="confirmDeleteAccount()">アカウントを削除</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// アカウントモーダル制御
+let currentAccountLevel = 3;
+let currentAchievementLevel = 3;
+let currentSection = 'history';
+
+function openAccountModal() {
+  document.getElementById('accountModal').style.display = 'block';
+  // 学習履歴セクションがアクティブの場合は履歴を読み込む
+  if (currentSection === 'history') {
+    loadAccountHistory(currentAccountLevel);
+  }
+}
+
+function closeAccountModal() {
+  document.getElementById('accountModal').style.display = 'none';
+}
+
+// セクション切り替え
+function switchAccountSection(section) {
+  currentSection = section;
+
+  // メニューの active 状態を切り替え
+  const menuItems = document.querySelectorAll('.account-menu-item');
+  menuItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.dataset.section === section) {
+      item.classList.add('active');
+    }
+  });
+
+  // セクションの表示を切り替え
+  const sections = document.querySelectorAll('.account-section');
+  sections.forEach(sec => {
+    sec.classList.remove('active');
+  });
+  document.getElementById('section-' + section).classList.add('active');
+
+  // 学習履歴セクションの場合は履歴を読み込む
+  if (section === 'history') {
+    loadAccountHistory(currentAccountLevel);
+  }
+
+  // 設定セクションの場合は総学習問題数を読み込む
+  if (section === 'settings') {
+    loadTotalLearnedCount();
+  }
+
+  // 達成度セクションの場合は達成度データを読み込む
+  if (section === 'achievement') {
+    loadAchievementData(currentAchievementLevel);
+  }
+}
+
+function switchAccountTab(level) {
+  currentAccountLevel = level;
+
+  // タブの active 状態を切り替え
+  const tabs = document.querySelectorAll('.account-tab');
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+    if (parseInt(tab.dataset.level) === level) {
+      tab.classList.add('active');
+    }
+  });
+
+  loadAccountHistory(level);
+}
+
+async function loadAccountHistory(testlevel) {
+  const loadingEl = document.getElementById('historyLoading');
+  const emptyEl = document.getElementById('historyEmpty');
+  const listEl = document.getElementById('historyList');
+
+  loadingEl.style.display = 'block';
+  emptyEl.style.display = 'none';
+  listEl.innerHTML = '';
+
+  try {
+    const response = await fetch(`/account/history/${testlevel}`);
+    const data = await response.json();
+
+    loadingEl.style.display = 'none';
+
+    if (!data.history || data.history.length === 0) {
+      emptyEl.style.display = 'block';
+      return;
+    }
+
+    // 履歴を表示（blank_id毎に1行）
+    data.history.forEach(item => {
+      const questionRow = document.createElement('div');
+      questionRow.className = 'history-question-row';
+
+      // question_id + blank番号で1行表示
+      let rowContent = `<a href="/account/view/${item.question_id}" class="history-question-link">${item.question_id} (${item.blank_number})</a>`;
+      rowContent += '<span class="history-separator">｜</span>';
+
+      // 直近3回の結果を表示
+      const marks = item.attempts.map(a =>
+        a.is_correct ? '<span class="mark-correct">〇</span>' : '<span class="mark-incorrect">×</span>'
+      ).join(' ');
+
+      rowContent += `<span class="history-results">${marks}</span>`;
+
+      questionRow.innerHTML = rowContent;
+      listEl.appendChild(questionRow);
+    });
+
+  } catch (err) {
+    console.error('履歴取得エラー:', err);
+    loadingEl.style.display = 'none';
+    emptyEl.textContent = 'データの取得に失敗しました';
+    emptyEl.style.display = 'block';
+  }
+}
+
+// モーダル外をクリックしたら閉じる
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('accountModal');
+  if (event.target === modal) {
+    closeAccountModal();
+  }
+});
+
+// 総学習問題数を取得
+async function loadTotalLearnedCount() {
+  const countEl = document.getElementById('totalLearnedCount');
+  if (!countEl) return;
+
+  countEl.textContent = '読み込み中...';
+
+  try {
+    const response = await fetch('/account/stats/total-learned');
+    const data = await response.json();
+
+    if (data.count !== undefined) {
+      countEl.textContent = data.count + ' 問';
+    } else {
+      countEl.textContent = '取得に失敗しました';
+    }
+  } catch (err) {
+    console.error('総学習問題数取得エラー:', err);
+    countEl.textContent = '取得に失敗しました';
+  }
+}
+
+// 達成度タブ切り替え
+function switchAchievementTab(level) {
+  currentAchievementLevel = level;
+
+  // タブの active 状態を切り替え（達成度セクション内のみ）
+  const tabs = document.querySelectorAll('.achievement-tabs .account-tab');
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+    if (parseInt(tab.dataset.level) === level) {
+      tab.classList.add('active');
+    }
+  });
+
+  loadAchievementData(level);
+}
+
+// 達成度データを読み込む
+async function loadAchievementData(testlevel) {
+  const loadingEl = document.getElementById('achievementLoading');
+  const emptyEl = document.getElementById('achievementEmpty');
+  const dataEl = document.getElementById('achievementData');
+
+  loadingEl.style.display = 'flex';
+  emptyEl.style.display = 'none';
+  dataEl.style.display = 'none';
+
+  try {
+    const response = await fetch(`/account/achievement/${testlevel}`);
+    const data = await response.json();
+
+    loadingEl.style.display = 'none';
+
+    // 網羅度が0の場合（データなし）
+    if (data.coverage.total === 0) {
+      emptyEl.style.display = 'flex';
+      return;
+    }
+
+    dataEl.style.display = 'block';
+
+    // 網羅度レポートを更新
+    const coveragePercent = data.coverage.total > 0
+      ? Math.round((data.coverage.answered / data.coverage.total) * 100)
+      : 0;
+    document.getElementById('coverageBarFill').style.width = coveragePercent + '%';
+    document.getElementById('coverageText').textContent = `${data.coverage.answered} / ${data.coverage.total} 問`;
+    document.getElementById('coveragePercent').textContent = coveragePercent + '%';
+
+    // カテゴリ別正解率を更新
+    const categoryListEl = document.getElementById('categoryAccuracyList');
+    categoryListEl.innerHTML = '';
+
+    // 回答データがない場合
+    if (Object.keys(data.categories).length === 0) {
+      categoryListEl.innerHTML = '<p class="no-data-message">まだ回答データがありません</p>';
+      return;
+    }
+
+    // large_category毎に表示
+    Object.entries(data.categories).forEach(([largeCategoryName, smallCategories]) => {
+      const largeCategoryDiv = document.createElement('div');
+      largeCategoryDiv.className = 'large-category-block';
+
+      const header = document.createElement('div');
+      header.className = 'large-category-header';
+      header.textContent = largeCategoryName;
+      largeCategoryDiv.appendChild(header);
+
+      const smallList = document.createElement('div');
+      smallList.className = 'small-category-list';
+
+      smallCategories.forEach(small => {
+        const smallItem = document.createElement('div');
+        smallItem.className = 'small-category-item';
+
+        const barColor = getAccuracyColor(small.accuracy);
+
+        smallItem.innerHTML = `
+          <div class="small-category-name">${small.small_category_name}</div>
+          <div class="accuracy-bar-container">
+            <div class="accuracy-bar">
+              <div class="accuracy-bar-fill" style="width: ${small.accuracy}%; background-color: ${barColor};"></div>
+            </div>
+            <span class="accuracy-percent">${small.accuracy}%</span>
+          </div>
+        `;
+
+        smallList.appendChild(smallItem);
+      });
+
+      largeCategoryDiv.appendChild(smallList);
+      categoryListEl.appendChild(largeCategoryDiv);
+    });
+
+  } catch (err) {
+    console.error('達成度データ取得エラー:', err);
+    loadingEl.style.display = 'none';
+    emptyEl.textContent = 'データの取得に失敗しました';
+    emptyEl.style.display = 'flex';
+  }
+}
+
+// 正解率に応じた色を返す
+function getAccuracyColor(accuracy) {
+  if (accuracy >= 80) return '#28a745'; // 緑
+  if (accuracy >= 60) return '#8b6ccf'; // 紫
+  if (accuracy >= 40) return '#ffc107'; // 黄色
+  return '#dc3545'; // 赤
+}
+
+// パスワード変更モーダルを開く
+function openPasswordChangeModal() {
+  alert('パスワード変更機能は準備中です。');
+}
+
+// メールアドレス登録モーダルを開く
+function openEmailRegisterModal() {
+  alert('メールアドレス登録機能は準備中です。');
+}
+
+// アカウント削除確認
+function confirmDeleteAccount() {
+  if (confirm('本当にアカウントを削除しますか？\nこの操作は取り消せません。')) {
+    deleteAccount();
+  }
+}
+
+// アカウント削除実行
+async function deleteAccount() {
+  try {
+    const response = await fetch('/account/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      alert('アカウントが削除されました。');
+      window.location.href = '/';
+    } else {
+      alert('アカウントの削除に失敗しました。');
+    }
+  } catch (err) {
+    console.error('アカウント削除エラー:', err);
+    alert('アカウントの削除に失敗しました。');
+  }
+}
+</script>

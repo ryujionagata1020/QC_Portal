@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <%- include("../_share/metadata.ejs") %>
   <title>問題 <%= question_id %></title>
+  <!-- 外部CSSを使う場合 -->
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+  <!-- 自前CSS設定 -->
   <link rel="stylesheet" href="/public/index.css">
 </head>
 
@@ -11,7 +14,24 @@
   <%- include("../_share/navbar.ejs") %>
 
   <main class="question-container">
-    <h2>問題ID：<%= question_id %></h2>
+    <!-- ログイン・新規登録ボタン -->
+    <div class="auth-button-container">
+      <% if (isAuthenticated) { %>
+        <span class="user-info">ようこそ、<%= user.user_id %> さん</span>
+        <button class="btn-auth" onclick="handleLogout()">ログアウト</button>
+      <% } else { %>
+        <button class="btn-auth" onclick="openAuthModal()">ログイン・新規登録</button>
+      <% } %>
+    </div>
+
+    <% if (typeof currentNumber !== 'undefined' && typeof totalCount !== 'undefined') { %>
+      <div class="question-progress-container">
+        <div class="question-progress"><%= currentNumber %>問目 / <%= totalCount %>問中</div>
+      </div>
+    <% } %>
+    <div class="question-header">
+      <h2>問題ID：<%= question_id %></h2>
+    </div>
     <div class="meta">
       <div>カテゴリ：<%= large_category_name %> ＞ <%= small_category_name %></div>
       <div>難易度：<%= testlevel %>級</div>
@@ -30,7 +50,10 @@
     <div class="blanks-area">
       <% blanks.forEach(function(blank) { %>
         <div class="blank-block">
-          <h3>（<%= blank.blank_number %>）</h3>
+          <div class="blank-header">
+            <h3>（<%= blank.blank_number %>）</h3>
+            <span id="result_<%= blank.blank_id %>" class="resultArea"></span>
+          </div>
           <div class="choice-grid" id="choices_<%= blank.blank_id %>">
             <% choices.forEach(function(choice) { %>
               <div class="choice-cell">
@@ -43,7 +66,6 @@
               </div>
             <% }); %>
           </div>
-          <div id="result_<%= blank.blank_id %>" class="resultArea"></div>
         </div>
       <% }); %>
     </div>
@@ -51,19 +73,83 @@
     <button class="btn" id="toggleExplanation">解説をみる</button>
     <div id="explanation" style="display:none;"><%= explanation %></div>
 
-    <form method="GET" id="nextForm">
+    <div class="next-button-container">
       <% if (nextId) { %>
-        <button type="button" class="btn" onclick="goNextQuestion()">次の問題へ</button>
+        <button type="button" class="btn-next" onclick="goNextQuestion()">次の問題へ</button>
       <% } else { %>
-        <button type="button" class="btn" disabled>これで終了です</button>
+        <button type="button" class="btn-next" disabled>これで終了です</button>
       <% } %>
-    </form>
+    </div>
 
     <!-- ✅ オーバーレイ -->
     <div id="overlay" class="overlay">
       <div class="overlay-content" id="overlayMessage"></div>
     </div>
   </main>
+
+  <!-- 認証モーダル -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" onclick="closeAuthModal()">&times;</span>
+
+      <!-- タブ切り替え -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')">ログイン</button>
+        <button class="auth-tab" onclick="switchAuthTab('register')">新規登録</button>
+      </div>
+
+      <!-- ログインフォーム -->
+      <div id="loginForm" class="auth-form-container active">
+        <h2>ログイン</h2>
+        <form id="loginFormElement" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="login-user_id">ユーザーID</label>
+            <input type="text" id="login-user_id" name="user_id" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">パスワード</label>
+            <input type="password" id="login-password" name="password" required>
+          </div>
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="rememberMe" name="rememberMe">
+              ログイン状態を保持する（1ヶ月）
+            </label>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-submit">ログイン</button>
+          </div>
+          <div id="loginMessage" class="auth-message"></div>
+        </form>
+        <div class="auth-footer">
+          <a href="#" class="forgot-password">パスワードをお忘れの場合</a>
+        </div>
+      </div>
+
+      <!-- 新規登録フォーム -->
+      <div id="registerForm" class="auth-form-container">
+        <h2>新規登録</h2>
+        <form id="registerFormElement" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label for="register-user_id">ユーザーID（4〜50文字）</label>
+            <input type="text" id="register-user_id" name="user_id" minlength="4" maxlength="50" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password">パスワード（8文字以上）</label>
+            <input type="password" id="register-password" name="password" minlength="8" required>
+          </div>
+          <div class="form-group">
+            <label for="register-mail">メールアドレス（任意）</label>
+            <input type="email" id="register-mail" name="mail">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-submit">登録</button>
+          </div>
+          <div id="registerMessage" class="auth-message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <%- include("../_share/footer.ejs") %>
 
@@ -134,6 +220,136 @@
     function goNextQuestion() {
       const next = "<%= nextId %>";
       if (next) window.location.href = "/questions/" + next;
+    }
+
+    // ==== 認証モーダル制御 ====
+    function openAuthModal() {
+      document.getElementById('authModal').style.display = 'block';
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').style.display = 'none';
+      clearAuthMessages();
+    }
+
+    function switchAuthTab(tab) {
+      const tabs = document.querySelectorAll('.auth-tab');
+      const forms = document.querySelectorAll('.auth-form-container');
+
+      tabs.forEach(t => t.classList.remove('active'));
+      forms.forEach(f => f.classList.remove('active'));
+
+      if (tab === 'login') {
+        tabs[0].classList.add('active');
+        document.getElementById('loginForm').classList.add('active');
+      } else {
+        tabs[1].classList.add('active');
+        document.getElementById('registerForm').classList.add('active');
+      }
+
+      clearAuthMessages();
+    }
+
+    function clearAuthMessages() {
+      document.getElementById('loginMessage').textContent = '';
+      document.getElementById('registerMessage').textContent = '';
+    }
+
+    // モーダル外をクリックしたら閉じる
+    window.onclick = function(event) {
+      const modal = document.getElementById('authModal');
+      if (event.target === modal) {
+        closeAuthModal();
+      }
+    }
+
+    // ==== ログイン処理 ====
+    async function handleLogin(event) {
+      event.preventDefault();
+      const form = event.target;
+      const user_id = form.user_id.value;
+      const password = form.password.value;
+      const rememberMe = form.rememberMe.checked;
+
+      try {
+        const response = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id, password, rememberMe })
+        });
+
+        const data = await response.json();
+        const messageEl = document.getElementById('loginMessage');
+
+        if (data.success) {
+          messageEl.textContent = data.message;
+          messageEl.style.color = 'green';
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        } else {
+          messageEl.textContent = data.message;
+          messageEl.style.color = 'red';
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        document.getElementById('loginMessage').textContent = 'ログインに失敗しました。';
+        document.getElementById('loginMessage').style.color = 'red';
+      }
+    }
+
+    // ==== 新規登録処理 ====
+    async function handleRegister(event) {
+      event.preventDefault();
+      const form = event.target;
+      const user_id = form.user_id.value;
+      const password = form.password.value;
+      const mail = form.mail.value;
+
+      try {
+        const response = await fetch('/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id, password, mail })
+        });
+
+        const data = await response.json();
+        const messageEl = document.getElementById('registerMessage');
+
+        if (data.success) {
+          messageEl.textContent = data.message;
+          messageEl.style.color = 'green';
+          form.reset();
+          setTimeout(() => {
+            switchAuthTab('login');
+          }, 2000);
+        } else {
+          messageEl.textContent = data.message;
+          messageEl.style.color = 'red';
+        }
+      } catch (error) {
+        console.error('Register error:', error);
+        document.getElementById('registerMessage').textContent = '登録に失敗しました。';
+        document.getElementById('registerMessage').style.color = 'red';
+      }
+    }
+
+    // ==== ログアウト処理 ====
+    async function handleLogout() {
+      if (!confirm('ログアウトしますか？')) return;
+
+      try {
+        const response = await fetch('/auth/logout', {
+          method: 'POST'
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          location.reload();
+        }
+      } catch (error) {
+        console.error('Logout error:', error);
+      }
     }
   </script>
 </body>

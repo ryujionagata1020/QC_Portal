@@ -1,6 +1,6 @@
 // routes/question_answer.js
 const router = require("express").Router();
-const { MySQLClient } = require("../lib/database/client.js");
+const { MySQLClient, sql } = require("../lib/database/client.js");
 
 router.post("/answer", async (req, res, next) => {
   try {
@@ -10,14 +10,8 @@ router.post("/answer", async (req, res, next) => {
     }
 
     // blank_idごとの正答を取得
-    const query = `
-      SELECT correct_choice_id
-      FROM quiz_answers
-      WHERE blank_id = ?
-      LIMIT 1;
-    `;
-
-    const rows = await MySQLClient.executeQuery(query, [blank_id]);
+    const selectQuery = await sql("SELECT_correct_answer_BY_blank_id");
+    const rows = await MySQLClient.executeQuery(selectQuery, [blank_id]);
 
     if (rows.length === 0) {
       return res.status(404).json({ isCorrect: false, message: "正解データがありません" });
@@ -25,6 +19,17 @@ router.post("/answer", async (req, res, next) => {
 
     const correctChoiceId = rows[0].correct_choice_id;
     const isCorrect = correctChoiceId === choice_id;
+
+    // ログインユーザーの場合、回答履歴を保存
+    if (req.isAuthenticated && req.isAuthenticated() && req.user) {
+      const insertQuery = await sql("INSERT_user_response");
+      await MySQLClient.executeQuery(insertQuery, [
+        req.user.user_id,
+        blank_id,
+        choice_id,
+        isCorrect ? 1 : 0
+      ]);
+    }
 
     res.json({ isCorrect });
   } catch (err) {

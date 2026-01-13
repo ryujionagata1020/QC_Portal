@@ -7,6 +7,9 @@
   <%- include("../_share/metadata.ejs") %>
 
   <title>出題条件選択</title>
+  <!-- 外部CSSを使う場合 -->
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+  <!-- 自前CSS設定 -->
   <link rel="stylesheet" href="/public/index.css">
 </head>
 
@@ -15,29 +18,61 @@
   <%- include("../_share/navbar.ejs") %>
 
   <main class="select-container">
-    <h1>出題条件を選択してください</h1>
+    <!-- ログイン・新規登録ボタン -->
+    <div class="auth-button-container">
+      <% if (isAuthenticated) { %>
+        <span class="user-info">ようこそ、<%= user.user_id %> さん</span>
+        <button class="btn-auth" onclick="handleLogout()">ログアウト</button>
+      <% } else { %>
+        <button class="btn-auth" onclick="openAuthModal()">ログイン・新規登録</button>
+      <% } %>
+    </div>
+
+    <h1>QC-Portal</h1>
+
+    <!-- ペンギン画像 -->
+    <div class="logo-image">
+      <img src="/public/pengin_learning.png" alt="QC-Portal">
+    </div>
 
     <form id="selectForm" action="/questions/start" method="POST">
-      <!-- 難易度選択 -->
-      <div class="section-title">難易度（testlevel）</div>
-      <div id="testLevelArea">
-        <label><input type="checkbox" name="testlevels" value="1"> 1級</label>
-        <label><input type="checkbox" name="testlevels" value="2"> 2級</label>
-        <label><input type="checkbox" name="testlevels" value="3" checked> 3級</label>
+      <!-- 出題条件選択エリア（横一列） -->
+      <div class="selection-controls">
+        <!-- 出題レベル選択 -->
+        <div class="control-group">
+          <div class="control-label">出題レベル</div>
+          <div id="testLevelArea" class="checkbox-area">
+            <label><input type="checkbox" name="testlevels" value="1"> 1級</label>
+            <label><input type="checkbox" name="testlevels" value="2"> 2級</label>
+            <label><input type="checkbox" name="testlevels" value="3"> 3級</label>
+            <label><input type="checkbox" name="testlevels" value="4" checked> 4級</label>
+          </div>
+        </div>
+
+        <!-- 出題範囲選択 -->
+        <div class="control-group">
+          <div class="control-label">出題範囲</div>
+          <div id="examScopeArea" class="checkbox-area">
+            <label><input type="checkbox" name="scope_exams" value="1" onclick="setScope(1)"> 1級</label>
+            <label><input type="checkbox" name="scope_exams" value="2" onclick="setScope(2)"> 2級</label>
+            <label><input type="checkbox" name="scope_exams" value="3" onclick="setScope(3)"> 3級</label>
+            <label><input type="checkbox" name="scope_exams" value="4" onclick="setScope(4)" checked> 4級</label>
+          </div>
+        </div>
+
+        <!-- 選択ボタン -->
+        <div class="control-group">
+          <div class="control-label">カテゴリ操作</div>
+          <div class="action-buttons">
+            <button type="button" class="btn-action" onclick="checkAll(true)">すべて選択</button>
+            <button type="button" class="btn-action" onclick="checkAll(false)">すべて解除</button>
+          </div>
+        </div>
       </div>
 
-      <!-- 出題範囲選択 -->
-      <div class="section-title">出題範囲（scope_exam）</div>
-      <div id="examScopeArea">
-        <label><input type="checkbox" name="scope_exams" value="1" onclick="setScope(1)"> 1級</label>
-        <label><input type="checkbox" name="scope_exams" value="2" onclick="setScope(2)"> 2級</label>
-        <label><input type="checkbox" name="scope_exams" value="3" onclick="setScope(3)" checked> 3級</label>
-      </div>
-      
-            <div class="buttons">
-        <button type="button" onclick="checkAll(true)">すべて選択</button>
-        <button type="button" onclick="checkAll(false)">すべて解除</button>
-        <button type="submit">出題開始</button>
+      <!-- 出題開始ボタン -->
+      <div class="start-button-container">
+        <button type="submit" class="btn-start">出題開始</button>
       </div>
 
       <!-- カテゴリ選択 -->
@@ -47,8 +82,8 @@
         <% Object.keys(categories).forEach(function(lid){ %>
           <% const large = categories[lid]; %>
           <div class="large-category">
-            <div class="large-header" onclick="toggleSection('<%= lid %>')">
-              ▶ <%= large.name %>
+            <div class="large-header" onclick="toggleSection('<%= lid %>')" id="header_<%= lid %>">
+              ▼ <%= large.name %>
             </div>
             <div id="small_<%= lid %>" class="small-list">
               <% large.smalls.forEach(function(small){ %>
@@ -63,6 +98,70 @@
       </div>
     </form>
   </main>
+
+  <!-- 認証モーダル -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+      <span class="auth-modal-close" onclick="closeAuthModal()">&times;</span>
+
+      <!-- タブ切り替え -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')">ログイン</button>
+        <button class="auth-tab" onclick="switchAuthTab('register')">新規登録</button>
+      </div>
+
+      <!-- ログインフォーム -->
+      <div id="loginForm" class="auth-form-container active">
+        <h2>ログイン</h2>
+        <form id="loginFormElement" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="login-user_id">ユーザーID</label>
+            <input type="text" id="login-user_id" name="user_id" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">パスワード</label>
+            <input type="password" id="login-password" name="password" required>
+          </div>
+          <div class="form-group checkbox-group">
+            <label>
+              <input type="checkbox" id="rememberMe" name="rememberMe">
+              ログイン状態を保持する（1ヶ月）
+            </label>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-submit">ログイン</button>
+          </div>
+          <div id="loginMessage" class="auth-message"></div>
+        </form>
+        <div class="auth-footer">
+          <a href="#" class="forgot-password">パスワードをお忘れの場合</a>
+        </div>
+      </div>
+
+      <!-- 新規登録フォーム -->
+      <div id="registerForm" class="auth-form-container">
+        <h2>新規登録</h2>
+        <form id="registerFormElement" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label for="register-user_id">ユーザーID（4〜50文字）</label>
+            <input type="text" id="register-user_id" name="user_id" minlength="4" maxlength="50" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password">パスワード（8文字以上）</label>
+            <input type="password" id="register-password" name="password" minlength="8" required>
+          </div>
+          <div class="form-group">
+            <label for="register-mail">メールアドレス（任意）</label>
+            <input type="email" id="register-mail" name="mail">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-submit">登録</button>
+          </div>
+          <div id="registerMessage" class="auth-message"></div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- ✅ 共通フッター -->
   <%- include("../_share/footer.ejs") %>
@@ -84,15 +183,16 @@
       const cb = lbl.querySelector("input");
       if (!cb) return;
 
-      if (selected === 1 && [1, 2, 3].includes(scopeValue)) cb.checked = true;
-      else if (selected === 2 && [2, 3].includes(scopeValue)) cb.checked = true;
-      else if (selected === 3 && [3].includes(scopeValue)) cb.checked = true;
+      if (selected === 1 && [1, 2, 3, 4].includes(scopeValue)) cb.checked = true;
+      else if (selected === 2 && [2, 3, 4].includes(scopeValue)) cb.checked = true;
+      else if (selected === 3 && [3, 4].includes(scopeValue)) cb.checked = true;
+      else if (selected === 4 && [4].includes(scopeValue)) cb.checked = true;
     });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    // ✅ 初期化デフォルト：3級反映
-    setScope(3);
+    // ✅ 初期化デフォルト：4級反映
+    setScope(4);
 
     // ✅ 範囲チェックボックスのイベント設定
     document.querySelectorAll("input[name='scope_exams']").forEach(cb => {
@@ -108,12 +208,147 @@
   // === 大分類開閉 ===
   function toggleSection(id) {
     const section = document.getElementById("small_" + id);
-    section.style.display = (section.style.display !== "block") ? "block" : "none";
+    const header = document.getElementById("header_" + id);
+    const isVisible = section.style.display !== "none";
+    section.style.display = isVisible ? "none" : "block";
+    // 矢印アイコンを切り替え
+    const categoryName = header.textContent.substring(2); // "▼ " or "▶ " の後の部分
+    header.textContent = (isVisible ? "▶ " : "▼ ") + categoryName;
   }
 
   // === カテゴリ全選択・全解除 ===
   function checkAll(flag) {
     document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = flag);
+  }
+
+  // ==== 認証モーダル制御 ====
+  function openAuthModal() {
+    document.getElementById('authModal').style.display = 'block';
+  }
+
+  function closeAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+    clearAuthMessages();
+  }
+
+  function switchAuthTab(tab) {
+    const tabs = document.querySelectorAll('.auth-tab');
+    const forms = document.querySelectorAll('.auth-form-container');
+
+    tabs.forEach(t => t.classList.remove('active'));
+    forms.forEach(f => f.classList.remove('active'));
+
+    if (tab === 'login') {
+      tabs[0].classList.add('active');
+      document.getElementById('loginForm').classList.add('active');
+    } else {
+      tabs[1].classList.add('active');
+      document.getElementById('registerForm').classList.add('active');
+    }
+
+    clearAuthMessages();
+  }
+
+  function clearAuthMessages() {
+    document.getElementById('loginMessage').textContent = '';
+    document.getElementById('registerMessage').textContent = '';
+  }
+
+  // モーダル外をクリックしたら閉じる
+  window.onclick = function(event) {
+    const modal = document.getElementById('authModal');
+    if (event.target === modal) {
+      closeAuthModal();
+    }
+  }
+
+  // ==== ログイン処理 ====
+  async function handleLogin(event) {
+    event.preventDefault();
+    const form = event.target;
+    const user_id = form.user_id.value;
+    const password = form.password.value;
+    const rememberMe = form.rememberMe.checked;
+
+    try {
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id, password, rememberMe })
+      });
+
+      const data = await response.json();
+      const messageEl = document.getElementById('loginMessage');
+
+      if (data.success) {
+        messageEl.textContent = data.message;
+        messageEl.style.color = 'green';
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      } else {
+        messageEl.textContent = data.message;
+        messageEl.style.color = 'red';
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      document.getElementById('loginMessage').textContent = 'ログインに失敗しました。';
+      document.getElementById('loginMessage').style.color = 'red';
+    }
+  }
+
+  // ==== 新規登録処理 ====
+  async function handleRegister(event) {
+    event.preventDefault();
+    const form = event.target;
+    const user_id = form.user_id.value;
+    const password = form.password.value;
+    const mail = form.mail.value;
+
+    try {
+      const response = await fetch('/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id, password, mail })
+      });
+
+      const data = await response.json();
+      const messageEl = document.getElementById('registerMessage');
+
+      if (data.success) {
+        messageEl.textContent = data.message;
+        messageEl.style.color = 'green';
+        form.reset();
+        setTimeout(() => {
+          switchAuthTab('login');
+        }, 2000);
+      } else {
+        messageEl.textContent = data.message;
+        messageEl.style.color = 'red';
+      }
+    } catch (error) {
+      console.error('Register error:', error);
+      document.getElementById('registerMessage').textContent = '登録に失敗しました。';
+      document.getElementById('registerMessage').style.color = 'red';
+    }
+  }
+
+  // ==== ログアウト処理 ====
+  async function handleLogout() {
+    if (!confirm('ログアウトしますか？')) return;
+
+    try {
+      const response = await fetch('/auth/logout', {
+        method: 'POST'
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        location.reload();
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   }
 </script>
 </body>

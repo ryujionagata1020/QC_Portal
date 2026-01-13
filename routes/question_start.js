@@ -17,16 +17,23 @@ router.post("/", async (req, res, next) => {
     }
 
     // ✅ 選ばれた scope_exam の実際の出題範囲を展開
-    // ①級 → 1,2,3／②級 → 2,3／③級 → 3
+    // ①級 → 1,2,3,4／②級 → 2,3,4／③級 → 3,4／④級 → 4
     let expandedScopes = new Set();
     scope_exams.forEach(s => {
       const val = parseInt(s, 10);
-      if (val === 1) [1, 2, 3].forEach(v => expandedScopes.add(v));
-      else if (val === 2) [2, 3].forEach(v => expandedScopes.add(v));
-      else if (val === 3) expandedScopes.add(3);
+      if (val === 1) [1, 2, 3, 4].forEach(v => expandedScopes.add(v));
+      else if (val === 2) [2, 3, 4].forEach(v => expandedScopes.add(v));
+      else if (val === 3) [3, 4].forEach(v => expandedScopes.add(v));
+      else if (val === 4) expandedScopes.add(4);
     });
 
     const expandedScopeArray = Array.from(expandedScopes);
+
+    // 空配列チェック（該当する問題がない場合のエラー防止）
+    if (expandedScopeArray.length === 0 || testlevels.length === 0) {
+      res.send("条件に一致する問題がありません。");
+      return;
+    }
 
     const query = await sql("SELECT_question_BY_conditions");
     const results = await MySQLClient.executeQuery(query, [testlevels, expandedScopeArray]);
