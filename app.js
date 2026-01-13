@@ -64,6 +64,7 @@ app.use((req, res, next) => {
 });
 
 // ✅ ルーティング
+app.use("/", require("./routes/pages.js"));
 app.use("/auth", require("./routes/auth.js"));
 app.use("/account", require("./routes/account.js"));
 app.use("/questions/select", require("./routes/question_select.js"));

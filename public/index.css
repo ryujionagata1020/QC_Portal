@@ -2177,3 +2177,122 @@ img {
     max-height: 300px;
   }
 }
+
+/* =========================================================
+   終了時オーバーレイ
+   ========================================================= */
+.completion-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  animation: completionFadeIn 0.3s ease-out;
+}
+
+@keyframes completionFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.completion-content {
+  background: linear-gradient(135deg, #fff 0%, #f8f5ff 100%);
+  padding: 50px 60px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(139, 108, 207, 0.4);
+  animation: completionBounce 0.5s ease-out;
+}
+
+@keyframes completionBounce {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.completion-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: completionIconPop 0.6s ease-out 0.2s both;
+}
+
+@keyframes completionIconPop {
+  0% {
+    transform: scale(0) rotate(-20deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.completion-message {
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #8b6ccf;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(139, 108, 207, 0.2);
+}
+
+.btn-completion-close {
+  padding: 14px 50px;
+  font-size: 1.1em;
+  font-weight: bold;
+  background: linear-gradient(135deg, #a48cef 0%, #8b6ccf 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(139, 108, 207, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-completion-close:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(139, 108, 207, 0.4);
+}
+
+.btn-completion-close:active {
+  transform: scale(1.02);
+}
+
+/* レスポンシブ対応（終了オーバーレイ） */
+@media screen and (max-width: 600px) {
+  .completion-content {
+    padding: 40px 30px;
+    margin: 0 20px;
+  }
+
+  .completion-icon {
+    font-size: 60px;
+  }
+
+  .completion-message {
+    font-size: 1.6em;
+  }
+
+  .btn-completion-close {
+    padding: 12px 40px;
+    font-size: 1em;
+  }
+}

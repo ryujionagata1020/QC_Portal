@@ -77,13 +77,22 @@
       <% if (nextId) { %>
         <button type="button" class="btn-next" onclick="goNextQuestion()">次の問題へ</button>
       <% } else { %>
-        <button type="button" class="btn-next" disabled>これで終了です</button>
+        <button type="button" class="btn-next" onclick="showCompletionOverlay()">これで終了です</button>
       <% } %>
     </div>
 
     <!-- ✅ オーバーレイ -->
     <div id="overlay" class="overlay">
       <div class="overlay-content" id="overlayMessage"></div>
+    </div>
+
+    <!-- 終了時オーバーレイ -->
+    <div id="completionOverlay" class="completion-overlay">
+      <div class="completion-content">
+        <div class="completion-icon">🎉</div>
+        <div class="completion-message" id="completionMessage"></div>
+        <button class="btn-completion-close" onclick="closeCompletionOverlay()">閉じる</button>
+      </div>
     </div>
   </main>
 
@@ -220,6 +229,27 @@
     function goNextQuestion() {
       const next = "<%= nextId %>";
       if (next) window.location.href = "/questions/" + next;
+    }
+
+    // ==== 終了時オーバーレイを表示する関数 ====
+    function showCompletionOverlay() {
+      const messages = [
+        "がんばりました！",
+        "おつかれさま！",
+        "よくできました！",
+        "すばらしい！",
+        "完走おめでとう！"
+      ];
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+      document.getElementById("completionMessage").textContent = randomMessage;
+      document.getElementById("completionOverlay").style.display = "flex";
+    }
+
+    // ==== 終了オーバーレイを閉じる関数 ====
+    function closeCompletionOverlay() {
+      document.getElementById("completionOverlay").style.display = "none";
+      window.location.href = "/questions/select";
     }
 
     // ==== 認証モーダル制御 ====
