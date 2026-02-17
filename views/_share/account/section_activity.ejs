@@ -1,0 +1,34 @@
+<!-- アクティビティセクション -->
+<div id="section-activity" class="account-section">
+  <h3>アクティビティ</h3>
+
+  <!-- タブ切り替え（級） -->
+  <% var wg = (user && user.want_grade1) ? { '４級':4, '３級':3, '２級':2, '１級':1 }[user.want_grade1] || 4 : 4; %>
+  <div class="account-tabs activity-tabs">
+    <button class="account-tab<%= wg === 4 ? ' active' : '' %>" data-level="4" onclick="switchActivityTab(4)">4級</button>
+    <button class="account-tab<%= wg === 3 ? ' active' : '' %>" data-level="3" onclick="switchActivityTab(3)">3級</button>
+    <button class="account-tab<%= wg === 2 ? ' active' : '' %>" data-level="2" onclick="switchActivityTab(2)">2級</button>
+    <button class="account-tab<%= wg === 1 ? ' active' : '' %>" data-level="1" onclick="switchActivityTab(1)">1級</button>
+  </div>
+
+  <!-- 時間単位セレクタ -->
+  <div class="activity-unit-selector">
+    <button class="activity-unit-btn active" data-unit="daily" onclick="switchActivityUnit('daily')">日単位</button>
+    <button class="activity-unit-btn" data-unit="weekly" onclick="switchActivityUnit('weekly')">週単位</button>
+    <button class="activity-unit-btn" data-unit="monthly" onclick="switchActivityUnit('monthly')">月単位</button>
+    <button class="activity-unit-btn" data-unit="yearly" onclick="switchActivityUnit('yearly')">年単位</button>
+  </div>
+
+  <!-- チャートコンテンツ -->
+  <div class="activity-chart-content">
+    <div id="activityLoading" class="history-loading">
+      <span>読み込み中...</span>
+    </div>
+    <div id="activityEmpty" class="history-empty" style="display: none;">
+      <span>この級のアクティビティデータはありません</span>
+    </div>
+    <div id="activityChartContainer" class="activity-chart-container" style="display: none;">
+      <canvas id="activityChart"></canvas>
+    </div>
+  </div>
+</div>

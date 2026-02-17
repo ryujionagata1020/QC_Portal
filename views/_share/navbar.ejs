@@ -10,11 +10,14 @@ aria-label="グローバルナビゲーション"
 >
 <ul>
 <li><a href="/qcis">QC検定®とは</a></li>
-<li><a href="#">試験情報・制度</a></li>
-<li><a href="#">品質管理の時間</a></li>
+<!--
+<li><a href="/qcis#exam-info">試験情報・制度</a></li>
+-->
+<!--<li><a href="#">品質管理の時間</a></li>-->
 <li><a href="/questions/select">試験対策</a></li>
 <li><a href="/statisinfo">統計情報</a></li>
 <li><a href="#">参考書・問題集</a></li>
+<li><a href="/tools/simulate">ツール</a></li>
 </ul>
 
 </nav>
@@ -22,28 +25,66 @@ aria-label="グローバルナビゲーション"
 <!-- ユーザーメニュー -->
 <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
 <div class="user-menu">
-  <button class="btn-logout" onclick="handleNavLogout()">ログアウト</button>
+  <% if (user && user.scheduled_exam_date) { %>
+    <%
+      var examDate = new Date(user.scheduled_exam_date);
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      examDate.setHours(0, 0, 0, 0);
+      var diffTime = examDate.getTime() - today.getTime();
+      var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      var examYear = examDate.getFullYear();
+      var examMonth = ('0' + (examDate.getMonth() + 1)).slice(-2);
+      var examDay = ('0' + examDate.getDate()).slice(-2);
+    %>
+    <% if (diffDays > 0) { %>
+      <span class="exam-countdown-text">受験予定日は<strong><%= examYear %>年<%= examMonth %>月<%= examDay %>日</strong> 試験まであと<strong class="exam-countdown-days"><%= diffDays %>日</strong></span>
+    <% } else if (diffDays === 0) { %>
+      <span class="exam-countdown-text"><strong>本日が受験日です！</strong></span>
+    <% } else { %>
+      <a href="javascript:void(0)" class="exam-countdown-link" onclick="openAccountModal(); switchAccountSection('profile');">受験予定日を更新する</a>
+    <% } %>
+  <% } else { %>
+    <a href="javascript:void(0)" class="exam-countdown-link" onclick="openAccountModal(); switchAccountSection('profile');">受験予定日を設定する</a>
+  <% } %>
   <button class="account-btn" onclick="openAccountModal()" title="アカウント管理">
     <img src="/public/account_oengin.jpg" alt="アカウント">
   </button>
+  <button class="btn-logout" onclick="handleNavLogout()">ログアウト</button>
+</div>
+<% } else { %>
+<div class="user-menu">
+  <button class="btn-auth" onclick="openAuthModal()">ログイン・新規登録</button>
 </div>
 <% } %>
 
 </div>
+
 </header>
 
 <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
   <%- include('./account_modal.ejs') %>
+<% } else { %>
+  <%- include('./auth_modal.ejs') %>
+  <script src="/public/js/auth.js"></script>
 <% } %>
 
 <script>
+// テーマ初期化処理（LocalStorageから復元）
+(function initTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+})();
+
 // ログアウト処理（navbar用）
 async function handleNavLogout() {
   if (!confirm('ログアウトしますか？')) return;
 
   try {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     const response = await fetch('/auth/logout', {
-      method: 'POST'
+      method: 'POST',
+      headers: { 'X-CSRF-Token': csrfToken }
     });
 
     const data = await response.json();

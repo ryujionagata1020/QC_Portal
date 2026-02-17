@@ -131,15 +131,262 @@
 
             <!-- QC関連の画像の挿入-->
           </section>
-          <!-- サイドバー（必要な場合） -->
-          <aside
-            id="sidebar"
-            role="complementary"
-            aria-labelledby="sidebar-heading"
-          >
-            <h3 id="sidebar-heading">サイドバー</h3>
-            <p>補足情報、リンク、最新記事一覧など。</p>
-          </aside>
+
+          <!-- ========== 試験情報・制度 ========== -->
+          <div id="exam-info" class="qcis-divider">
+            <h2>試験情報・制度</h2>
+          </div>
+
+          <section aria-labelledby="exam-overview-heading">
+            <h2 id="exam-overview-heading">試験概要</h2>
+            <p>
+              1級・2級はマークシート方式の筆記試験（1級のみ論述試験を含む）で、会場での一斉受験です。<br>
+              3級・4級は<strong>CBT（Computer Based Testing）方式</strong>に移行しており、全国のテストセンターでコンピュータを使って受験します。
+            </p>
+            <table class="qcis-table">
+              <thead>
+                <tr>
+                  <th>級</th>
+                  <th>試験時間</th>
+                  <th>出題形式</th>
+                  <th>試験方式</th>
+                  <th>出題分野</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1級</td>
+                  <td>120分</td>
+                  <td>マークシート＋論述</td>
+                  <td>筆記（会場一斉）</td>
+                  <td>手法分野・実践分野</td>
+                </tr>
+                <tr>
+                  <td>2級</td>
+                  <td>90分</td>
+                  <td>マークシート</td>
+                  <td>筆記（会場一斉）</td>
+                  <td>手法分野・実践分野</td>
+                </tr>
+                <tr>
+                  <td>3級</td>
+                  <td>90分</td>
+                  <td>CBT（コンピュータ選択式）</td>
+                  <td>テストセンター</td>
+                  <td>手法分野・実践分野</td>
+                </tr>
+                <tr>
+                  <td>4級</td>
+                  <td>90分</td>
+                  <td>CBT（コンピュータ選択式）</td>
+                  <td>テストセンター</td>
+                  <td>品質管理の基礎</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              受験資格に制限はなく、年齢・学歴・実務経験を問わずどなたでも受験できます。<br>
+              また、隣接する2つの級を同日に併願受験することも可能です（例：2級と3級）。
+            </p>
+            <p class="qcis-notice">
+              ※3級・4級のCBT方式では、試験期間内であれば都合の良い日時・会場を選んで受験できます。
+              出題内容や合格基準は従来の筆記試験と同等です。
+            </p>
+          </section>
+
+          <section aria-labelledby="pass-criteria-heading">
+            <h2 id="pass-criteria-heading">合格基準</h2>
+            <p>各級の合格基準は以下の通りです。総合得点だけでなく、分野ごとの最低ラインも設けられています。</p>
+            <table class="qcis-table">
+              <thead>
+                <tr>
+                  <th>級</th>
+                  <th>総合得点</th>
+                  <th>分野別基準</th>
+                  <th>備考</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1級</td>
+                  <td>概ね70%以上</td>
+                  <td>手法分野・実践分野 各概ね50%以上</td>
+                  <td>論述試験を含めた総合評価</td>
+                </tr>
+                <tr>
+                  <td>準1級</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>1級の筆記試験で一定基準を満たした場合に認定</td>
+                </tr>
+                <tr>
+                  <td>2級</td>
+                  <td>概ね70%以上</td>
+                  <td>手法分野・実践分野 各概ね50%以上</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>3級</td>
+                  <td>概ね70%以上</td>
+                  <td>手法分野・実践分野 各概ね50%以上</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>4級</td>
+                  <td>概ね70%以上</td>
+                  <td>—</td>
+                  <td>分野別基準なし</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              ※合格基準は毎回の試験の難易度によって調整される場合があります。<br>
+              準1級は独立した試験ではなく、1級受験者のうち1級の合格基準には達しなかったものの
+              一定の水準に達した方に対して認定される制度です。
+            </p>
+          </section>
+
+          <section aria-labelledby="exam-schedule-heading">
+            <h2 id="exam-schedule-heading">試験日程・申込</h2>
+            <dl>
+              <dt>1級・2級（筆記試験）</dt>
+              <dd>
+                <strong>年2回</strong>、例年3月と9月に全国の試験会場で一斉に実施されます。<br>
+                申込受付は試験日の約3〜4ヶ月前から開始され、締切は試験日の約1〜2ヶ月前です。
+              </dd>
+              <dt>3級・4級（CBT方式）</dt>
+              <dd>
+                試験期間（数週間〜約1ヶ月間）が設けられ、その期間内であれば
+                全国のテストセンターから<strong>都合の良い日時・会場を選んで</strong>受験できます。
+              </dd>
+              <dt>申込方法</dt>
+              <dd>日本規格協会のWebサイトから個人申込または団体申込が可能です。CBT方式の場合はCBT試験の専用サイトから申し込みます。</dd>
+            </dl>
+            <p class="qcis-notice">
+              ※試験日程・申込期間は変更される場合があります。最新情報は
+              <a href="https://www.jsa.or.jp/qc/" target="_blank" rel="noopener noreferrer">日本規格協会の公式サイト</a>
+              でご確認ください。
+            </p>
+          </section>
+
+          <section aria-labelledby="exam-fee-heading">
+            <h2 id="exam-fee-heading">受験料</h2>
+            <table class="qcis-table">
+              <thead>
+                <tr>
+                  <th>級</th>
+                  <th>受験料（税込）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1級</td>
+                  <td>11,880円</td>
+                </tr>
+                <tr>
+                  <td>1級（1次試験免除）</td>
+                  <td>9,460円</td>
+                </tr>
+                <tr>
+                  <td>2級</td>
+                  <td>9,460円</td>
+                </tr>
+                <tr>
+                  <td>3級</td>
+                  <td>5,830円</td>
+                </tr>
+                <tr>
+                  <td>4級</td>
+                  <td>4,400円</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              隣接する2つの級の併願が可能です（例：1級と2級、2級と3級、3級と4級）。<br>
+              併願の場合、それぞれの受験料が必要です。
+            </p>
+          </section>
+
+          <section aria-labelledby="exam-day-heading">
+            <h2 id="exam-day-heading">試験当日の持ち物・注意事項</h2>
+            <h3>1級・2級（筆記試験）</h3>
+            <dl>
+              <dt>必須の持ち物</dt>
+              <dd>
+                <ul class="qcis-list">
+                  <li>受験票</li>
+                  <li>HBまたはBの鉛筆・シャープペンシル（マークシート用）</li>
+                  <li>消しゴム</li>
+                  <li>身分証明書（写真付き）</li>
+                </ul>
+              </dd>
+              <dt>持込可能なもの</dt>
+              <dd>
+                <ul class="qcis-list">
+                  <li>電卓（関数電卓も可。ただしプログラム機能付きは不可）</li>
+                  <li>腕時計（通信機能のないもの）</li>
+                </ul>
+              </dd>
+            </dl>
+            <h3>3級・4級（CBT方式）</h3>
+            <dl>
+              <dt>必須の持ち物</dt>
+              <dd>
+                <ul class="qcis-list">
+                  <li>本人確認書類（写真付き身分証明書）</li>
+                </ul>
+              </dd>
+              <dt>テストセンターでの受験について</dt>
+              <dd>
+                <ul class="qcis-list">
+                  <li>テストセンターに設置されたコンピュータで解答します。筆記用具の持ち込みは不要です</li>
+                  <li>計算用のメモ用紙はテストセンターで貸与されます</li>
+                  <li>私物（かばん・携帯電話等）はロッカーに預けてから入室します</li>
+                </ul>
+              </dd>
+            </dl>
+            <h3>共通の注意事項</h3>
+            <ul class="qcis-list">
+              <li>携帯電話・スマートフォンは電源を切ってください</li>
+              <li>試験中の途中退室は原則認められません</li>
+              <li>試験問題の持ち帰り・撮影・複製は禁止されています</li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="exam-result-heading">
+            <h2 id="exam-result-heading">合格発表・認定証</h2>
+            <p>
+              合格発表は試験日の約1ヶ月後に行われます。<br>
+              日本規格協会のWebサイト上で受験番号による合否確認が可能です。
+            </p>
+            <dl>
+              <dt>合格証書</dt>
+              <dd>合格者には合格証書が郵送されます。</dd>
+              <dt>合格証明書</dt>
+              <dd>就職・転職等で合格の証明が必要な場合、有料で合格証明書の発行を申請できます。</dd>
+            </dl>
+          </section>
+
+          <section aria-labelledby="exam-links-heading">
+            <h2 id="exam-links-heading">関連リンク</h2>
+            <ul class="qcis-link-list">
+              <li>
+                <a href="https://www.jsa.or.jp/qc/" target="_blank" rel="noopener noreferrer">
+                  一般財団法人 日本規格協会 — QC検定®公式サイト
+                </a>
+              </li>
+              <li>
+                <a href="https://www.juse.or.jp/" target="_blank" rel="noopener noreferrer">
+                  一般財団法人 日本科学技術連盟
+                </a>
+              </li>
+              <li>
+                <a href="https://www.jsqc.org/" target="_blank" rel="noopener noreferrer">
+                  一般社団法人 日本品質管理学会
+                </a>
+              </li>
+            </ul>
+          </section>
       </main>
       <!-- フッター（共通化） -->
       <%- include("./_share/footer.ejs") %>

@@ -18,16 +18,6 @@
   <%- include("../_share/navbar.ejs") %>
 
   <main class="select-container">
-    <!-- ログイン・新規登録ボタン -->
-    <div class="auth-button-container">
-      <% if (isAuthenticated) { %>
-        <span class="user-info">ようこそ、<%= user.user_id %> さん</span>
-        <button class="btn-auth" onclick="handleLogout()">ログアウト</button>
-      <% } else { %>
-        <button class="btn-auth" onclick="openAuthModal()">ログイン・新規登録</button>
-      <% } %>
-    </div>
-
     <h1>QC-Portal</h1>
 
     <!-- ペンギン画像 -->
@@ -36,6 +26,7 @@
     </div>
 
     <form id="selectForm" action="/questions/start" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <!-- 出題条件選択エリア（横一列） -->
       <div class="selection-controls">
         <!-- 出題レベル選択 -->
@@ -49,136 +40,173 @@
           </div>
         </div>
 
-        <!-- 出題範囲選択 -->
+        <!-- 出題範囲選択（カテゴリ反映用、フォーム送信対象外） -->
         <div class="control-group">
           <div class="control-label">出題範囲</div>
           <div id="examScopeArea" class="checkbox-area">
-            <label><input type="checkbox" name="scope_exams" value="1" onclick="setScope(1)"> 1級</label>
-            <label><input type="checkbox" name="scope_exams" value="2" onclick="setScope(2)"> 2級</label>
-            <label><input type="checkbox" name="scope_exams" value="3" onclick="setScope(3)"> 3級</label>
-            <label><input type="checkbox" name="scope_exams" value="4" onclick="setScope(4)" checked> 4級</label>
+            <label><input type="checkbox" data-scope-filter="1" onclick="setScope(1)"> 1級</label>
+            <label><input type="checkbox" data-scope-filter="2" onclick="setScope(2)"> 2級</label>
+            <label><input type="checkbox" data-scope-filter="3" onclick="setScope(3)"> 3級</label>
+            <label><input type="checkbox" data-scope-filter="4" onclick="setScope(4)" checked> 4級</label>
           </div>
         </div>
 
-        <!-- 選択ボタン -->
+        <!-- 出題数選択 -->
         <div class="control-group">
-          <div class="control-label">カテゴリ操作</div>
-          <div class="action-buttons">
-            <button type="button" class="btn-action" onclick="checkAll(true)">すべて選択</button>
-            <button type="button" class="btn-action" onclick="checkAll(false)">すべて解除</button>
+          <div class="control-label">出題数</div>
+          <div class="question-limit-area">
+            <input type="range" id="questionLimitSlider" name="question_limit" min="1" max="101" value="101">
+            <span id="questionLimitDisplay" class="question-limit-display">全問</span>
+            <% if (typeof user !== 'undefined' && user) { %>
+              <label class="unanswered-only-label">
+                <input type="checkbox" name="unanswered_only" value="1">
+                未回答のみ出題
+              </label>
+            <% } %>
           </div>
         </div>
+
       </div>
 
       <!-- 出題開始ボタン -->
       <div class="start-button-container">
         <button type="submit" class="btn-start">出題開始</button>
+        <% if (typeof resumeData !== 'undefined' && resumeData) { %>
+          <% if (resumeData.fromDb) { %>
+            <a href="/questions/resume" class="btn-resume">
+              中断したところから再開（<%= resumeData.currentNumber %>/<%= resumeData.totalCount %>問目から）
+            </a>
+          <% } else { %>
+            <a href="/questions/<%= resumeData.questionId %>" class="btn-resume">
+              中断したところから再開（<%= resumeData.currentNumber %>/<%= resumeData.totalCount %>問目から）
+            </a>
+          <% } %>
+        <% } %>
       </div>
 
       <!-- カテゴリ選択 -->
-      <div class="section-title">カテゴリ選択</div>
+      <div class="section-title-row">
+        <div class="section-title">カテゴリ選択</div>
+        <div class="action-buttons">
+          <button type="button" class="btn-action" onclick="checkAll(true)">すべて選択</button>
+          <button type="button" class="btn-action" onclick="checkAll(false)">すべて解除</button>
+        </div>
+      </div>
 
-      <div class="large-category-grid" id="categoryGrid">
-        <% Object.keys(categories).forEach(function(lid){ %>
-          <% const large = categories[lid]; %>
+      <!-- カテゴリタブ -->
+      <div class="category-tabs">
+        <button type="button" class="category-tab active" data-tab="practical" onclick="switchCategoryTab('practical')">実践</button>
+        <button type="button" class="category-tab" data-tab="methods" onclick="switchCategoryTab('methods')">手法</button>
+      </div>
+
+      <!-- 実践カテゴリ -->
+      <div class="category-panel active" id="practicalPanel" data-panel="practical">
+        <% (categoriesByType.practical || []).forEach(function(large){ %>
           <div class="large-category">
-            <div class="large-header" onclick="toggleSection('<%= lid %>')" id="header_<%= lid %>">
-              ▼ <%= large.name %>
+            <div class="large-header" id="header_<%= large.id %>">
+              <label class="large-checkbox-label">
+                <input type="checkbox" class="large-category-checkbox" data-large-id="<%= large.id %>" onchange="toggleLargeCategory('<%= large.id %>', this.checked)">
+              </label>
+              <span class="large-header-text"><%= large.name %></span>
             </div>
-            <div id="small_<%= lid %>" class="small-list">
+            <div id="small_<%= large.id %>" class="small-list">
               <% large.smalls.forEach(function(small){ %>
                 <label data-scope="<%= small.scope_exam %>">
                   <input type="checkbox" name="smalls" value="<%= small.id %>">
-                  <%= small.name %>（範囲：<%= small.scope_exam %>）
+                  <%= small.name %>（<%= small.scope_exam %>級から）
                 </label><br>
               <% }); %>
             </div>
           </div>
         <% }); %>
       </div>
+
+      <!-- 手法カテゴリ -->
+      <div class="category-panel" id="methodsPanel" data-panel="methods">
+        <% (categoriesByType.methods || []).forEach(function(large){ %>
+          <div class="large-category">
+            <div class="large-header" id="header_<%= large.id %>">
+              <label class="large-checkbox-label">
+                <input type="checkbox" class="large-category-checkbox" data-large-id="<%= large.id %>" onchange="toggleLargeCategory('<%= large.id %>', this.checked)">
+              </label>
+              <span class="large-header-text"><%= large.name %></span>
+            </div>
+            <div id="small_<%= large.id %>" class="small-list">
+              <% large.smalls.forEach(function(small){ %>
+                <label data-scope="<%= small.scope_exam %>">
+                  <input type="checkbox" name="smalls" value="<%= small.id %>">
+                  <%= small.name %>（<%= small.scope_exam %>級から）
+                </label><br>
+              <% }); %>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+
+            <!-- 出題開始ボタン -->
+      <div class="start-button-container">
+        <button type="submit" class="btn-start">出題開始</button>
+        <% if (typeof resumeData !== 'undefined' && resumeData) { %>
+          <% if (resumeData.fromDb) { %>
+            <a href="/questions/resume" class="btn-resume">
+              中断したところから再開（<%= resumeData.currentNumber %>/<%= resumeData.totalCount %>問目から）
+            </a>
+          <% } else { %>
+            <a href="/questions/<%= resumeData.questionId %>" class="btn-resume">
+              中断したところから再開（<%= resumeData.currentNumber %>/<%= resumeData.totalCount %>問目から）
+            </a>
+          <% } %>
+        <% } %>
+      </div>
     </form>
+
   </main>
-
-  <!-- 認証モーダル -->
-  <div id="authModal" class="auth-modal">
-    <div class="auth-modal-content">
-      <span class="auth-modal-close" onclick="closeAuthModal()">&times;</span>
-
-      <!-- タブ切り替え -->
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchAuthTab('login')">ログイン</button>
-        <button class="auth-tab" onclick="switchAuthTab('register')">新規登録</button>
-      </div>
-
-      <!-- ログインフォーム -->
-      <div id="loginForm" class="auth-form-container active">
-        <h2>ログイン</h2>
-        <form id="loginFormElement" onsubmit="handleLogin(event)">
-          <div class="form-group">
-            <label for="login-user_id">ユーザーID</label>
-            <input type="text" id="login-user_id" name="user_id" required>
-          </div>
-          <div class="form-group">
-            <label for="login-password">パスワード</label>
-            <input type="password" id="login-password" name="password" required>
-          </div>
-          <div class="form-group checkbox-group">
-            <label>
-              <input type="checkbox" id="rememberMe" name="rememberMe">
-              ログイン状態を保持する（1ヶ月）
-            </label>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn-submit">ログイン</button>
-          </div>
-          <div id="loginMessage" class="auth-message"></div>
-        </form>
-        <div class="auth-footer">
-          <a href="#" class="forgot-password">パスワードをお忘れの場合</a>
-        </div>
-      </div>
-
-      <!-- 新規登録フォーム -->
-      <div id="registerForm" class="auth-form-container">
-        <h2>新規登録</h2>
-        <form id="registerFormElement" onsubmit="handleRegister(event)">
-          <div class="form-group">
-            <label for="register-user_id">ユーザーID（4〜50文字）</label>
-            <input type="text" id="register-user_id" name="user_id" minlength="4" maxlength="50" required>
-          </div>
-          <div class="form-group">
-            <label for="register-password">パスワード（8文字以上）</label>
-            <input type="password" id="register-password" name="password" minlength="8" required>
-          </div>
-          <div class="form-group">
-            <label for="register-mail">メールアドレス（任意）</label>
-            <input type="email" id="register-mail" name="mail">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn-submit">登録</button>
-          </div>
-          <div id="registerMessage" class="auth-message"></div>
-        </form>
-      </div>
-    </div>
-  </div>
 
   <!-- ✅ 共通フッター -->
   <%- include("../_share/footer.ejs") %>
 
   <script>
-  // === 出題範囲（scope_exam）制御 ===
+  // 現在選択中の出題範囲を保持
+  let currentScope = 4;
+
+  // === 出題数表示の更新（requestAnimationFrameでスムーズに） ===
+  let updateQueued = false;
+
+  function updateQuestionLimitDisplay(value) {
+    if (updateQueued) return;
+
+    updateQueued = true;
+    requestAnimationFrame(() => {
+      const display = document.getElementById("questionLimitDisplay");
+      if (display) {
+        if (parseInt(value) === 101) {
+          display.textContent = "全問";
+        } else {
+          display.textContent = value + "問";
+        }
+      }
+      updateQueued = false;
+    });
+  }
+
+  // === 出題範囲（scope_exam）制御（カテゴリ反映専用） ===
   function setScope(selected) {
+    currentScope = selected;
+
     // （1）単一選択（他のチェックを解除）
-    document.querySelectorAll("input[name='scope_exams']").forEach(cb => {
-      cb.checked = (parseInt(cb.value, 10) === selected);
+    document.querySelectorAll("input[data-scope-filter]").forEach(cb => {
+      cb.checked = (parseInt(cb.dataset.scopeFilter, 10) === selected);
     });
 
-    // （2）すべて未チェックにリセット
-    document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = false);
+    // 現在アクティブなパネルのみ対象にする
+    const activePanel = document.querySelector(".category-panel.active");
+    if (!activePanel) return;
 
-    // （3）該当 scope_exam を持つカテゴリをON
-    document.querySelectorAll("label[data-scope]").forEach(lbl => {
+    // （2）アクティブパネル内のすべてを未チェックにリセット
+    activePanel.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = false);
+
+    // （3）アクティブパネル内で該当 scope_exam を持つカテゴリをON
+    activePanel.querySelectorAll("label[data-scope]").forEach(lbl => {
       const scopeValue = parseInt(lbl.dataset.scope, 10);
       const cb = lbl.querySelector("input");
       if (!cb) return;
@@ -188,168 +216,112 @@
       else if (selected === 3 && [3, 4].includes(scopeValue)) cb.checked = true;
       else if (selected === 4 && [4].includes(scopeValue)) cb.checked = true;
     });
+
+    // （4）アクティブパネル内の大分類チェックボックスを更新
+    activePanel.querySelectorAll(".large-category-checkbox").forEach(cb => {
+      const largeId = cb.dataset.largeId;
+      updateLargeCategoryCheckbox(largeId);
+    });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    // ✅ 出題数スライダーのイベントリスナー設定
+    const slider = document.getElementById("questionLimitSlider");
+    if (slider) {
+      // inputイベント（リアルタイム更新）
+      slider.addEventListener("input", (e) => {
+        updateQuestionLimitDisplay(e.target.value);
+      });
+
+      // changeイベント（確実性のため）
+      slider.addEventListener("change", (e) => {
+        updateQuestionLimitDisplay(e.target.value);
+      });
+    }
+
     // ✅ 初期化デフォルト：4級反映
     setScope(4);
 
     // ✅ 範囲チェックボックスのイベント設定
-    document.querySelectorAll("input[name='scope_exams']").forEach(cb => {
+    document.querySelectorAll("input[data-scope-filter]").forEach(cb => {
       cb.addEventListener("change", ev => {
         if (ev.target.checked) {
-          const selected = parseInt(ev.target.value, 10);
+          const selected = parseInt(ev.target.dataset.scopeFilter, 10);
           setScope(selected);
+        }
+      });
+    });
+
+    // ✅ 小分類チェックボックス変更時に大分類チェックボックスを更新
+    document.querySelectorAll("input[name='smalls']").forEach(cb => {
+      cb.addEventListener("change", () => {
+        const section = cb.closest(".small-list");
+        if (section && section.id.startsWith("small_")) {
+          const largeId = section.id.replace("small_", "");
+          updateLargeCategoryCheckbox(largeId);
         }
       });
     });
   });
 
-  // === 大分類開閉 ===
-  function toggleSection(id) {
-    const section = document.getElementById("small_" + id);
-    const header = document.getElementById("header_" + id);
-    const isVisible = section.style.display !== "none";
-    section.style.display = isVisible ? "none" : "block";
-    // 矢印アイコンを切り替え
-    const categoryName = header.textContent.substring(2); // "▼ " or "▶ " の後の部分
-    header.textContent = (isVisible ? "▶ " : "▼ ") + categoryName;
+  // === 大分類チェックボックスで小分類をすべてチェック/解除 ===
+  function toggleLargeCategory(largeId, checked) {
+    const section = document.getElementById("small_" + largeId);
+    if (!section) return;
+    section.querySelectorAll("input[name='smalls']").forEach(cb => {
+      cb.checked = checked;
+    });
+  }
+
+  // === 小分類のチェック状態に応じて大分類チェックボックスを更新 ===
+  function updateLargeCategoryCheckbox(largeId) {
+    const section = document.getElementById("small_" + largeId);
+    const largeCheckbox = document.querySelector(`input.large-category-checkbox[data-large-id="${largeId}"]`);
+    if (!section || !largeCheckbox) return;
+
+    const smallCheckboxes = section.querySelectorAll("input[name='smalls']");
+    const checkedCount = section.querySelectorAll("input[name='smalls']:checked").length;
+
+    if (checkedCount === 0) {
+      largeCheckbox.checked = false;
+      largeCheckbox.indeterminate = false;
+    } else if (checkedCount === smallCheckboxes.length) {
+      largeCheckbox.checked = true;
+      largeCheckbox.indeterminate = false;
+    } else {
+      largeCheckbox.checked = false;
+      largeCheckbox.indeterminate = true;
+    }
   }
 
   // === カテゴリ全選択・全解除 ===
   function checkAll(flag) {
-    document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = flag);
-  }
-
-  // ==== 認証モーダル制御 ====
-  function openAuthModal() {
-    document.getElementById('authModal').style.display = 'block';
-  }
-
-  function closeAuthModal() {
-    document.getElementById('authModal').style.display = 'none';
-    clearAuthMessages();
-  }
-
-  function switchAuthTab(tab) {
-    const tabs = document.querySelectorAll('.auth-tab');
-    const forms = document.querySelectorAll('.auth-form-container');
-
-    tabs.forEach(t => t.classList.remove('active'));
-    forms.forEach(f => f.classList.remove('active'));
-
-    if (tab === 'login') {
-      tabs[0].classList.add('active');
-      document.getElementById('loginForm').classList.add('active');
-    } else {
-      tabs[1].classList.add('active');
-      document.getElementById('registerForm').classList.add('active');
-    }
-
-    clearAuthMessages();
-  }
-
-  function clearAuthMessages() {
-    document.getElementById('loginMessage').textContent = '';
-    document.getElementById('registerMessage').textContent = '';
-  }
-
-  // モーダル外をクリックしたら閉じる
-  window.onclick = function(event) {
-    const modal = document.getElementById('authModal');
-    if (event.target === modal) {
-      closeAuthModal();
-    }
-  }
-
-  // ==== ログイン処理 ====
-  async function handleLogin(event) {
-    event.preventDefault();
-    const form = event.target;
-    const user_id = form.user_id.value;
-    const password = form.password.value;
-    const rememberMe = form.rememberMe.checked;
-
-    try {
-      const response = await fetch('/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id, password, rememberMe })
+    // 現在アクティブなパネルのみ対象
+    const activePanel = document.querySelector(".category-panel.active");
+    if (activePanel) {
+      activePanel.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = flag);
+      activePanel.querySelectorAll(".large-category-checkbox").forEach(cb => {
+        cb.checked = flag;
+        cb.indeterminate = false;
       });
-
-      const data = await response.json();
-      const messageEl = document.getElementById('loginMessage');
-
-      if (data.success) {
-        messageEl.textContent = data.message;
-        messageEl.style.color = 'green';
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-      } else {
-        messageEl.textContent = data.message;
-        messageEl.style.color = 'red';
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      document.getElementById('loginMessage').textContent = 'ログインに失敗しました。';
-      document.getElementById('loginMessage').style.color = 'red';
     }
   }
 
-  // ==== 新規登録処理 ====
-  async function handleRegister(event) {
-    event.preventDefault();
-    const form = event.target;
-    const user_id = form.user_id.value;
-    const password = form.password.value;
-    const mail = form.mail.value;
-
-    try {
-      const response = await fetch('/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id, password, mail })
-      });
-
-      const data = await response.json();
-      const messageEl = document.getElementById('registerMessage');
-
-      if (data.success) {
-        messageEl.textContent = data.message;
-        messageEl.style.color = 'green';
-        form.reset();
-        setTimeout(() => {
-          switchAuthTab('login');
-        }, 2000);
-      } else {
-        messageEl.textContent = data.message;
-        messageEl.style.color = 'red';
-      }
-    } catch (error) {
-      console.error('Register error:', error);
-      document.getElementById('registerMessage').textContent = '登録に失敗しました。';
-      document.getElementById('registerMessage').style.color = 'red';
-    }
+  // === カテゴリタブ切り替え ===
+  function switchCategoryTab(tab) {
+    // タブボタンの切り替え
+    document.querySelectorAll(".category-tab").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.tab === tab);
+    });
+    // パネルの切り替え
+    document.querySelectorAll(".category-panel").forEach(panel => {
+      panel.classList.toggle("active", panel.dataset.panel === tab);
+    });
+    // 現在のscope設定を新しいアクティブパネルに適用
+    setScope(currentScope);
   }
 
-  // ==== ログアウト処理 ====
-  async function handleLogout() {
-    if (!confirm('ログアウトしますか？')) return;
 
-    try {
-      const response = await fetch('/auth/logout', {
-        method: 'POST'
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        location.reload();
-      }
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  }
 </script>
 </body>
 </html>

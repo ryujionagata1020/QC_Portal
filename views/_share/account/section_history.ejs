@@ -1,0 +1,31 @@
+<!-- 学習履歴セクション -->
+<div id="section-history" class="account-section active">
+  <h3>学習履歴</h3>
+
+  <!-- タブ切り替え -->
+  <% var wg = (user && user.want_grade1) ? { '４級':4, '３級':3, '２級':2, '１級':1 }[user.want_grade1] || 4 : 4; %>
+  <div class="account-tabs">
+    <button class="account-tab<%= wg === 4 ? ' active' : '' %>" data-level="4" onclick="switchAccountTab(4)">4級</button>
+    <button class="account-tab<%= wg === 3 ? ' active' : '' %>" data-level="3" onclick="switchAccountTab(3)">3級</button>
+    <button class="account-tab<%= wg === 2 ? ' active' : '' %>" data-level="2" onclick="switchAccountTab(2)">2級</button>
+    <button class="account-tab<%= wg === 1 ? ' active' : '' %>" data-level="1" onclick="switchAccountTab(1)">1級</button>
+  </div>
+
+  <!-- 習熟度の凡例 -->
+  <div class="mastery-legend">
+    <span class="mastery-legend-item"><span class="mastery-mark mastery-excellent">◎</span> 2回連続正解</span>
+    <span class="mastery-legend-item"><span class="mastery-mark mastery-good">〇</span> 直近1回正解</span>
+    <span class="mastery-legend-item"><span class="mastery-mark mastery-incorrect">×</span> 直近1回不正解</span>
+  </div>
+
+  <!-- 履歴コンテンツ -->
+  <div class="account-history-content">
+    <div id="historyLoading" class="history-loading">
+      <span>読み込み中...</span>
+    </div>
+    <div id="historyEmpty" class="history-empty" style="display: none;">
+      <span>この級の学習履歴はありません</span>
+    </div>
+    <div id="historyList" class="history-list"></div>
+  </div>
+</div>

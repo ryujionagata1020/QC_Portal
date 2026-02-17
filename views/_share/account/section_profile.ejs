@@ -1,0 +1,65 @@
+<!-- プロフィールセクション -->
+<div id="section-profile" class="account-section">
+  <h3>プロフィール</h3>
+  <div class="profile-content">
+    <!-- ユーザー名 -->
+    <div class="profile-item">
+      <span class="profile-label">ユーザー名</span>
+      <span class="profile-value" id="profileUserName"><%= typeof user !== 'undefined' && user && user.user_name ? user.user_name : '' %></span>
+      <button class="btn-profile-edit" id="btnEditUserName" onclick="startEditProfile('user_name')">編集</button>
+      <div class="profile-edit-form" id="editFormUserName" style="display:none;">
+        <input type="text" id="inputUserName" class="profile-edit-input" maxlength="50" placeholder="ユーザー名を入力">
+        <button class="btn-profile-save" onclick="saveProfile('user_name')">保存</button>
+        <button class="btn-profile-cancel" onclick="cancelEditProfile('user_name')">キャンセル</button>
+      </div>
+    </div>
+
+    <!-- 受験級① -->
+    <div class="profile-item">
+      <span class="profile-label">受験級①</span>
+      <span class="profile-value" id="profileWantGrade1"><%= typeof user !== 'undefined' && user && user.want_grade1 ? user.want_grade1 : '未設定' %></span>
+      <button class="btn-profile-edit" id="btnEditWantGrade1" onclick="startEditProfile('want_grade1')">編集</button>
+      <div class="profile-edit-form" id="editFormWantGrade1" style="display:none;">
+        <select id="inputWantGrade1" class="profile-edit-select">
+          <option value="">未設定</option>
+          <option value="４級">４級</option>
+          <option value="３級">３級</option>
+          <option value="２級">２級</option>
+          <option value="１級">１級</option>
+        </select>
+        <button class="btn-profile-save" onclick="saveProfile('want_grade1')">保存</button>
+        <button class="btn-profile-cancel" onclick="cancelEditProfile('want_grade1')">キャンセル</button>
+      </div>
+    </div>
+
+    <!-- 受験級② -->
+    <div class="profile-item">
+      <span class="profile-label">受験級②</span>
+      <span class="profile-value" id="profileWantGrade2"><%= typeof user !== 'undefined' && user && user.want_grade2 ? user.want_grade2 : '未設定' %></span>
+      <button class="btn-profile-edit" id="btnEditWantGrade2" onclick="startEditProfile('want_grade2')">編集</button>
+      <div class="profile-edit-form" id="editFormWantGrade2" style="display:none;">
+        <select id="inputWantGrade2" class="profile-edit-select">
+          <option value="">未設定</option>
+          <option value="４級">４級</option>
+          <option value="３級">３級</option>
+          <option value="２級">２級</option>
+          <option value="１級">１級</option>
+        </select>
+        <button class="btn-profile-save" onclick="saveProfile('want_grade2')">保存</button>
+        <button class="btn-profile-cancel" onclick="cancelEditProfile('want_grade2')">キャンセル</button>
+      </div>
+    </div>
+
+    <!-- 受験予定日 -->
+    <div class="profile-item">
+      <span class="profile-label">受験予定日</span>
+      <span class="profile-value" id="profileScheduledExamDate"><%= typeof user !== 'undefined' && user && user.scheduled_exam_date ? new Date(user.scheduled_exam_date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }) : '未設定' %></span>
+      <button class="btn-profile-edit" id="btnEditScheduledExamDate" onclick="startEditProfile('scheduled_exam_date')">編集</button>
+      <div class="profile-edit-form" id="editFormScheduledExamDate" style="display:none;">
+        <input type="date" id="inputScheduledExamDate" class="profile-edit-input">
+        <button class="btn-profile-save" onclick="saveProfile('scheduled_exam_date')">保存</button>
+        <button class="btn-profile-cancel" onclick="cancelEditProfile('scheduled_exam_date')">キャンセル</button>
+      </div>
+    </div>
+  </div>
+</div>

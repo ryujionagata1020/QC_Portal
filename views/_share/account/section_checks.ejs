@@ -1,0 +1,35 @@
+<!-- チェック問題セクション -->
+<div id="section-checks" class="account-section">
+  <h3>チェック問題</h3>
+
+  <!-- 色タブ -->
+  <div class="account-tabs checks-tabs">
+    <button class="account-tab active" data-check-color="yellow" onclick="switchChecksTab('yellow')">黄色</button>
+    <button class="account-tab" data-check-color="green" onclick="switchChecksTab('green')">緑</button>
+    <button class="account-tab" data-check-color="red" onclick="switchChecksTab('red')">赤</button>
+  </div>
+
+  <!-- アクションバー -->
+  <div class="checks-actions">
+    <button class="checks-action-btn checks-review-btn" onclick="startChecksReview()">復習</button>
+    <button class="checks-action-btn checks-edit-btn" onclick="toggleChecksEditMode()">編集</button>
+  </div>
+
+  <!-- 復習確認エリア -->
+  <div id="checksReviewConfirm" class="checks-review-confirm" style="display: none;">
+    <span id="checksReviewCount" class="checks-review-count"></span>
+    <button class="checks-review-start-btn" onclick="confirmChecksReview()">復習を開始する</button>
+    <button class="checks-review-cancel-btn" onclick="cancelChecksReview()">キャンセル</button>
+  </div>
+
+  <!-- コンテンツ -->
+  <div class="account-checks-content">
+    <div id="checksLoading" class="history-loading">
+      <span>読み込み中...</span>
+    </div>
+    <div id="checksEmpty" class="history-empty" style="display: none;">
+      <span>この色のチェック問題はありません</span>
+    </div>
+    <div id="checksList" class="history-list"></div>
+  </div>
+</div>

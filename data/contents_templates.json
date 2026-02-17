@@ -1,0 +1,164 @@
+{
+  "decisions": {
+    "reject": "帰無仮説を棄却。対立仮説を採用します。",
+    "fail_to_reject": "帰無仮説を棄却できません。"
+  },
+  "tests": {
+    "t_1sample": {
+      "name": "1標本t検定",
+      "description": "母平均が特定の値と異なるかを検定します。",
+      "h0": "μ = μ₀",
+      "h1_two": "μ ≠ μ₀",
+      "h1_right": "μ > μ₀",
+      "h1_left": "μ < μ₀",
+      "statistic": "t",
+      "distribution": "t"
+    },
+    "t_paired": {
+      "name": "対応ありt検定",
+      "description": "対応のある2群の差の平均がゼロと異なるかを検定します。",
+      "h0": "μd = 0",
+      "h1_two": "μd ≠ 0",
+      "h1_right": "μd > 0",
+      "h1_left": "μd < 0",
+      "statistic": "t",
+      "distribution": "t"
+    },
+    "t_welch": {
+      "name": "Welchのt検定（等分散を仮定しない）",
+      "description": "独立な2群の母平均が等しいかを検定します（等分散を仮定しない）。",
+      "h0": "μ₁ = μ₂",
+      "h1_two": "μ₁ ≠ μ₂",
+      "h1_right": "μ₁ > μ₂",
+      "h1_left": "μ₁ < μ₂",
+      "statistic": "t",
+      "distribution": "t"
+    },
+    "t_equal_var": {
+      "name": "等分散t検定（Studentのt検定）",
+      "description": "独立な2群の母平均が等しいかを検定します（等分散を仮定）。",
+      "h0": "μ₁ = μ₂",
+      "h1_two": "μ₁ ≠ μ₂",
+      "h1_right": "μ₁ > μ₂",
+      "h1_left": "μ₁ < μ₂",
+      "statistic": "t",
+      "distribution": "t"
+    },
+    "prop_1": {
+      "name": "1標本比率検定",
+      "description": "母比率が特定の値と異なるかを検定します。",
+      "h0": "p = p₀",
+      "h1_two": "p ≠ p₀",
+      "h1_right": "p > p₀",
+      "h1_left": "p < p₀",
+      "statistic": "z",
+      "distribution": "z"
+    },
+    "prop_2": {
+      "name": "2標本比率差の検定",
+      "description": "2群の母比率が等しいかを検定します。",
+      "h0": "p₁ = p₂",
+      "h1_two": "p₁ ≠ p₂",
+      "h1_right": "p₁ > p₂",
+      "h1_left": "p₁ < p₂",
+      "statistic": "z",
+      "distribution": "z"
+    },
+    "chi2_gof": {
+      "name": "適合度検定（χ²）",
+      "description": "観測度数が期待度数に適合しているかを検定します。",
+      "h0": "観測度数は期待度数に従う",
+      "h1_two": "観測度数は期待度数に従わない",
+      "statistic": "χ²",
+      "distribution": "chi2"
+    },
+    "chi2_indep": {
+      "name": "独立性の検定（χ²）",
+      "description": "2つの変数が独立であるかを検定します。",
+      "h0": "2変数は独立である",
+      "h1_two": "2変数は独立でない",
+      "statistic": "χ²",
+      "distribution": "chi2"
+    },
+    "f_eqvar": {
+      "name": "等分散性のF検定",
+      "description": "2群の母分散が等しいかを検定します。",
+      "h0": "σ₁² = σ₂²",
+      "h1_two": "σ₁² ≠ σ₂²",
+      "h1_right": "σ₁² > σ₂²",
+      "h1_left": "σ₁² < σ₂²",
+      "statistic": "F",
+      "distribution": "f"
+    },
+    "anova_oneway": {
+      "name": "一元配置分散分析",
+      "description": "3群以上の母平均がすべて等しいかを検定します。",
+      "h0": "μ₁ = μ₂ = … = μk",
+      "h1_two": "少なくとも1つの母平均が異なる",
+      "statistic": "F",
+      "distribution": "f"
+    },
+    "binom": {
+      "name": "二項検定（正確法）",
+      "description": "成功確率が特定の値と異なるかを正確法で検定します。",
+      "h0": "p = p₀",
+      "h1_two": "p ≠ p₀",
+      "h1_right": "p > p₀",
+      "h1_left": "p < p₀",
+      "statistic": "x（成功数）",
+      "distribution": "binomial"
+    },
+    "poisson": {
+      "name": "ポアソン検定（正確法）",
+      "description": "ポアソン率が特定の値と異なるかを検定します。",
+      "h0": "λ = λ₀",
+      "h1_two": "λ ≠ λ₀",
+      "h1_right": "λ > λ₀",
+      "h1_left": "λ < λ₀",
+      "statistic": "x（観測件数）",
+      "distribution": "poisson"
+    }
+  },
+  "wizard": {
+    "q1": {
+      "question": "データの種類は？",
+      "options": {
+        "continuous": {"label": "計量値（連続データ）", "description": "平均・標準偏差で要約できるデータ"},
+        "discrete": {"label": "計数値（離散データ）", "description": "比率・度数・件数で表されるデータ"}
+      }
+    },
+    "q2": {
+      "question": "比較対象の数は？",
+      "options_continuous": {
+        "one": {"label": "1群（1標本）", "description": "1つの標本を基準値と比較"},
+        "two": {"label": "2群（2標本）", "description": "2つの標本を比較"},
+        "multi": {"label": "3群以上", "description": "3つ以上の群を比較"}
+      },
+      "options_discrete": {
+        "one": {"label": "1群", "description": "1つの比率や度数を検定"},
+        "two": {"label": "2群", "description": "2群の比率を比較、または独立性を検定"}
+      }
+    },
+    "q3": {
+      "question": "検定の種類は？",
+      "options": {
+        "continuous_one_mean": {"label": "母平均の検定", "test_type": "t_1sample", "recommended": true, "reason": "1つの標本平均を基準値μ₀と比較する場合に使います。"},
+        "continuous_two_paired": {"label": "対応あり（差の検定）", "test_type": "t_paired", "recommended": false, "reason": "同じ対象の処理前後の差を検定する場合に使います。"},
+        "continuous_two_independent": {"label": "対応なし（2群平均の比較）", "test_type": "t_welch", "recommended": true, "reason": "独立な2群の平均を比較します。既定はWelchのt検定です。", "alternative": "t_equal_var", "alt_reason": "等分散が確認できている場合はStudentのt検定に切り替え可能。"},
+        "continuous_two_variance": {"label": "分散の比較（F検定）", "test_type": "f_eqvar", "recommended": false, "reason": "2群の分散が等しいかを検定します。等分散トグル判断にも使えます。"},
+        "continuous_multi_anova": {"label": "一元配置分散分析", "test_type": "anova_oneway", "recommended": true, "reason": "3群以上の平均の差を総合的に検定します。"},
+        "discrete_one_proportion": {"label": "母比率の検定（正規近似）", "test_type": "prop_1", "recommended": true, "reason": "標本比率が基準値p₀と異なるかを検定します。"},
+        "discrete_one_binomial": {"label": "二項検定（正確法）", "test_type": "binom", "recommended": false, "reason": "小標本やnp₀が小さい場合に適切です。正確法の考え方を提示します。"},
+        "discrete_one_poisson": {"label": "ポアソン率の検定", "test_type": "poisson", "recommended": false, "reason": "稀少事象の発生率を検定します。正確法の考え方を提示します。"},
+        "discrete_one_gof": {"label": "適合度検定（χ²）", "test_type": "chi2_gof", "recommended": false, "reason": "観測度数が理論分布に従うかを検定します。"},
+        "discrete_two_proportion": {"label": "2群の比率差の検定", "test_type": "prop_2", "recommended": true, "reason": "2群の母比率が等しいかを検定します。"},
+        "discrete_two_independence": {"label": "独立性の検定（χ²）", "test_type": "chi2_indep", "recommended": false, "reason": "2つのカテゴリ変数が独立かを検定します。"}
+      }
+    }
+  },
+  "badges": {
+    "ok": {"label": "OK", "symbol": "✓", "class": "badge-ok"},
+    "warn": {"label": "注意", "symbol": "⚠", "class": "badge-warn"},
+    "error": {"label": "要修正", "symbol": "✗", "class": "badge-error"}
+  }
+}

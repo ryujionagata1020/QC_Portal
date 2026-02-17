@@ -9,6 +9,14 @@ router.post("/answer", async (req, res, next) => {
       return res.status(400).json({ error: "必要なパラメータがありません" });
     }
 
+    // SECURITY: IDフォーマットの検証（CSS selector injection対策）
+    // IDは英数字とハイフン、アンダースコアのみ許可
+    const idPattern = /^[A-Za-z0-9\-_]+$/;
+
+    if (!idPattern.test(blank_id) || !idPattern.test(choice_id)) {
+      return res.status(400).json({ error: "無効なパラメータです" });
+    }
+
     // blank_idごとの正答を取得
     const selectQuery = await sql("SELECT_correct_answer_BY_blank_id");
     const rows = await MySQLClient.executeQuery(selectQuery, [blank_id]);
@@ -17,6 +25,7 @@ router.post("/answer", async (req, res, next) => {
       return res.status(404).json({ isCorrect: false, message: "正解データがありません" });
     }
 
+    // 文字列IDとして比較
     const correctChoiceId = rows[0].correct_choice_id;
     const isCorrect = correctChoiceId === choice_id;
 

@@ -1,0 +1,44 @@
+<!-- 達成度セクション -->
+<div id="section-achievement" class="account-section">
+  <h3>達成度</h3>
+
+  <!-- タブ切り替え -->
+  <% var wg = (user && user.want_grade1) ? { '４級':4, '３級':3, '２級':2, '１級':1 }[user.want_grade1] || 4 : 4; %>
+  <div class="account-tabs achievement-tabs">
+    <button class="account-tab<%= wg === 4 ? ' active' : '' %>" data-level="4" onclick="switchAchievementTab(4)">4級</button>
+    <button class="account-tab<%= wg === 3 ? ' active' : '' %>" data-level="3" onclick="switchAchievementTab(3)">3級</button>
+    <button class="account-tab<%= wg === 2 ? ' active' : '' %>" data-level="2" onclick="switchAchievementTab(2)">2級</button>
+    <button class="account-tab<%= wg === 1 ? ' active' : '' %>" data-level="1" onclick="switchAchievementTab(1)">1級</button>
+  </div>
+
+  <!-- 達成度コンテンツ -->
+  <div class="achievement-content">
+    <div id="achievementLoading" class="history-loading">
+      <span>読み込み中...</span>
+    </div>
+    <div id="achievementEmpty" class="history-empty" style="display: none;">
+      <span>この級の学習データはありません</span>
+    </div>
+    <div id="achievementData" class="achievement-data" style="display: none;">
+      <!-- 網羅度レポート -->
+      <div class="achievement-section coverage-section">
+        <h4>網羅度レポート</h4>
+        <div class="coverage-bar-container">
+          <div class="coverage-bar">
+            <div id="coverageBarFill" class="coverage-bar-fill"></div>
+          </div>
+          <div class="coverage-stats">
+            <span id="coverageText">0 / 0 問</span>
+            <span id="coveragePercent">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- カテゴリ別正解率 -->
+      <div class="achievement-section category-section">
+        <h4>カテゴリ別正解率</h4>
+        <div id="categoryAccuracyList" class="category-accuracy-list"></div>
+      </div>
+    </div>
+  </div>
+</div>

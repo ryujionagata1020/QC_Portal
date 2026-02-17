@@ -11,4 +11,9 @@ router.get("/privacy-policy", (req, res) => {
   res.render("privacy-policy");
 });
 
+// サイトマップページ
+router.get("/sitemap", (req, res) => {
+  res.render("sitemap");
+});
+
 module.exports = router;

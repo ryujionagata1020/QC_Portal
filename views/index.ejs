@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
     <!-- 自前CSS設定 -->
     <link rel="stylesheet" href="/public/index.css" />
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
 
     <!-- 必要ならここに追加のmetaやfaviconなど -->
     <!--<link rel="icon" href="../public/favicon.ico"> -->
@@ -24,16 +26,15 @@
   <!-- メインコンテンツ領域 -->
   <main id="main-content" class="index-container" role="main">
       <!-- （以下、元のまま） -->
-      <section id="primary" aria-labelledby="primary-heading">
-        <h2 id="primary-heading">QC-Portalのサイト目的</h2>
-        <p>
-          QC-Portalは、QC検定の合格を目指している方への情報提供や、<br />合格のサポートを目的としたサイトです。<br />2025年9月から3級・4級の試験はCBT方式に変更になりました。
-        </p>
-      </section>
-
-      <section id="primary" aria-labelledby="primary-heading">
-        <h2 id="primary-heading">QC検定一問一答</h2>
-        <p>品質とは何か正しいものどれか</p>
+      <section id="primary" aria-labelledby="primary-heading" class="primary-with-penguin">
+        <div class="speech-bubble">
+          <p>
+            QC-Portalは、QC検定®の合格を目指している方への情報提供や、<br />合格のサポートを目的としたサイトです。<br />2025年9月から3級・4級の試験はCBT方式に変更になりました。
+          </p>
+        </div>
+        <div class="penguin-image">
+          <img src="/public/branch_pengin.png" alt="ペンギン" />
+        </div>
       </section>
 
       <section id="primary" aria-labelledby="primary-heading">
@@ -43,14 +44,77 @@
         </p>
       </section>
 
-      <aside
-        id="sidebar"
-        role="complementary"
-        aria-labelledby="sidebar-heading"
-      >
-        <h3 id="sidebar-heading">サイドバー</h3>
-        <p>補足情報、リンク、最新記事一覧など。</p>
-      </aside>
+      <section id="announcements-section" aria-labelledby="announcements-heading">
+        <h2 id="announcements-heading">新着情報</h2>
+        <% if (typeof announcements !== 'undefined' && announcements && announcements.length > 0) { %>
+          <div class="announcements-list">
+            <% announcements.forEach(function(item) { %>
+              <div class="announcement-item">
+                <span class="announcement-genre <%= item.genre %>">
+                  <% if (item.genre === 'update') { %>アップデート
+                  <% } else if (item.genre === 'bugfix') { %>不具合修正
+                  <% } else if (item.genre === 'news') { %>最新情報
+                  <% } %>
+                </span>
+                <span class="announcement-date"><%= item.published_at.toLocaleDateString('ja-JP') %></span>
+                <span class="announcement-title"><%= item.title %></span>
+                <p class="announcement-content"><%= item.content %></p>
+              </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <p>現在、お知らせはありません。</p>
+        <% } %>
+      </section>
+
+      <section id="random-question-section" aria-labelledby="random-question-heading">
+        <h2 id="random-question-heading">QC検定一問一答</h2>
+
+        <% if (typeof randomQuestion !== 'undefined' && randomQuestion) { %>
+          <div class="random-question-preview">
+            <div class="random-question-meta">
+              <span>カテゴリ：<%= randomQuestion.large_category_name %> ＞ <%= randomQuestion.small_category_name %></span>
+              <span>難易度：<%= randomQuestion.testlevel %>級</span>
+            </div>
+
+            <% if (randomQuestion.image_data) { %>
+              <div class="random-question-img">
+                <img src="data:<%= randomQuestion.image_mime_type %>;base64,<%= randomQuestion.image_data %>" alt="問題図" width="300">
+              </div>
+            <% } %>
+
+            <div class="random-question-body">
+              <p class="latex-content"><%= randomQuestion.body %></p>
+            </div>
+
+            <div class="random-question-blanks">
+              <% randomQuestion.blanks.forEach(function(blank) { %>
+                <div class="random-blank-block">
+                  <div class="random-blank-header">
+                    <h4>（<%= blank.blank_number %>）</h4>
+                  </div>
+                  <div class="random-choice-grid">
+                    <% (blank.choices || []).forEach(function(choice) { %>
+                      <div class="random-choice-cell">
+                        <span class="random-choice-btn-disabled"><%= choice.label %></span>
+                        <span class="latex-content"><%= choice.text %></span>
+                      </div>
+                    <% }); %>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+
+            <div class="random-question-action">
+              <a href="/questions/<%= randomQuestion.question_id %>" class="btn-answer-link">回答・解説はこちら</a>
+            </div>
+          </div>
+        <% } else { %>
+          <p>問題を読み込めませんでした。</p>
+        <% } %>
+      </section>
+
+
   </main>
 
   <!-- フッター（共通化） -->
@@ -58,7 +122,23 @@
 </div>
 
 
-    <!-- 必要ならスクリプトをここに -->
-    <!-- <script src="script.js"></script> -->
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.latex-content').forEach(function(elem) {
+          renderMathInElement(elem, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\[', right: '\\]', display: true},
+              {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+          });
+        });
+      });
+    </script>
   </body>
 </html>

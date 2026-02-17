@@ -49,7 +49,7 @@ module.exports = function (passport) {
   passport.deserializeUser(async (id, done) => {
     try {
       const users = await executeQuery(
-        'SELECT id, user_id, mail, created_at, last_login_at FROM users WHERE id = ? AND is_active = TRUE',
+        'SELECT id, user_id, mail, want_grade1, want_grade2, user_name, scheduled_exam_date, created_at, last_login_at FROM users WHERE id = ? AND is_active = TRUE',
         [id]
       );
 

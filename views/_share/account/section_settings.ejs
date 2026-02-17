@@ -1,0 +1,47 @@
+<!-- 設定セクション -->
+<div id="section-settings" class="account-section">
+  <h3>設定</h3>
+  <div class="settings-content">
+    <!-- ユーザーID -->
+    <div class="settings-item">
+      <span class="settings-label">ユーザーID</span>
+      <span class="settings-value"><%= typeof user !== 'undefined' && user ? user.user_id : '-' %></span>
+    </div>
+
+    <!-- パスワード -->
+    <div class="settings-item">
+      <span class="settings-label">パスワード</span>
+      <span class="settings-value">********</span>
+      <button class="btn-settings-action" onclick="openPasswordChangeModal()">パスワード変更</button>
+    </div>
+
+    <!-- メールアドレス -->
+    <div class="settings-item">
+      <span class="settings-label">メールアドレス</span>
+      <span class="settings-value"><%= typeof user !== 'undefined' && user && user.mail ? user.mail : '未登録' %></span>
+      <button class="btn-settings-action" onclick="openEmailRegisterModal()">
+        <%= typeof user !== 'undefined' && user && user.mail ? '変更' : '登録' %>
+      </button>
+    </div>
+
+    <!-- テーマ設定 -->
+    <div class="settings-item">
+      <span class="settings-label">表示テーマ</span>
+      <span class="settings-value" id="currentThemeLabel">ライトモード</span>
+      <button class="btn-settings-action" onclick="toggleThemeFromSettings()" id="themeToggleBtn">
+        ダークモードに切替
+      </button>
+    </div>
+
+    <!-- 総学習問題数 -->
+    <div class="settings-item">
+      <span class="settings-label">総学習問題数</span>
+      <span class="settings-value" id="totalLearnedCount">読み込み中...</span>
+    </div>
+
+    <!-- アカウント削除ボタン -->
+    <div class="settings-danger-zone">
+      <button class="btn-danger" onclick="confirmDeleteAccount()">アカウントを削除</button>
+    </div>
+  </div>
+</div>

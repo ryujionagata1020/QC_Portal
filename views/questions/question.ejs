@@ -8,22 +8,14 @@
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
   <!-- 自前CSS設定 -->
   <link rel="stylesheet" href="/public/index.css">
+  <!-- KaTeX CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
 </head>
 
 <body>
   <%- include("../_share/navbar.ejs") %>
 
   <main class="question-container">
-    <!-- ログイン・新規登録ボタン -->
-    <div class="auth-button-container">
-      <% if (isAuthenticated) { %>
-        <span class="user-info">ようこそ、<%= user.user_id %> さん</span>
-        <button class="btn-auth" onclick="handleLogout()">ログアウト</button>
-      <% } else { %>
-        <button class="btn-auth" onclick="openAuthModal()">ログイン・新規登録</button>
-      <% } %>
-    </div>
-
     <% if (typeof currentNumber !== 'undefined' && typeof totalCount !== 'undefined') { %>
       <div class="question-progress-container">
         <div class="question-progress"><%= currentNumber %>問目 / <%= totalCount %>問中</div>
@@ -39,12 +31,12 @@
 
     <% if (image_data) { %>
       <div class="img-area">
-        <img src="/public/<%= image_data %>" alt="問題図" width="400">
+        <img src="data:<%= image_mime_type %>;base64,<%= image_data %>" alt="問題図" width="400">
       </div>
     <% } %>
 
     <div class="body">
-      <p><%= body %></p>
+      <p class="latex-content"><%= body %></p>
     </div>
 
     <div class="blanks-area">
@@ -55,23 +47,54 @@
             <span id="result_<%= blank.blank_id %>" class="resultArea"></span>
           </div>
           <div class="choice-grid" id="choices_<%= blank.blank_id %>">
-            <% choices.forEach(function(choice) { %>
+            <% (blank.choices || []).forEach(function(choice) { %>
               <div class="choice-cell">
                 <button class="choice-btn"
                         id="btn_<%= blank.blank_id %>_<%= choice.choice_id %>"
                         onclick="checkAnswer('<%= blank.blank_id %>', '<%= choice.choice_id %>')">
                   <%= choice.label %>
                 </button>
-                <span><%= choice.text %></span>
+                <span class="latex-content" data-latex="true"><%= choice.text %></span>
               </div>
             <% }); %>
           </div>
+          <% if (blank.explanation) { %>
+            <button class="btn toggle-explanation-btn" data-blank="<%= blank.blank_id %>">解説をみる</button>
+            <div id="explanation_<%= blank.blank_id %>" class="blank-explanation" style="display:none;">
+              <div class="latex-content"><%= blank.explanation %></div>
+              <% if (blank.explanation_data) { %>
+                <div class="explanation-img-area">
+                  <img src="data:<%= blank.explanation_mime_type %>;base64,<%= blank.explanation_data %>" alt="解説図（<%= blank.blank_number %>）" width="400">
+                </div>
+              <% } %>
+            </div>
+          <% } %>
         </div>
       <% }); %>
     </div>
 
-    <button class="btn" id="toggleExplanation">解説をみる</button>
-    <div id="explanation" style="display:none;"><%= explanation %></div>
+    <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+    <div class="qcheck-container">
+      <label class="qcheck-label qcheck-yellow">
+        <input type="checkbox" class="qcheck-input" data-color="yellow"
+          <%= (typeof checkedColors !== 'undefined' && checkedColors.includes('yellow')) ? 'checked' : '' %>
+          onchange="toggleQuestionCheck('<%= question_id %>', 'yellow', this.checked)">
+        <span class="qcheck-box"></span>
+      </label>
+      <label class="qcheck-label qcheck-green">
+        <input type="checkbox" class="qcheck-input" data-color="green"
+          <%= (typeof checkedColors !== 'undefined' && checkedColors.includes('green')) ? 'checked' : '' %>
+          onchange="toggleQuestionCheck('<%= question_id %>', 'green', this.checked)">
+        <span class="qcheck-box"></span>
+      </label>
+      <label class="qcheck-label qcheck-red">
+        <input type="checkbox" class="qcheck-input" data-color="red"
+          <%= (typeof checkedColors !== 'undefined' && checkedColors.includes('red')) ? 'checked' : '' %>
+          onchange="toggleQuestionCheck('<%= question_id %>', 'red', this.checked)">
+        <span class="qcheck-box"></span>
+      </label>
+    </div>
+    <% } %>
 
     <div class="next-button-container">
       <% if (nextId) { %>
@@ -91,93 +114,86 @@
       <div class="completion-content">
         <div class="completion-icon">🎉</div>
         <div class="completion-message" id="completionMessage"></div>
+        <div id="completionAchievement" class="completion-achievement"></div>
         <button class="btn-completion-close" onclick="closeCompletionOverlay()">閉じる</button>
       </div>
     </div>
   </main>
 
-  <!-- 認証モーダル -->
-  <div id="authModal" class="auth-modal">
-    <div class="auth-modal-content">
-      <span class="auth-modal-close" onclick="closeAuthModal()">&times;</span>
-
-      <!-- タブ切り替え -->
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchAuthTab('login')">ログイン</button>
-        <button class="auth-tab" onclick="switchAuthTab('register')">新規登録</button>
-      </div>
-
-      <!-- ログインフォーム -->
-      <div id="loginForm" class="auth-form-container active">
-        <h2>ログイン</h2>
-        <form id="loginFormElement" onsubmit="handleLogin(event)">
-          <div class="form-group">
-            <label for="login-user_id">ユーザーID</label>
-            <input type="text" id="login-user_id" name="user_id" required>
-          </div>
-          <div class="form-group">
-            <label for="login-password">パスワード</label>
-            <input type="password" id="login-password" name="password" required>
-          </div>
-          <div class="form-group checkbox-group">
-            <label>
-              <input type="checkbox" id="rememberMe" name="rememberMe">
-              ログイン状態を保持する（1ヶ月）
-            </label>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn-submit">ログイン</button>
-          </div>
-          <div id="loginMessage" class="auth-message"></div>
-        </form>
-        <div class="auth-footer">
-          <a href="#" class="forgot-password">パスワードをお忘れの場合</a>
-        </div>
-      </div>
-
-      <!-- 新規登録フォーム -->
-      <div id="registerForm" class="auth-form-container">
-        <h2>新規登録</h2>
-        <form id="registerFormElement" onsubmit="handleRegister(event)">
-          <div class="form-group">
-            <label for="register-user_id">ユーザーID（4〜50文字）</label>
-            <input type="text" id="register-user_id" name="user_id" minlength="4" maxlength="50" required>
-          </div>
-          <div class="form-group">
-            <label for="register-password">パスワード（8文字以上）</label>
-            <input type="password" id="register-password" name="password" minlength="8" required>
-          </div>
-          <div class="form-group">
-            <label for="register-mail">メールアドレス（任意）</label>
-            <input type="email" id="register-mail" name="mail">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn-submit">登録</button>
-          </div>
-          <div id="registerMessage" class="auth-message"></div>
-        </form>
-      </div>
-    </div>
-  </div>
-
   <%- include("../_share/footer.ejs") %>
 
+  <!-- KaTeX JS -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
   <script>
-    // ==== 解説の開閉 ====
-    const exp = document.getElementById("explanation");
-    const toggleBtn = document.getElementById("toggleExplanation");
-    toggleBtn.addEventListener("click", () => {
-      const show = exp.style.display === "none";
-      exp.style.display = show ? "block" : "none";
-      toggleBtn.textContent = show ? "解説を隠す" : "解説をみる";
+    // ==== KaTeX自動レンダリング ====
+    function renderAllLatex() {
+      console.log('renderAllLatex called');
+      console.log('renderMathInElement:', typeof renderMathInElement);
+      document.querySelectorAll('.latex-content').forEach(function(elem) {
+        console.log('Processing element:', elem.textContent);
+        renderMathInElement(elem, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+          ],
+          throwOnError: false
+        });
+      });
+    }
+    // ページ読み込み完了後にレンダリング実行
+    renderAllLatex();
+
+    // ==== 解説の開閉（blank_idごと） ====
+    document.querySelectorAll('.toggle-explanation-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const blankId = btn.dataset.blank;
+        const exp = document.getElementById('explanation_' + blankId);
+        if (!exp) return;
+        const show = exp.style.display === 'none';
+        exp.style.display = show ? 'block' : 'none';
+        btn.textContent = show ? '解説を隠す' : '解説をみる';
+        // 初回表示時にKaTeXをレンダリング
+        if (show && !exp.dataset.rendered) {
+          exp.querySelectorAll('.latex-content').forEach(function(elem) {
+            renderMathInElement(elem, {
+              delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+              ],
+              throwOnError: false
+            });
+          });
+          exp.dataset.rendered = '1';
+        }
+      });
     });
+
+    // ==== 問題チェック（黄・緑・赤） ====
+    async function toggleQuestionCheck(questionId, color, isChecked) {
+      try {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+        await fetch('/questions/' + questionId + '/check', {
+          method: isChecked ? 'POST' : 'DELETE',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+          body: JSON.stringify({ color: color })
+        });
+      } catch (err) {
+        console.error('チェック更新失敗:', err);
+      }
+    }
 
     // ==== 回答チェック ====
     async function checkAnswer(blankId, selectedChoiceId) {
       try {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         const response = await fetch("/questions/answer", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
           body: JSON.stringify({
             blank_id: blankId,
             choice_id: selectedChoiceId
@@ -198,6 +214,9 @@
         } else {
           selectedBtn.style.backgroundColor = "#fdd";
           selectedBtn.style.borderColor = "red";
+
+          // ✅ 不正解時は解説を自動展開
+          autoExpandExplanation(blankId);
         }
 
         const resultArea = document.getElementById(`result_${blankId}`);
@@ -212,6 +231,60 @@
       } catch (err) {
         console.error("答えチェック失敗:", err);
       }
+    }
+
+    // ==== 不正解時に解説を自動展開する関数 ====
+    function autoExpandExplanation(blankId) {
+      // SECURITY: blankIdをサニタイズしてCSS selector injection を防止
+      // IDは英数字、ハイフン、アンダースコアのみ許可
+      const sanitizedBlankId = String(blankId).replace(/[^A-Za-z0-9\-_]/g, '');
+
+      if (!sanitizedBlankId) {
+        console.error('Invalid blank_id:', blankId);
+        return;
+      }
+
+      // 既に展開されている解説があるかチェック（最初の不正解のみ展開）
+      const allExplanations = document.querySelectorAll('.blank-explanation');
+      const alreadyExpanded = Array.from(allExplanations).some(exp => exp.style.display === 'block');
+
+      if (alreadyExpanded) return;
+
+      // サニタイズされたIDを使用してDOM要素を取得
+      const exp = document.getElementById('explanation_' + sanitizedBlankId);
+      const btn = document.querySelector(`.toggle-explanation-btn[data-blank="${sanitizedBlankId}"]`);
+
+      if (!exp || !btn) {
+        console.warn('Explanation or button not found for blank_id:', sanitizedBlankId);
+        return;
+      }
+
+      // 解説を展開
+      exp.style.display = 'block';
+      btn.textContent = '解説を隠す';
+
+      // 初回表示時にKaTeXをレンダリング
+      if (!exp.dataset.rendered) {
+        exp.querySelectorAll('.latex-content').forEach(function(elem) {
+          renderMathInElement(elem, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\[', right: '\\]', display: true},
+              {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+          });
+        });
+        exp.dataset.rendered = '1';
+      }
+
+      // 解説エリアまでスクロールしてフォーカスを設定
+      setTimeout(() => {
+        exp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        exp.setAttribute('tabindex', '-1');
+        exp.focus();
+      }, 100);
     }
 
     // ==== オーバーレイを表示する関数 ====
@@ -232,7 +305,7 @@
     }
 
     // ==== 終了時オーバーレイを表示する関数 ====
-    function showCompletionOverlay() {
+    async function showCompletionOverlay() {
       const messages = [
         "がんばりました！",
         "おつかれさま！",
@@ -244,143 +317,154 @@
 
       document.getElementById("completionMessage").textContent = randomMessage;
       document.getElementById("completionOverlay").style.display = "flex";
+
+      // 達成度データを取得して表示
+      try {
+        const res = await fetch("/questions/completion-stats");
+        const data = await res.json();
+        if (data.categories && data.categories.length > 0) {
+          renderAchievementBars(data.categories);
+        }
+      } catch (e) {
+        console.error("達成度データ取得失敗:", e);
+      }
+    }
+
+    // ==== 達成度プログレスバーを描画する関数 ====
+    function renderAchievementBars(categories) {
+      const container = document.getElementById("completionAchievement");
+
+      // 大カテゴリでグループ化
+      const grouped = {};
+      categories.forEach(cat => {
+        if (!grouped[cat.large_category_name]) {
+          grouped[cat.large_category_name] = [];
+        }
+        grouped[cat.large_category_name].push(cat);
+      });
+
+      let html = '<div class="completion-achievement-title">カテゴリ別 達成度</div>';
+      let barIndex = 0;
+
+      Object.entries(grouped).forEach(([largeName, smalls]) => {
+        html += '<div class="completion-large-category">';
+        html += '<div class="completion-large-header">' + escapeHtml(largeName) + '</div>';
+        html += '<div class="completion-small-list">';
+
+        smalls.forEach(cat => {
+          const barId = 'cbar-' + barIndex;
+          const diff = cat.after_accuracy - cat.before_accuracy;
+          const diffText = cat.before_total > 0 && diff !== 0
+            ? (diff > 0 ? '+' + diff : String(diff))
+            : '';
+
+          html += '<div class="completion-small-item">';
+          html += '  <div class="completion-cat-name">' + escapeHtml(cat.small_category_name) + '</div>';
+          html += '  <div class="completion-bar-wrapper">';
+          html += '    <div class="completion-bar-track">';
+          // beforeバー（淡い色、下層）
+          html += '      <div class="completion-bar-before" id="' + barId + '-before" style="width:0%"></div>';
+          // afterバー（メイン色、上層）
+          html += '      <div class="completion-bar-after" id="' + barId + '-after" style="width:0%"></div>';
+          html += '    </div>';
+          html += '    <div class="completion-bar-labels">';
+          html += '      <span class="completion-bar-percent" id="' + barId + '-pct">0%</span>';
+          if (diffText) {
+            const diffClass = diff > 0 ? 'positive' : 'negative';
+            html += '      <span class="completion-bar-diff ' + diffClass + '" id="' + barId + '-diff" style="opacity:0">' + diffText + '</span>';
+          }
+          html += '    </div>';
+          html += '  </div>';
+          html += '</div>';
+          barIndex++;
+        });
+
+        html += '</div></div>';
+      });
+
+      // 凡例
+      html += '<div class="completion-legend">';
+      html += '  <span class="completion-legend-item"><span class="completion-legend-color before"></span>解く前</span>';
+      html += '  <span class="completion-legend-item"><span class="completion-legend-color after"></span>解いた後</span>';
+      html += '</div>';
+
+      container.innerHTML = html;
+
+      // アニメーション実行
+      let idx = 0;
+      Object.values(grouped).forEach(smalls => {
+        smalls.forEach(cat => {
+          const barId = 'cbar-' + idx;
+          animateBar(barId, cat, idx);
+          idx++;
+        });
+      });
+    }
+
+    // ==== 個別バーのアニメーション ====
+    function animateBar(barId, cat, index) {
+      const beforeEl = document.getElementById(barId + '-before');
+      const afterEl = document.getElementById(barId + '-after');
+      const pctEl = document.getElementById(barId + '-pct');
+      const diffEl = document.getElementById(barId + '-diff');
+      if (!beforeEl || !afterEl) return;
+
+      const stagger = index * 200;
+
+      // Step1: beforeバーを表示（0.4s後）
+      setTimeout(() => {
+        beforeEl.style.width = cat.before_accuracy + '%';
+        if (pctEl) animateCounter(pctEl, 0, cat.before_accuracy, 400);
+      }, 400 + stagger);
+
+      // Step2: afterバーを表示（1.0s後）
+      setTimeout(() => {
+        afterEl.style.width = cat.after_accuracy + '%';
+        if (pctEl) animateCounter(pctEl, cat.before_accuracy, cat.after_accuracy, 500);
+        // 差分ラベルをフェードイン
+        if (diffEl) {
+          setTimeout(() => { diffEl.style.opacity = '1'; }, 500);
+        }
+      }, 1000 + stagger);
+    }
+
+    // ==== 数値カウンターアニメーション ====
+    function animateCounter(el, from, to, duration) {
+      const start = performance.now();
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const value = Math.round(from + (to - from) * progress);
+        el.textContent = value + '%';
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // HTMLエスケープ
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
     }
 
     // ==== 終了オーバーレイを閉じる関数 ====
     function closeCompletionOverlay() {
       document.getElementById("completionOverlay").style.display = "none";
-      window.location.href = "/questions/select";
-    }
-
-    // ==== 認証モーダル制御 ====
-    function openAuthModal() {
-      document.getElementById('authModal').style.display = 'block';
-    }
-
-    function closeAuthModal() {
-      document.getElementById('authModal').style.display = 'none';
-      clearAuthMessages();
-    }
-
-    function switchAuthTab(tab) {
-      const tabs = document.querySelectorAll('.auth-tab');
-      const forms = document.querySelectorAll('.auth-form-container');
-
-      tabs.forEach(t => t.classList.remove('active'));
-      forms.forEach(f => f.classList.remove('active'));
-
-      if (tab === 'login') {
-        tabs[0].classList.add('active');
-        document.getElementById('loginForm').classList.add('active');
-      } else {
-        tabs[1].classList.add('active');
-        document.getElementById('registerForm').classList.add('active');
-      }
-
-      clearAuthMessages();
-    }
-
-    function clearAuthMessages() {
-      document.getElementById('loginMessage').textContent = '';
-      document.getElementById('registerMessage').textContent = '';
-    }
-
-    // モーダル外をクリックしたら閉じる
-    window.onclick = function(event) {
-      const modal = document.getElementById('authModal');
-      if (event.target === modal) {
-        closeAuthModal();
-      }
-    }
-
-    // ==== ログイン処理 ====
-    async function handleLogin(event) {
-      event.preventDefault();
-      const form = event.target;
-      const user_id = form.user_id.value;
-      const password = form.password.value;
-      const rememberMe = form.rememberMe.checked;
-
-      try {
-        const response = await fetch('/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user_id, password, rememberMe })
+      // 出題セッションをクリアしてから選択画面へ戻る
+      const csrfToken2 = document.querySelector('meta[name="csrf-token"]').content;
+      fetch("/questions/complete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken2 }
+      })
+        .then(() => {
+          window.location.href = "/questions/select";
+        })
+        .catch(() => {
+          window.location.href = "/questions/select";
         });
-
-        const data = await response.json();
-        const messageEl = document.getElementById('loginMessage');
-
-        if (data.success) {
-          messageEl.textContent = data.message;
-          messageEl.style.color = 'green';
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-        } else {
-          messageEl.textContent = data.message;
-          messageEl.style.color = 'red';
-        }
-      } catch (error) {
-        console.error('Login error:', error);
-        document.getElementById('loginMessage').textContent = 'ログインに失敗しました。';
-        document.getElementById('loginMessage').style.color = 'red';
-      }
     }
 
-    // ==== 新規登録処理 ====
-    async function handleRegister(event) {
-      event.preventDefault();
-      const form = event.target;
-      const user_id = form.user_id.value;
-      const password = form.password.value;
-      const mail = form.mail.value;
-
-      try {
-        const response = await fetch('/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user_id, password, mail })
-        });
-
-        const data = await response.json();
-        const messageEl = document.getElementById('registerMessage');
-
-        if (data.success) {
-          messageEl.textContent = data.message;
-          messageEl.style.color = 'green';
-          form.reset();
-          setTimeout(() => {
-            switchAuthTab('login');
-          }, 2000);
-        } else {
-          messageEl.textContent = data.message;
-          messageEl.style.color = 'red';
-        }
-      } catch (error) {
-        console.error('Register error:', error);
-        document.getElementById('registerMessage').textContent = '登録に失敗しました。';
-        document.getElementById('registerMessage').style.color = 'red';
-      }
-    }
-
-    // ==== ログアウト処理 ====
-    async function handleLogout() {
-      if (!confirm('ログアウトしますか？')) return;
-
-      try {
-        const response = await fetch('/auth/logout', {
-          method: 'POST'
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          location.reload();
-        }
-      } catch (error) {
-        console.error('Logout error:', error);
-      }
-    }
   </script>
 </body>
 </html>

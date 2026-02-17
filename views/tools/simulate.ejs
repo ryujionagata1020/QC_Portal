@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <%- include("../_share/metadata.ejs") %>
+  <title>ツール - QC-Portal</title>
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+  <link rel="stylesheet" href="/public/index.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+</head>
+<body>
+  <div id="site-wrapper">
+    <%- include("../_share/navbar.ejs") %>
+
+    <main class="simulate-container">
+      <!-- タブバー -->
+      <div class="tools-tab-bar">
+        <button class="tools-tab active" data-tab="sim">検定シミュレーション</button>
+        <button class="tools-tab" data-tab="cc">管理図シミュレーター</button>
+        <button class="tools-tab" data-tab="dm">確率分布 関係マップ</button>
+      </div>
+
+      <!-- タブパネルラッパー（高さを統一するため重ね合わせ） -->
+      <div class="tools-tab-panels">
+      <!-- ===== タブ1: 検定シミュレーション ===== -->
+      <div class="tools-tab-panel active" id="tabPanelSim" data-tab="sim">
+        <!-- 上部バー -->
+        <div class="sim-topbar">
+          <h1 class="sim-title">検定シミュレーション</h1>
+        </div>
+
+        <!-- 大前提の条件設定 -->
+        <div class="sim-premise-bar">
+          <div class="sim-premise-card">
+            <div class="sim-premise-icon">&alpha;</div>
+            <div class="sim-premise-content">
+              <div class="sim-premise-label">有意水準</div>
+              <div class="sim-premise-select-wrap">
+                <select id="sim-alpha" class="sim-premise-select">
+                  <option value="0.10">0.10（10%）</option>
+                  <option value="0.05" selected>0.05（5%）</option>
+                  <option value="0.01">0.01（1%）</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="sim-premise-card">
+            <div class="sim-premise-icon">&#x21C6;</div>
+            <div class="sim-premise-content">
+              <div class="sim-premise-label">検定の方向</div>
+              <div class="sim-premise-select-wrap">
+                <select id="sim-tail" class="sim-premise-select">
+                  <option value="two" selected>両側検定</option>
+                  <option value="right">右片側検定（&gt;）</option>
+                  <option value="left">左片側検定（&lt;）</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="sim-premise-card sim-premise-eqvar" id="sim-eqvar-group" style="display:none;">
+            <div class="sim-premise-icon">&#x2248;</div>
+            <div class="sim-premise-content">
+              <div class="sim-premise-label">等分散の仮定</div>
+              <label class="sim-toggle">
+                <input type="checkbox" id="sim-eqvar" checked>
+                <span class="sim-toggle-slider"></span>
+                <span class="sim-toggle-label" id="sim-eqvar-label">等分散</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- メインレイアウト -->
+        <div class="sim-main-layout">
+          <!-- 左ペイン: ウィザード -->
+          <div class="sim-wizard-pane" id="simWizardPane">
+            <div class="sim-wizard-header">検定の選択</div>
+
+            <!-- Q1 -->
+            <div class="sim-wizard-step active" data-step="1" id="wizardStep1">
+              <div class="sim-wizard-number">Q1</div>
+              <div class="sim-wizard-question">データの種類は？</div>
+              <div class="sim-wizard-options" id="wizardQ1">
+                <button type="button" class="sim-wizard-btn" data-value="continuous">計量値（連続データ）</button>
+                <button type="button" class="sim-wizard-btn" data-value="discrete">計数値（離散データ）</button>
+              </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="sim-wizard-step" data-step="2" id="wizardStep2">
+              <div class="sim-wizard-number">Q2</div>
+              <div class="sim-wizard-question">比較対象の数は？</div>
+              <div class="sim-wizard-options" id="wizardQ2"></div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="sim-wizard-step" data-step="3" id="wizardStep3">
+              <div class="sim-wizard-number">Q3</div>
+              <div class="sim-wizard-question">検定の種類は？</div>
+              <div class="sim-wizard-options" id="wizardQ3"></div>
+            </div>
+
+            <!-- 推奨表示 -->
+            <div class="sim-wizard-recommendation" id="simRecommendation" style="display:none;">
+              <div class="sim-rec-title" id="simRecTitle"></div>
+              <div class="sim-rec-reason" id="simRecReason"></div>
+              <div class="sim-rec-alt" id="simRecAlt" style="display:none;"></div>
+            </div>
+          </div>
+
+          <!-- 右ペイン: 入力・結果 -->
+          <div class="sim-content-pane" id="simContentPane">
+            <!-- 入力カード -->
+            <div class="sim-input-card" id="simInputCard">
+              <div class="sim-input-placeholder">
+                <div class="sim-placeholder-icon">&#x1f50d;</div>
+                <p>左のウィザードで検定の種類を選択してください。</p>
+              </div>
+            </div>
+
+            <!-- プレビューカード -->
+            <div class="sim-preview-card" id="simPreviewCard" style="display:none;">
+              <div class="sim-preview-header">仮説と検定情報</div>
+              <div class="sim-preview-body" id="simPreviewBody"></div>
+              <div class="sim-preview-badges" id="simPreviewBadges"></div>
+            </div>
+
+            <!-- 計算カード -->
+            <div class="sim-calc-card" id="simCalcCard" style="display:none;">
+              <div class="sim-calc-header">検定統計量の計算</div>
+              <div class="sim-calc-body" id="simCalcBody"></div>
+            </div>
+
+            <!-- 実行ボタン -->
+            <div class="sim-action-row" id="simActionRow" style="display:none;">
+              <button type="button" class="sim-btn-calc" id="simCalcBtn">検定統計量を計算</button>
+              <button type="button" class="sim-btn-execute" id="simExecuteBtn">検定を実行</button>
+            </div>
+
+            <!-- 結果カード -->
+            <div class="sim-result-card" id="simResultCard" style="display:none;">
+              <div class="sim-result-decision" id="simResultDecision"></div>
+            </div>
+
+            <!-- 分布表（グラフの上） -->
+            <div class="sim-table-section" id="simTableSection" style="display:none;">
+              <div class="sim-table-header">
+                <span class="sim-table-title" id="simTableTitle">分布表</span>
+                <span class="sim-table-note">使用した行・列をハイライト表示</span>
+              </div>
+              <div class="sim-table-wrapper" id="simTableWrapper"></div>
+            </div>
+
+            <!-- グラフカード -->
+            <div class="sim-graph-card" id="simGraphCard" style="display:none;">
+              <canvas id="simDistCanvas" width="640" height="300"></canvas>
+              <div class="sim-graph-legend" id="simGraphLegend"></div>
+            </div>
+
+            <!-- 詳細トグル -->
+            <div class="sim-detail-section" id="simDetailSection" style="display:none;">
+              <button type="button" class="sim-detail-toggle" id="simDetailToggle">
+                詳細を表示 &#x25BC;
+              </button>
+              <div class="sim-detail-body" id="simDetailBody" style="display:none;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== タブ2: 管理図シミュレーター ===== -->
+      <div class="tools-tab-panel" id="tabPanelCC" data-tab="cc">
+        <!-- 上部バー -->
+        <div class="cc-topbar">
+          <h1 class="cc-title">管理図 異常判定シミュレーター</h1>
+        </div>
+
+        <!-- 設定バー -->
+        <div class="cc-settings-bar">
+          <div class="cc-setting-card">
+            <div class="cc-setting-content">
+              <div class="cc-setting-label">モード</div>
+              <div class="cc-mode-toggle">
+                <button class="cc-mode-btn active" data-mode="beginner">初心者モード</button>
+                <button class="cc-mode-btn" data-mode="expert">熟練者モード</button>
+              </div>
+            </div>
+          </div>
+          <div class="cc-setting-card">
+            <div class="cc-setting-content">
+              <div class="cc-setting-label">対象級</div>
+              <div class="cc-setting-select-wrap">
+                <select id="cc-grade" class="cc-setting-select">
+                  <option value="3" selected>3・4級対応（ルール1, 2, 3）</option>
+                  <option value="1">1・2級対応（全8ルール）</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 初心者モード ===== -->
+        <div class="cc-mode-panel active" id="ccBeginnerPanel">
+          <!-- 管理図Canvas -->
+          <div class="cc-chart-area">
+            <canvas id="ccBeginnerCanvas" width="800" height="340"></canvas>
+          </div>
+
+          <!-- スタート行 -->
+          <div class="cc-start-row" id="ccStartRow">
+            <button type="button" class="cc-btn-start" id="ccBtnStart">スタート</button>
+          </div>
+
+          <!-- 回答ボタン -->
+          <div class="cc-answer-row" id="ccAnswerRow" style="display:none;">
+            <button type="button" class="cc-btn-normal" id="ccBtnNormal">正常</button>
+            <button type="button" class="cc-btn-abnormal" id="ccBtnAbnormal">異常</button>
+            <button type="button" class="cc-btn-hint" id="ccBtnHint">ヒント</button>
+          </div>
+
+          <!-- ルール選択 -->
+          <div class="cc-rule-select" id="ccRuleSelect" style="display:none;">
+            <div class="cc-rule-prompt">どのネルソンルールに該当しますか？</div>
+            <div class="cc-rule-grid" id="ccRuleGrid"></div>
+          </div>
+
+          <!-- フィードバック -->
+          <div class="cc-feedback" id="ccFeedback" style="display:none;">
+            <div class="cc-feedback-icon" id="ccFeedbackIcon"></div>
+            <div class="cc-feedback-body">
+              <div class="cc-feedback-title" id="ccFeedbackTitle"></div>
+              <div class="cc-feedback-msg" id="ccFeedbackMsg"></div>
+              <div class="cc-feedback-detail" id="ccFeedbackDetail"></div>
+            </div>
+            <button type="button" class="cc-btn-next" id="ccBtnNext">次の問題</button>
+          </div>
+
+          <!-- 統計バー -->
+          <div class="cc-stats-bar">
+            <div class="cc-stat">
+              <span class="cc-stat-label">出題数</span>
+              <span class="cc-stat-value" id="ccStatTotal">0</span>
+            </div>
+            <div class="cc-stat">
+              <span class="cc-stat-label">正解</span>
+              <span class="cc-stat-value cc-stat-correct" id="ccStatCorrect">0</span>
+            </div>
+            <div class="cc-stat">
+              <span class="cc-stat-label">見逃し</span>
+              <span class="cc-stat-value cc-stat-miss" id="ccStatMiss">0</span>
+            </div>
+            <div class="cc-stat">
+              <span class="cc-stat-label">空振り</span>
+              <span class="cc-stat-value cc-stat-false" id="ccStatFalse">0</span>
+            </div>
+            <button type="button" class="cc-btn-reset-stats" id="ccBtnResetStats" title="統計をリセット">&#x21BB;</button>
+          </div>
+        </div>
+
+        <!-- ===== 熟練者モード ===== -->
+        <div class="cc-mode-panel" id="ccExpertPanel">
+          <!-- 情報バー -->
+          <div class="cc-game-bar">
+            <div class="cc-game-item">
+              <span class="cc-game-label">経過時間</span>
+              <span class="cc-game-value" id="ccGameTime">0:00</span>
+            </div>
+            <div class="cc-game-item">
+              <span class="cc-game-label">データ数</span>
+              <span class="cc-game-value" id="ccGameDataCount">0</span>
+            </div>
+          </div>
+
+          <!-- 管理図Canvas -->
+          <div class="cc-chart-area cc-chart-area-expert">
+            <canvas id="ccExpertCanvas" width="800" height="340"></canvas>
+            <!-- フラッシュフィードバック -->
+            <div class="cc-expert-feedback" id="ccExpertFeedback" style="display:none;"></div>
+          </div>
+
+          <!-- アクションエリア -->
+          <div class="cc-expert-actions">
+            <!-- 開始前 -->
+            <div class="cc-expert-action-row" id="ccExpertStartRow">
+              <button type="button" class="cc-btn-start-line" id="ccBtnStartLine">ライン開始</button>
+            </div>
+            <!-- 実行中 -->
+            <div class="cc-expert-action-row" id="ccExpertRunningRow" style="display:none;">
+              <button type="button" class="cc-btn-alert" id="ccBtnAlert">異常あり！</button>
+              <button type="button" class="cc-btn-pause" id="ccBtnPauseLine">一時停止</button>
+              <button type="button" class="cc-btn-resume" id="ccBtnResumeLine" style="display:none;">再開</button>
+              <button type="button" class="cc-btn-stop" id="ccBtnStopLine">リセット</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ===== タブ3: 確率分布 関係マップ ===== -->
+      <div class="tools-tab-panel" id="tabPanelDM" data-tab="dm">
+        <!-- 上部バー -->
+        <div class="dm-topbar">
+          <div class="dm-topbar-left">
+            <h1 class="dm-title">確率分布 関係マップ</h1>
+          </div>
+          <div class="dm-grade-filter">
+            <label class="dm-grade-label" for="dmGradeSelect">対象級</label>
+            <div class="dm-grade-select-wrap">
+              <select id="dmGradeSelect" class="dm-grade-select">
+                <option value="all">すべて表示</option>
+                <option value="3">3級</option>
+                <option value="2">2級</option>
+                <option value="1">1級</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 関係マップ -->
+        <div class="dm-map-area" id="dmMapArea">
+          <canvas id="dmMapCanvas"></canvas>
+        </div>
+
+        <!-- 凡例 -->
+        <div class="dm-legend-bar">
+          <span class="dm-legend-item"><span class="dm-legend-dot dm-legend-dot-discrete"></span>離散分布 (7種)</span>
+          <span class="dm-legend-item"><span class="dm-legend-dot dm-legend-dot-continuous"></span>連続分布 (13種)</span>
+          <span class="dm-legend-item dm-legend-hint">ノードをクリック→詳細 / 矢印をクリック→アニメーション</span>
+        </div>
+
+        <!-- 詳細パネル (ノードクリックで表示) -->
+        <div class="dm-detail-panel" id="dmDetailPanel" style="display:none;">
+          <div class="dm-detail-header">
+            <button type="button" class="dm-btn-back" id="dmBtnBack">&larr; マップに戻る</button>
+            <span class="dm-detail-title" id="dmDetailTitle"></span>
+          </div>
+
+          <div class="dm-detail-canvas-area">
+            <canvas id="dmDetailCanvas"></canvas>
+          </div>
+
+          <!-- パラメータ制御 -->
+          <div class="dm-param-controls" id="dmParamControls"></div>
+
+          <!-- nスライダー -->
+          <div class="dm-slider-area" id="dmSliderArea" style="display:none;">
+            <div class="dm-slider-label">
+              <span>自由度 (n):</span>
+              <span class="dm-slider-value" id="dmSliderValue">5</span>
+            </div>
+            <input type="range" id="dmSliderN" class="dm-slider" min="1" max="100" value="5" step="1">
+            <div class="dm-slider-ticks">
+              <span>1</span><span>10</span><span>30</span><span>50</span><span>100</span>
+            </div>
+            <div class="dm-approx-notice" id="dmApproxNotice" style="display:none;">
+              &#x2714; n &gt; 30: 正規分布で代用可能
+            </div>
+          </div>
+
+          <!-- 数式表示 -->
+          <div class="dm-formula-card" id="dmFormulaCard">
+            <div class="dm-formula-title" id="dmFormulaTitle"></div>
+            <div class="dm-formula-body" id="dmFormulaBody"></div>
+          </div>
+
+          <!-- 教育ノート -->
+          <div class="dm-edu-notes" id="dmEduNotes"></div>
+        </div>
+
+        <!-- アニメーションオーバーレイ (矢印クリックで表示) -->
+        <div class="dm-anim-overlay" id="dmAnimOverlay" style="display:none;">
+          <div class="dm-anim-header">
+            <span class="dm-anim-title" id="dmAnimTitle"></span>
+            <button type="button" class="dm-btn-close-anim" id="dmBtnCloseAnim">&times;</button>
+          </div>
+          <div class="dm-anim-canvas-area">
+            <canvas id="dmAnimCanvas"></canvas>
+          </div>
+          <div class="dm-anim-formula" id="dmAnimFormula"></div>
+          <div class="dm-anim-controls">
+            <button type="button" class="dm-btn-replay" id="dmBtnReplay">もう一度再生</button>
+            <button type="button" class="dm-btn-step" id="dmBtnStep">ステップ再生</button>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /.tools-tab-panels -->
+    </main>
+
+    <%- include("../_share/footer.ejs") %>
+  </div>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <!-- 検定シミュレーション -->
+  <script src="/public/js/tools/api-client.js"></script>
+  <script src="/public/js/tools/wizard.js"></script>
+  <script src="/public/js/tools/input-cards.js"></script>
+  <script src="/public/js/tools/graph.js"></script>
+  <script src="/public/js/tools/simulate.js"></script>
+  <!-- 管理図シミュレーター -->
+  <script src="/public/js/tools/cc-data-gen.js"></script>
+  <script src="/public/js/tools/cc-nelson.js"></script>
+  <script src="/public/js/tools/cc-chart.js"></script>
+  <script src="/public/js/tools/cc-beginner.js"></script>
+  <script src="/public/js/tools/cc-expert.js"></script>
+  <script src="/public/js/tools/cc-main.js"></script>
+  <!-- 確率分布 関係マップ -->
+  <script src="/public/js/tools/dm-pdf.js"></script>
+  <script src="/public/js/tools/dm-canvas.js"></script>
+  <script src="/public/js/tools/dm-map.js"></script>
+  <script src="/public/js/tools/dm-detail.js"></script>
+  <script src="/public/js/tools/dm-anim.js"></script>
+  <script src="/public/js/tools/dm-main.js"></script>
+</body>
+</html>

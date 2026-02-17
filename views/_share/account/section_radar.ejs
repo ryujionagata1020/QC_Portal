@@ -1,0 +1,40 @@
+<!-- レーダーチャートセクション -->
+<div id="section-radar" class="account-section">
+  <h3>レーダーチャート</h3>
+
+  <!-- タブ切り替え（級） -->
+  <% var wg = (user && user.want_grade1) ? { '４級':4, '３級':3, '２級':2, '１級':1 }[user.want_grade1] || 4 : 4; %>
+  <div class="account-tabs radar-tabs">
+    <button class="account-tab<%= wg === 4 ? ' active' : '' %>" data-level="4" onclick="switchRadarTab(4)">4級</button>
+    <button class="account-tab<%= wg === 3 ? ' active' : '' %>" data-level="3" onclick="switchRadarTab(3)">3級</button>
+    <button class="account-tab<%= wg === 2 ? ' active' : '' %>" data-level="2" onclick="switchRadarTab(2)">2級</button>
+    <button class="account-tab<%= wg === 1 ? ' active' : '' %>" data-level="1" onclick="switchRadarTab(1)">1級</button>
+  </div>
+
+  <!-- レーダーチャート凡例 -->
+  <div class="radar-legend">
+    <div class="radar-legend-item">
+      <span class="radar-legend-color" style="background: #8b6ccf;"></span>
+      <span>現在</span>
+    </div>
+    <div class="radar-legend-item">
+      <span class="radar-legend-color" style="background: #3b9ddd;"></span>
+      <span>2週間前</span>
+    </div>
+    <div class="radar-legend-item">
+      <span class="radar-legend-color" style="background: #e8943e;"></span>
+      <span>1か月前</span>
+    </div>
+  </div>
+
+  <!-- レーダーチャートコンテンツ -->
+  <div class="radar-content">
+    <div id="radarLoading" class="history-loading">
+      <span>読み込み中...</span>
+    </div>
+    <div id="radarEmpty" class="history-empty" style="display: none;">
+      <span>この級のデータはありません</span>
+    </div>
+    <div id="radarChartsContainer" class="radar-charts-container" style="display: none;"></div>
+  </div>
+</div>

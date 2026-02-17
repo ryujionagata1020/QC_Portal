@@ -1,0 +1,22 @@
+<!-- カテゴリ出題確認ポップアップ -->
+<div id="categoryConfirmOverlay" class="category-confirm-overlay">
+  <div class="category-confirm-dialog">
+    <p class="category-confirm-message">
+      <span id="categoryConfirmName"></span>の問題を解きますか？
+    </p>
+    <div class="category-confirm-buttons">
+      <button class="btn-category-confirm" id="categoryConfirmOk">解く！</button>
+      <button class="btn-category-cancel" id="categoryConfirmCancel">キャンセル</button>
+    </div>
+  </div>
+</div>
+
+<!-- カテゴリ出題用の隠しフォーム -->
+<form id="categoryStartForm" method="POST" action="/questions/start" style="display:none;">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <input type="hidden" name="testlevels" value="1" />
+  <input type="hidden" name="testlevels" value="2" />
+  <input type="hidden" name="testlevels" value="3" />
+  <input type="hidden" name="testlevels" value="4" />
+  <input type="hidden" name="smalls" id="categoryStartSmallId" />
+</form>

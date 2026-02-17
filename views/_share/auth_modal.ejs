@@ -1,0 +1,63 @@
+<!-- 認証モーダル（共通） -->
+<div id="authModal" class="auth-modal">
+  <div class="auth-modal-content">
+    <span class="auth-modal-close" onclick="closeAuthModal()">&times;</span>
+
+    <!-- タブ切り替え -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login')">ログイン</button>
+      <button class="auth-tab" onclick="switchAuthTab('register')">新規登録</button>
+    </div>
+
+    <!-- ログインフォーム -->
+    <div id="loginForm" class="auth-form-container active">
+      <h2>ログイン</h2>
+      <form id="loginFormElement" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-user_id">ユーザーID</label>
+          <input type="text" id="login-user_id" name="user_id" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">パスワード</label>
+          <input type="password" id="login-password" name="password" required>
+        </div>
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="rememberMe" name="rememberMe">
+            ログイン状態を保持する（1ヶ月）
+          </label>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-submit">ログイン</button>
+        </div>
+        <div id="loginMessage" class="auth-message"></div>
+      </form>
+      <div class="auth-footer">
+        <a href="#" class="forgot-password">パスワードをお忘れの場合</a>
+      </div>
+    </div>
+
+    <!-- 新規登録フォーム -->
+    <div id="registerForm" class="auth-form-container">
+      <h2>新規登録</h2>
+      <form id="registerFormElement" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label for="register-user_id">ユーザーID（4〜50文字）</label>
+          <input type="text" id="register-user_id" name="user_id" minlength="4" maxlength="50" required>
+        </div>
+        <div class="form-group">
+          <label for="register-password">パスワード（8文字以上）</label>
+          <input type="password" id="register-password" name="password" minlength="8" required>
+        </div>
+        <div class="form-group">
+          <label for="register-mail">メールアドレス（任意）</label>
+          <input type="email" id="register-mail" name="mail">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-submit">登録</button>
+        </div>
+        <div id="registerMessage" class="auth-message"></div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "t_1sample_basic",
+    "label": "1標本t検定の例",
+    "test_type": "t_1sample",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"n": 25, "mean": 52.3, "sd": 5.1, "mu0": 50}
+  },
+  {
+    "id": "t_paired_basic",
+    "label": "対応ありt検定の例",
+    "test_type": "t_paired",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"n": 15, "d_bar": 2.5, "sd_d": 3.8}
+  },
+  {
+    "id": "t_welch_basic",
+    "label": "Welch t検定の例",
+    "test_type": "t_welch",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"n1": 20, "mean1": 75.2, "sd1": 8.3, "n2": 22, "mean2": 70.1, "sd2": 9.5}
+  },
+  {
+    "id": "prop_1_basic",
+    "label": "1標本比率検定の例",
+    "test_type": "prop_1",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"n": 200, "x": 120, "p0": 0.5}
+  },
+  {
+    "id": "chi2_gof_basic",
+    "label": "適合度検定の例",
+    "test_type": "chi2_gof",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"observed": [30, 25, 20, 25], "expected": [25, 25, 25, 25]}
+  },
+  {
+    "id": "chi2_indep_basic",
+    "label": "独立性検定の例",
+    "test_type": "chi2_indep",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"rows": 2, "cols": 2, "observed": [[50, 30], [20, 40]]}
+  },
+  {
+    "id": "f_eqvar_basic",
+    "label": "F検定（等分散性）の例",
+    "test_type": "f_eqvar",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"n1": 16, "sd1": 4.2, "n2": 21, "sd2": 3.1}
+  },
+  {
+    "id": "anova_basic",
+    "label": "一元配置分散分析の例",
+    "test_type": "anova_oneway",
+    "defaults": {"alpha": 0.05, "tail": "two"},
+    "params": {"k": 3, "groups": [{"n": 10, "mean": 45.2, "sd": 5.1}, {"n": 10, "mean": 50.8, "sd": 4.7}, {"n": 10, "mean": 48.1, "sd": 5.3}]}
+  }
+]
