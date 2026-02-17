@@ -1,8 +1,12 @@
-
+require("dotenv").config();
+require("./scripts/check-env");
+const crypto = require("crypto");
 const appcongfig = require("./config/application.config.js");
 const dbconfig = require("./config/mysql.config.js");
 const path = require("path");
 const express = require("express");
+const helmet = require("helmet");
+const { MySQLClient, sql } = require("./lib/database/client.js");
 const favicon = require("serve-favicon");
 const cookie = require("cookie-parser");
 const session = require("express-session");
@@ -15,6 +19,26 @@ const app = express();
 // EJS設定
 app.set("view engine", "ejs");
 app.disable("x-powered-by");
+
+// Helmet セキュリティヘッダー
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "cdn.jsdelivr.net"],
+      scriptSrcAttr: ["'unsafe-inline'"],  // onclick などのインラインイベントハンドラーを許可
+      styleSrc: ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "unpkg.com"],
+      imgSrc: ["'self'", "data:", "blob:"],
+      fontSrc: ["'self'", "cdn.jsdelivr.net"],
+      connectSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"]
+    }
+  },
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 
 // favicon設定と静的ファイル
 app.use(favicon(path.join(__dirname, "/public/favicon.ico")));
@@ -30,8 +54,7 @@ const sessionConnection = mysql2.createPool({
   port: dbconfig.PORT,
   user: dbconfig.USERNAME,
   password: dbconfig.PASSWORD,
-  database: dbconfig.DATABASE,
-  insecureAuth: true
+  database: dbconfig.DATABASE
 });
 
 app.use(session({
@@ -43,6 +66,7 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false, // 本番環境ではtrueに設定（HTTPS使用時）
+    sameSite: "lax",
     maxAge: null // デフォルトはブラウザを閉じるまで
   }
 }));
@@ -63,15 +87,47 @@ app.use((req, res, next) => {
   next();
 });
 
+// CSRFトークンの生成とビューへの公開
+app.use((req, res, next) => {
+  if (!req.session.csrfToken) {
+    req.session.csrfToken = crypto.randomBytes(32).toString("hex");
+  }
+  res.locals.csrfToken = req.session.csrfToken;
+  next();
+});
+
+// CSRF検証ミドルウェア（POST/PUT/DELETE）
+app.use((req, res, next) => {
+  if (["GET", "HEAD", "OPTIONS"].includes(req.method)) {
+    return next();
+  }
+  const token = (req.body && req.body._csrf) || req.headers["x-csrf-token"];
+  if (!token || token !== req.session.csrfToken) {
+    return res.status(403).json({ error: "CSRFトークンが無効です。ページを再読み込みしてください。" });
+  }
+  next();
+});
+
 // ✅ ルーティング
 app.use("/", require("./routes/pages.js"));
 app.use("/auth", require("./routes/auth.js"));
 app.use("/account", require("./routes/account.js"));
+app.use("/tools", require("./routes/tools.js"));
 app.use("/questions/select", require("./routes/question_select.js"));
 app.use("/questions/start", require("./routes/question_start.js"));
 app.use("/questions", require("./routes/ques.js"));
 app.use("/questions", require("./routes/question_answer.js"));
 app.use("/", require("./routes/index.js"));
+
+// 期限切れquiz_sessionsのクリーンアップ（1時間ごと）
+setInterval(async () => {
+  try {
+    const query = await sql('DELETE_expired_quiz_sessions');
+    await MySQLClient.executeQuery(query);
+  } catch (err) {
+    console.error('Quiz session cleanup error:', err);
+  }
+}, 60 * 60 * 1000);
 
 app.listen(appcongfig.PORT, () => {
   console.log(`Application listening at ${appcongfig.PORT}`);
