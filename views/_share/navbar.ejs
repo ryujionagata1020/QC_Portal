@@ -22,7 +22,7 @@ aria-label="グローバルナビゲーション"
 
 </nav>
 
-<!-- ユーザーメニュー -->
+<!-- ユーザーメニュー（デスクトップ用、768px超で表示） -->
 <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
 <div class="user-menu">
   <% if (user && user.scheduled_exam_date) { %>
@@ -58,6 +58,57 @@ aria-label="グローバルナビゲーション"
 </div>
 <% } %>
 
+<!-- ハンバーガーボタン（768px以下で表示） -->
+<button
+  id="hamburger-btn"
+  class="hamburger-btn"
+  aria-label="メニューを開く"
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+</button>
+
+</div>
+
+<!-- モバイルメニューパネル（768px以下でのみ開閉） -->
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <nav aria-label="モバイルナビゲーション">
+    <ul class="mobile-nav-list">
+      <li><a href="/qcis">QC検定®とは</a></li>
+      <li><a href="/questions/select">試験対策</a></li>
+      <li><a href="/statisinfo">統計情報</a></li>
+      <li><a href="#">参考書・問題集</a></li>
+      <li><a href="/tools/simulate">ツール</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-user-section">
+    <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
+      <% if (user && user.scheduled_exam_date) { %>
+        <% if (typeof diffDays !== 'undefined') { %>
+          <% if (diffDays > 0) { %>
+            <div class="mobile-countdown">受験予定日は<strong><%= examYear %>年<%= examMonth %>月<%= examDay %>日</strong><br>試験まであと<strong class="exam-countdown-days"><%= diffDays %>日</strong></div>
+          <% } else if (diffDays === 0) { %>
+            <div class="mobile-countdown"><strong>本日が受験日です！</strong></div>
+          <% } else { %>
+            <div class="mobile-countdown"><a href="javascript:void(0)" class="exam-countdown-link" onclick="openAccountModal(); switchAccountSection('profile'); window.closeHamburger && closeHamburger();">受験予定日を更新する</a></div>
+          <% } %>
+        <% } %>
+      <% } else { %>
+        <div class="mobile-countdown"><a href="javascript:void(0)" class="exam-countdown-link" onclick="openAccountModal(); switchAccountSection('profile'); window.closeHamburger && closeHamburger();">受験予定日を設定する</a></div>
+      <% } %>
+      <div class="mobile-user-actions">
+        <button class="account-btn" onclick="openAccountModal(); window.closeHamburger && closeHamburger();" title="アカウント管理">
+          <img src="/public/account_oengin.jpg" alt="アカウント">
+        </button>
+        <button class="btn-logout" onclick="handleNavLogout()">ログアウト</button>
+      </div>
+    <% } else { %>
+      <button class="btn-auth" onclick="openAuthModal(); window.closeHamburger && closeHamburger();">ログイン・新規登録</button>
+    <% } %>
+  </div>
 </div>
 
 </header>
@@ -74,6 +125,57 @@ aria-label="グローバルナビゲーション"
 (function initTheme() {
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
+})();
+
+// ハンバーガーメニュー制御
+(function initHamburger() {
+  var btn = document.getElementById('hamburger-btn');
+  var menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+
+  function openMenu() {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.setAttribute('aria-label', 'メニューを閉じる');
+    menu.classList.add('is-open');
+    menu.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeMenu() {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'メニューを開く');
+    menu.classList.remove('is-open');
+    menu.setAttribute('aria-hidden', 'true');
+  }
+
+  btn.addEventListener('click', function() {
+    btn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+  });
+
+  // メニュー外タップで閉じる
+  document.addEventListener('click', function(e) {
+    var header = document.getElementById('site-header');
+    if (header && !header.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Escキーで閉じる
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeMenu();
+      btn.focus();
+    }
+  });
+
+  // 769px 超にリサイズしたらメニューを閉じる
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) {
+      closeMenu();
+    }
+  });
+
+  // 他のスクリプト（モバイルメニュー内ボタン等）から呼べるようにグローバル公開
+  window.closeHamburger = closeMenu;
 })();
 
 // ログアウト処理（navbar用）

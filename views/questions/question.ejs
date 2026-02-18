@@ -31,7 +31,7 @@
 
     <% if (image_data) { %>
       <div class="img-area">
-        <img src="data:<%= image_mime_type %>;base64,<%= image_data %>" alt="問題図" width="400">
+        <img src="data:<%= image_mime_type %>;base64,<%= image_data %>" alt="問題図">
       </div>
     <% } %>
 
@@ -64,7 +64,7 @@
               <div class="latex-content"><%= blank.explanation %></div>
               <% if (blank.explanation_data) { %>
                 <div class="explanation-img-area">
-                  <img src="data:<%= blank.explanation_mime_type %>;base64,<%= blank.explanation_data %>" alt="解説図（<%= blank.blank_number %>）" width="400">
+                  <img src="data:<%= blank.explanation_mime_type %>;base64,<%= blank.explanation_data %>" alt="解説図（<%= blank.blank_number %>）">
                 </div>
               <% } %>
             </div>

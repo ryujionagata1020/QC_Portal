@@ -1406,6 +1406,23 @@ button:hover {
   }
 }
 
+@media screen and (max-width: 768px) {
+
+  /* 共通コンテナ：モバイルでは高さを auto に（PC の固定高さを上書き） */
+  .index-container,
+  .qcis-container,
+  .question-container,
+  .select-container {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .statisinfo-container {
+    height: auto;
+    overflow-y: visible;
+  }
+}
+
 @media screen and (max-width: 600px) {
 
   /* 共通コンテナのモバイル対応 */
@@ -1416,18 +1433,16 @@ button:hover {
     padding: 15px;
     margin: 5px;
     max-width: calc(100% - 10px);
-    height: 2800px;
-  }
-
-  .qcis-container {
     height: auto;
+    overflow-y: visible;
   }
 
   .statisinfo-container {
     padding: 15px;
     margin: 5px;
     max-width: calc(100% - 10px);
-    height: 3200px;
+    height: auto;
+    overflow-y: visible;
   }
 
   .large-category-grid {
@@ -2955,27 +2970,7 @@ img {
   }
 }
 
-@media screen and (max-width: 480px) {
-  .user-menu {
-    position: fixed;
-    top: 80px;
-    right: 10px;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .btn-logout {
-    order: 3;
-  }
-
-  .theme-toggle-btn {
-    order: 2;
-  }
-
-  .account-btn {
-    order: 1;
-  }
-}
+/* 480px user-menu position:fixed ハックは削除（ハンバーガーメニューで代替） */
 
 .btn-submit {
   width: 100%;
@@ -6432,4 +6427,187 @@ a.small-category-link:hover {
 #checksList .history-table td {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* =========================================================
+   ハンバーガーメニュー（モバイルナビ）
+   ========================================================= */
+
+/* ---- ハンバーガーボタン ---- */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.hamburger-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-nav-text);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* 開いた状態：×アニメーション */
+.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---- モバイルメニューパネル ---- */
+.mobile-menu {
+  display: none;
+  background-color: var(--color-nav-bg);
+  border-top: 1px solid var(--color-nav-border);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.mobile-menu.is-open {
+  max-height: 520px;
+  padding: 8px 0 16px;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-nav-list li {
+  border-bottom: 1px solid var(--color-nav-border);
+}
+
+.mobile-nav-list li:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav-list a {
+  display: block;
+  padding: 14px 20px;
+  color: var(--color-nav-link);
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-list a:hover,
+.mobile-nav-list a:focus {
+  background: rgba(139, 108, 207, 0.15);
+  color: var(--color-brand-lighter);
+  outline: none;
+}
+
+/* モバイル用ユーザーセクション */
+.mobile-user-section {
+  padding: 12px 20px;
+  border-top: 1px solid var(--color-nav-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-countdown {
+  font-size: 12px;
+  color: var(--color-gray-400);
+  line-height: 1.6;
+  white-space: normal;
+}
+
+.mobile-countdown strong {
+  color: var(--color-brand-pale-lighter);
+}
+
+.mobile-countdown .exam-countdown-days {
+  color: var(--color-brand-lighter);
+  font-size: 1.1em;
+}
+
+/* ---- 768px 以下：デスクトップナビを隠してハンバーガーを表示 ---- */
+@media screen and (max-width: 768px) {
+  #global-nav {
+    display: none;
+  }
+
+  .user-menu {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+
+/* ---- 430px 細部調整 ---- */
+@media screen and (max-width: 430px) {
+  .site-title {
+    font-size: 1.2rem;
+  }
+
+  #site-header .container {
+    padding: 0.5rem 1rem;
+  }
+
+  .choice-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
+  .btn-next {
+    padding: 14px 40px;
+    font-size: 1.1em;
+  }
+}
+
+/* ---- 画像レスポンシブ補強 ---- */
+.img-area img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+.explanation-img-area {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.explanation-img-area img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
 }

@@ -4,7 +4,7 @@ var currentSection = 'activity';
 function openAccountModal() {
   document.getElementById('accountModal').style.display = 'block';
   if (currentSection === 'activity') {
-    loadAccountActivity(currentAccountLevel);
+    loadActivityData(currentActivityLevel, currentActivityUnit);
   }
 }
 
