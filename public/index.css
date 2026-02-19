@@ -1009,6 +1009,64 @@ a {
   height: auto;
 }
 
+/* ペンギン＋吹き出しエリア */
+.pengin-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.pengin-img {
+  max-width: 200px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+/* ペンギン吹き出し本体 */
+.pengin-bubble {
+  position: relative;
+  background: #fff;
+  border: 2px solid #8b6ccf;
+  border-radius: 16px;
+  padding: 12px 18px;
+  max-width: 210px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* しっぽ外枠（紫の三角） */
+.pengin-bubble::before {
+  content: '';
+  position: absolute;
+  right: auto;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 20px 12px 0;
+  border-color: transparent #8b6ccf transparent transparent;
+}
+
+/* しっぽ内塗り（白の三角） */
+.pengin-bubble::after {
+  content: '';
+  position: absolute;
+  right: auto;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 18px 10px 0;
+  border-color: transparent #fff transparent transparent;
+}
+
 /* 横一列の選択コントロール */
 .selection-controls {
   display: flex;
@@ -1463,6 +1521,39 @@ button:hover {
 
   .logo-image img {
     max-width: 150px;
+  }
+
+  /* モバイル：吹き出しを縦並びに */
+  .pengin-area {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pengin-img {
+    max-width: 150px;
+  }
+
+  .pengin-bubble {
+    max-width: 260px;
+  }
+
+  /* しっぽを上向きに切り替え */
+  .pengin-bubble::before {
+    left: 50%;
+    right: auto;
+    top: -20px;
+    transform: translateX(-50%);
+    border-width: 0 12px 20px 12px;
+    border-color: transparent transparent #8b6ccf transparent;
+  }
+
+  .pengin-bubble::after {
+    left: 50%;
+    right: auto;
+    top: -16px;
+    transform: translateX(-50%);
+    border-width: 0 10px 18px 10px;
+    border-color: transparent transparent #fff transparent;
   }
 
   .btn-start {

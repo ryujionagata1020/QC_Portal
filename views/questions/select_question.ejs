@@ -18,11 +18,23 @@
   <%- include("../_share/navbar.ejs") %>
 
   <main class="select-container">
-    <h1>QC-Portal</h1>
+    <!--<h1>QC-Portal</h1>-->
 
-    <!-- ペンギン画像 -->
-    <div class="logo-image">
-      <img src="/public/pengin_learning.png" alt="QC-Portal">
+    <!-- ペンギン画像＋吹き出し（ランダム） -->
+    <% const penginImages = ['pengin_learning.png','pengin_bus.png','pengin_densya.png','pengin_ohuro.png','pengin_syokuji.png']; %>
+    <% const penginSrc = penginImages[Math.floor(Math.random() * penginImages.length)]; %>
+    <% const penginMessages = [
+      'アカウント登録すると自分の成長具合がよく分かるようになるよ',
+      '今日も頑張ろう！勉強も休憩も！',
+      'ツール機能も使ってみてね！',
+      '学習履歴で過去の正答率を確認しよう！',
+      '電車やバスのスキマ時間も有効に使ってみて！',
+      '問題に３つまでチェックを付けられるよ！'
+    ]; %>
+    <% const penginMessage = penginMessages[Math.floor(Math.random() * penginMessages.length)]; %>
+    <div class="pengin-area">
+      <img src="/public/<%= penginSrc %>" alt="QC-Portal" class="pengin-img">
+      <div class="pengin-bubble"><%= penginMessage %></div>
     </div>
 
     <form id="selectForm" action="/questions/start" method="POST">
