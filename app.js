@@ -115,6 +115,7 @@ app.use("/account", require("./routes/account.js"));
 app.use("/tools", require("./routes/tools.js"));
 app.use("/questions/select", require("./routes/question_select.js"));
 app.use("/questions/start", require("./routes/question_start.js"));
+app.use("/questions/start-omakase", require("./routes/question_start_omakase.js"));
 app.use("/questions", require("./routes/ques.js"));
 app.use("/questions", require("./routes/question_answer.js"));
 app.use("/", require("./routes/index.js"));

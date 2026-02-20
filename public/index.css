@@ -1201,6 +1201,64 @@ a {
   transform: scale(1.05);
 }
 
+/* おまかせ/カスタム タブバー */
+.sq-tab-bar {
+  display: flex;
+  gap: 0;
+  margin: 16px 0 0;
+}
+
+.sq-tab {
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-800);
+  border: 1px solid var(--color-gray-500);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sq-tab:first-child {
+  margin-right: -1px;
+}
+
+.sq-tab:hover {
+  background-color: var(--color-border);
+  color: var(--color-gray-900);
+}
+
+.sq-tab.active {
+  background-color: var(--color-brand);
+  color: white;
+  border-color: var(--color-brand);
+}
+
+.sq-panel {
+  display: none;
+}
+
+.sq-panel.active {
+  display: block;
+}
+
+.sq-omakase-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 48px 20px;
+  background-color: var(--color-bg-section);
+  border-radius: 8px;
+  border: 1px solid var(--color-gray-300);
+}
+
+.sq-omakase-buttons .btn-start {
+  width: 100%;
+}
+
 /* 中断再開ボタン */
 .btn-resume {
   display: inline-block;

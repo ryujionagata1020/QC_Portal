@@ -43,6 +43,41 @@
       <div class="pengin-bubble"><%= penginMessage %></div>
     </div>
 
+    <!-- 出題条件タブ切り替え -->
+    <div class="sq-tab-bar">
+      <button type="button" class="sq-tab active" data-sqtab="omakase" onclick="switchSQTab('omakase')">おまかせ</button>
+      <button type="button" class="sq-tab" data-sqtab="custom" onclick="switchSQTab('custom')">カスタム</button>
+    </div>
+
+    <!-- おまかせパネル -->
+    <div class="sq-panel active" id="sq-panel-omakase">
+      <div class="sq-omakase-buttons">
+        <form method="POST" action="/questions/start-omakase">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="mode" value="grade4_30">
+          <button type="submit" class="btn-start">4級おまかせ10問</button>
+        </form>
+        <form method="POST" action="/questions/start-omakase">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="mode" value="grade4_practical_30">
+          <button type="submit" class="btn-start">4級実践編10問</button>
+        </form>
+        <form method="POST" action="/questions/start-omakase">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="mode" value="grade4_methods_30">
+          <button type="submit" class="btn-start">4級手法編10問</button>
+        </form>
+        <form method="POST" action="/questions/start-omakase">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="mode" value="grade4_all">
+          <button type="submit" class="btn-start">4級対応ALL問題セット</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- カスタムパネル -->
+    <div class="sq-panel" id="sq-panel-custom">
+
     <form id="selectForm" action="/questions/start" method="POST">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
       <!-- 出題条件選択エリア（横一列） -->
@@ -51,9 +86,9 @@
         <div class="control-group">
           <div class="control-label">出題レベル</div>
           <div id="testLevelArea" class="checkbox-area">
-            <label><input type="checkbox" name="testlevels" value="1"> 1級</label>
-            <label><input type="checkbox" name="testlevels" value="2"> 2級</label>
-            <label><input type="checkbox" name="testlevels" value="3"> 3級</label>
+            <label><input type="checkbox" name="testlevels" value="1" disabled> 1級</label>
+            <label><input type="checkbox" name="testlevels" value="2" disabled> 2級</label>
+            <label><input type="checkbox" name="testlevels" value="3" disabled> 3級</label>
             <label><input type="checkbox" name="testlevels" value="4" checked> 4級</label>
           </div>
         </div>
@@ -62,9 +97,9 @@
         <div class="control-group">
           <div class="control-label">出題範囲</div>
           <div id="examScopeArea" class="checkbox-area">
-            <label><input type="checkbox" data-scope-filter="1" onclick="setScope(1)"> 1級</label>
-            <label><input type="checkbox" data-scope-filter="2" onclick="setScope(2)"> 2級</label>
-            <label><input type="checkbox" data-scope-filter="3" onclick="setScope(3)"> 3級</label>
+            <label><input type="checkbox" data-scope-filter="1" onclick="setScope(1)" disabled> 1級</label>
+            <label><input type="checkbox" data-scope-filter="2" onclick="setScope(2)" disabled> 2級</label>
+            <label><input type="checkbox" data-scope-filter="3" onclick="setScope(3)" disabled> 3級</label>
             <label><input type="checkbox" data-scope-filter="4" onclick="setScope(4)" checked> 4級</label>
           </div>
         </div>
@@ -130,8 +165,8 @@
             <div id="small_<%= large.id %>" class="small-list">
               <% large.smalls.forEach(function(small){ %>
                 <label data-scope="<%= small.scope_exam %>">
-                  <input type="checkbox" name="smalls" value="<%= small.id %>">
-                  <%= small.name %>（<%= small.scope_exam %>級から）
+                  <input type="checkbox" name="smalls" value="<%= small.id %>" <%= small.scope_exam !== 4 ? 'disabled' : '' %>>
+                  <%= small.name %>（<%= small.scope_exam %>級）
                 </label><br>
               <% }); %>
             </div>
@@ -152,8 +187,8 @@
             <div id="small_<%= large.id %>" class="small-list">
               <% large.smalls.forEach(function(small){ %>
                 <label data-scope="<%= small.scope_exam %>">
-                  <input type="checkbox" name="smalls" value="<%= small.id %>">
-                  <%= small.name %>（<%= small.scope_exam %>級から）
+                  <input type="checkbox" name="smalls" value="<%= small.id %>" <%= small.scope_exam !== 4 ? 'disabled' : '' %>>
+                  <%= small.name %>（<%= small.scope_exam %>級）
                 </label><br>
               <% }); %>
             </div>
@@ -177,6 +212,8 @@
         <% } %>
       </div>
     </form>
+
+    </div><!-- /sq-panel-custom -->
 
   </main>
 
@@ -323,6 +360,16 @@
         cb.indeterminate = false;
       });
     }
+  }
+
+  // === おまかせ/カスタム タブ切り替え ===
+  function switchSQTab(tab) {
+    document.querySelectorAll('.sq-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.sqtab === tab);
+    });
+    document.querySelectorAll('.sq-panel').forEach(panel => {
+      panel.classList.toggle('active', panel.id === 'sq-panel-' + tab);
+    });
   }
 
   // === カテゴリタブ切り替え ===
