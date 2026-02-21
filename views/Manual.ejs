@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./_share/metadata.ejs")%>
+    <title>使い方ガイド - QC-Portal</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="/public/index.css" />
+  </head>
+
+  <body>
+    <div id="site-wrapper">
+      <%- include("./_share/navbar.ejs") %>
+
+      <main class="qcis-container">
+
+        <!-- ページタイトル -->
+        <section aria-labelledby="manual-top-heading">
+          <h2 id="manual-top-heading">QC-Portal 使い方ガイド</h2>
+          <p>
+            このページではQC-Portalの主な機能について説明します。<br>
+            試験対策機能の使い方やアカウント管理の方法を確認し、学習にお役立てください。
+          </p>
+        </section>
+
+        <!-- ========== 出題モード ========== -->
+        <div class="qcis-divider">
+          <h2>出題モードについて</h2>
+        </div>
+
+        <section aria-labelledby="mode-overview-heading">
+          <h2 id="mode-overview-heading">おまかせモードとカスタムモード</h2>
+          <p>
+            試験対策ページ（<a href="/questions/select">試験対策</a>）を開くと、画面上部に
+            <strong>「おまかせ」</strong>と<strong>「カスタム」</strong>の2つのタブが表示されます。
+            目的に応じて使い分けてください。
+          </p>
+
+          <div class="qcis-content-with-image">
+            <div class="qcis-text">
+              <dl>
+                <dt>おまかせモード</dt>
+                <dd>
+                  設定不要でワンクリックすると即座に出題が始まります。<br>
+                  あらかじめ用意された問題セットから選ぶだけなので、「とにかくすぐに問題を解きたい」
+                  ときに便利です。現在は4級の問題に対応した以下の4種類が選べます。
+                  <ul class="qcis-list" style="margin-top: 0.5em;">
+                    <li><strong>4級おまかせ10問</strong>：4級全範囲からランダムに10問</li>
+                    <li><strong>4級実践編10問</strong>：実践分野からランダムに10問</li>
+                    <li><strong>4級手法編10問</strong>：手法分野からランダムに10問</li>
+                    <li><strong>4級対応ALL問題セット</strong>：4級対応の全問題を出題</li>
+                  </ul>
+                </dd>
+
+                <dt>カスタムモード</dt>
+                <dd>
+                  出題レベル・出題範囲・出題数・カテゴリをそれぞれ細かく指定できます。<br>
+                  苦手な分野に絞って集中的に練習したいときや、問題数を調整したいときに活用してください。
+                </dd>
+              </dl>
+            </div>
+            <div class="qcis-img-side">
+              <img src="/public/pengin_learning.png" alt="学習中のペンギン" style="height: auto;">
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== カスタムモード詳細 ========== -->
+        <div class="qcis-divider">
+          <h2>カスタムモードの設定方法</h2>
+        </div>
+
+        <section aria-labelledby="custom-level-heading">
+          <h2 id="custom-level-heading">出題レベルと出題範囲の違い</h2>
+          <p>
+            カスタムモードには似た名前の設定項目が2つあります。それぞれの役割を理解して正しく活用してください。
+          </p>
+          <table class="qcis-table">
+            <thead>
+              <tr>
+                <th>設定項目</th>
+                <th>役割</th>
+                <th>備考</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>出題レベル</strong></td>
+                <td>出題する問題の難易度（級）を選択する</td>
+                <td>現在は4級のみ対応</td>
+              </tr>
+              <tr>
+                <td><strong>出題範囲</strong></td>
+                <td>カテゴリ選択に反映する級の範囲を指定する</td>
+                <td>選択した級以下をすべて含む（下記参照）</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            <strong>出題範囲</strong>はカテゴリの絞り込みに使う補助的な設定です。
+            選択した級に応じて、カテゴリ選択欄に表示される小分類の有効・無効が自動的に切り替わります。
+          </p>
+          <table class="qcis-table">
+            <thead>
+              <tr>
+                <th>出題範囲の選択</th>
+                <th>カテゴリに反映される範囲</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1級</td>
+                <td>1級・2級・3級・4級すべての範囲</td>
+              </tr>
+              <tr>
+                <td>2級</td>
+                <td>2級・3級・4級の範囲</td>
+              </tr>
+              <tr>
+                <td>3級</td>
+                <td>3級・4級の範囲</td>
+              </tr>
+              <tr>
+                <td>4級</td>
+                <td>4級の範囲のみ</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="qcis-notice">
+            ※ QC検定では上位の級ほど下位の級の内容を包含します。例えば1級の試験では2～4級の知識も問われます。
+            出題範囲をより広く設定することで、上位級対策として幅広い分野の練習が可能です。
+          </p>
+        </section>
+
+        <section aria-labelledby="custom-category-heading">
+          <h2 id="custom-category-heading">カテゴリ・出題数の設定方法</h2>
+
+          <dl>
+            <dt>カテゴリ選択</dt>
+            <dd>
+              「実践」「手法」の2タブで切り替えられます。<br>
+              各タブ内では大分類と小分類の2段階構造になっています。
+              <ul class="qcis-list" style="margin-top: 0.5em;">
+                <li>
+                  <strong>大分類チェックボックス</strong>：チェックをオンにすると配下の小分類をまとめて選択できます。
+                  一部のみ選択中はチェックが「中間状態」（横線）で表示されます。
+                </li>
+                <li>
+                  <strong>小分類チェックボックス</strong>：個別の分野を選択・解除できます。
+                  各小分類には対応する級（何級範囲か）が表示されています。
+                </li>
+                <li>
+                  <strong>すべて選択 / すべて解除ボタン</strong>：現在表示中のタブのカテゴリをまとめて操作できます。
+                </li>
+              </ul>
+            </dd>
+
+            <dt>出題数スライダー</dt>
+            <dd>
+              スライダーを動かすことで1問から全問まで出題数を指定できます。<br>
+              スライダーを最大値まで移動すると「全問」と表示され、条件に合致するすべての問題が出題されます。
+            </dd>
+
+            <dt>未回答のみ出題（ログイン時のみ表示）</dt>
+            <dd>
+              チェックを入れると、これまでに1度も回答していない問題だけが出題されます。<br>
+              すでに解いた問題をスキップして効率よく学習を進めたい場合に便利です。<br>
+              この設定はアカウントにログイン中のみ使用できます。
+            </dd>
+          </dl>
+        </section>
+
+        <section aria-labelledby="resume-heading">
+          <h2 id="resume-heading">中断・再開機能</h2>
+          <p>
+            連続出題の途中でページを閉じた場合、次回ログイン時に試験対策ページを開くと
+            「中断したところから再開（N/M問目から）」ボタンが表示されます。<br>
+            ボタンをクリックすると中断した問題から再開できます。
+          </p>
+          <p class="qcis-notice">
+            ※ ログイン時に「ログイン状態を保持する」にチェックを入れると、セッションが1ヶ月間維持されるため
+            ブラウザを閉じても再開できます。新たに「出題開始」を押した場合、前回の中断データは上書きされます。
+          </p>
+        </section>
+
+        <!-- ========== アカウント管理 ========== -->
+        <div class="qcis-divider">
+          <h2>アカウント管理機能</h2>
+        </div>
+
+        <section aria-labelledby="account-overview-heading">
+          <h2 id="account-overview-heading">アカウント管理モーダルの開き方</h2>
+          <p>
+            ログイン中は、ページ右上のアカウントアイコン（ペンギン画像のボタン）をクリックすると
+            アカウント管理モーダルが開きます。<br>
+            モーダル内の左側メニューから各機能に切り替えられます。
+          </p>
+        </section>
+
+        <section aria-labelledby="account-menu-heading">
+          <h2 id="account-menu-heading">各メニューの概要と用途</h2>
+          <table class="qcis-table">
+            <thead>
+              <tr>
+                <th>メニュー名</th>
+                <th>概要・用途</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>📈 アクティビティ</td>
+                <td>
+                  直近の学習活動を確認できます。いつ、どのくらいの量を学習したか振り返るのに使います。
+                </td>
+              </tr>
+              <tr>
+                <td>🕸️ レーダーチャート</td>
+                <td>
+                  各分野の習熟度をレーダーチャート（クモの巣グラフ）で確認できます。
+                  得意・不得意な分野を視覚的に把握するのに使います。
+                </td>
+              </tr>
+              <tr>
+                <td>📊 達成度</td>
+                <td>
+                  選択した級の問題に対してどのくらいの割合で解答済みかを確認できます。
+                  未到達の問題数を把握するのに使います。
+                </td>
+              </tr>
+              <tr>
+                <td>📚 学習履歴</td>
+                <td>
+                  解答した問題の一覧と習熟度を確認できます。<br>
+                  習熟度マークで直近の正答状況が一目でわかります。
+                  <ul class="qcis-list" style="margin-top: 0.4em;">
+                    <li><strong>◎（習熟）</strong>：直近2回連続で正解</li>
+                    <li><strong>〇（正解）</strong>：直近1回正解</li>
+                    <li><strong>×（要復習）</strong>：直近1回が不正解</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>📌 チェック問題</td>
+                <td>
+                  問題画面でチェックをつけた問題を一覧できます。
+                  復習したい問題や重要問題をまとめておくのに使います。
+                </td>
+              </tr>
+              <tr>
+                <td>👤 プロフィール</td>
+                <td>
+                  ユーザー名・受験級・受験予定日を設定・編集できます。<br>
+                  受験予定日を設定するとナビバーに試験までの残り日数が表示されます。
+                </td>
+              </tr>
+              <tr>
+                <td>⚙️ 設定</td>
+                <td>
+                  ユーザーIDの確認、パスワード変更、メールアドレスの登録・変更、
+                  表示テーマ（ライト/ダーク）の切り替えができます。<br>
+                  アカウント削除もこちらから行います。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- ========== アカウント作成・削除 ========== -->
+        <div class="qcis-divider">
+          <h2>アカウント作成・削除手順</h2>
+        </div>
+
+        <section aria-labelledby="register-heading">
+          <h2 id="register-heading">アカウント作成手順</h2>
+          <div class="qcis-content-with-image">
+            <div class="qcis-text">
+              <p>
+                アカウントを作成するとログインしていない状態では使えない機能
+                （学習履歴・達成度・未回答のみ出題など）が利用できるようになります。
+              </p>
+              <ol class="qcis-list">
+                <li>ページ右上の<strong>「ログイン・新規登録」</strong>ボタンをクリックします。</li>
+                <li>表示されたモーダルの<strong>「新規登録」</strong>タブをクリックします。</li>
+                <li><strong>ユーザーID</strong>（4〜50文字）を入力します。</li>
+                <li><strong>パスワード</strong>（8文字以上）を入力します。</li>
+                <li><strong>メールアドレス</strong>を入力します（任意。パスワード再設定などに使用）。</li>
+                <li><strong>「登録」</strong>ボタンをクリックします。</li>
+                <li>登録が完了すると自動的にログイン状態になります。</li>
+              </ol>
+              <p class="qcis-notice">
+                ※ ログイン時に「ログイン状態を保持する（1ヶ月）」にチェックを入れると、
+                ブラウザを閉じてもセッションが1ヶ月間維持されます。
+              </p>
+            </div>
+            <div class="qcis-img-side">
+              <img src="/public/pengin_engineer.png" alt="エンジニアペンギン" style="height: auto;">
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="delete-heading">
+          <h2 id="delete-heading">アカウント削除手順</h2>
+          <p>
+            アカウントを削除すると、すべての解答履歴・学習データが失われます。
+            削除前に必要なデータを確認してください。
+          </p>
+          <ol class="qcis-list">
+            <li>ページ右上のアカウントアイコン（ペンギン画像）をクリックし、アカウント管理モーダルを開きます。</li>
+            <li>左メニューの<strong>「設定」（⚙️）</strong>をクリックします。</li>
+            <li>設定画面下部の<strong>「アカウントを削除」</strong>ボタンをクリックします。</li>
+            <li>確認ダイアログが表示されるので、内容を確認のうえ削除を実行します。</li>
+          </ol>
+          <p class="qcis-notice">
+            ※ アカウントを削除するとユーザー情報・解答履歴・チェック問題など
+            すべてのデータが完全に削除され、元に戻すことはできません。
+          </p>
+        </section>
+
+      </main>
+
+      <%- include("./_share/footer.ejs") %>
+    </div>
+  </body>
+</html>

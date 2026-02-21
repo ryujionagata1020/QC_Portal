@@ -16,4 +16,9 @@ router.get("/sitemap", (req, res) => {
   res.render("sitemap");
 });
 
+// 使い方ガイドページ
+router.get("/manual", (req, res) => {
+  res.render("Manual");
+});
+
 module.exports = router;

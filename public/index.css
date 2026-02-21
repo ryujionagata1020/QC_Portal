@@ -1125,6 +1125,45 @@ a {
   color: #333;
 }
 
+/* 使い方リンク */
+.select-manual-link {
+  text-align: right;
+  margin-top: 8px;
+}
+
+.select-manual-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 4px;
+  border: 1px solid #c9b8ef;
+  border-radius: 20px;
+  background: #f5f1fd;
+  color: #6a4fad;
+  font-size: 0.8rem;
+  text-decoration: none;
+  line-height: 1;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.select-manual-link-btn:hover {
+  background: #ece4fb;
+}
+
+.select-manual-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #8b6ccf;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
 /* しっぽ外枠（紫の三角） */
 .pengin-bubble::before {
   content: '';
