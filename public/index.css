@@ -276,8 +276,13 @@ body {
   background-color: var(--color-bg-body);
   color: var(--color-text-primary);
   font-size: 15px;
-  padding-top: 70px;
+  padding-top: 60px;
   /* ナビバーの高さ分の余白を追加 */
+
+  /* Flex sticky footer レイアウト */
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
 
   /* テキスト選択禁止 */
   -webkit-user-select: none;
@@ -294,37 +299,44 @@ body {
   /* iOS Safari */
 }
 
+#site-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+main {
+  flex: 1;
+}
+
 /* =========================================================
-   main要素の共通レイアウト設定（固定サイズ）
+   main要素の共通レイアウト設定
    ========================================================= */
 .index-container,
 .qcis-container,
 .question-container,
 .select-container {
-  /* 固定の高さを設定（十分なバッファを確保してスクロール不要に） */
-  height: 3400px;
+  height: auto;
   max-width: 1000px;
-  margin: 20px auto;
-  padding: 20px 30px;
+  margin: clamp(5px, 2vw, 20px) auto;
+  padding: clamp(15px, 4vw, 30px);
   background: var(--color-bg-container);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  /* スクロールは基本的に不要だが、万一の場合に備えて */
-  overflow-y: hidden;
+  overflow-y: visible;
 }
 
 .statisinfo-container {
-  /* 表を追加したため高さを増加 */
-  height: 3200px;
+  height: auto;
   max-width: 1000px;
-  margin: 20px auto;
-  padding: 20px 30px;
+  margin: clamp(5px, 2vw, 20px) auto;
+  padding: clamp(15px, 4vw, 30px);
   background: var(--color-bg-container);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  overflow-y: hidden;
+  overflow-y: visible;
 }
 
 a {
@@ -570,7 +582,7 @@ a {
   pointer-events: none;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
   .primary-with-penguin {
     flex-direction: column-reverse;
     gap: 15px;
@@ -790,7 +802,7 @@ a {
   color: white;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .random-choice-grid {
     grid-template-columns: 1fr;
   }
@@ -1249,7 +1261,7 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  padding: 48px 20px;
+  padding: clamp(24px, 5vw, 48px) 20px;
   background-color: var(--color-bg-section);
   border-radius: 8px;
   border: 1px solid var(--color-gray-300);
@@ -1257,6 +1269,14 @@ a {
 
 .sq-omakase-buttons .btn-start {
   width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .sq-omakase-buttons {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 24px 15px;
+  }
 }
 
 /* 中断再開ボタン */
@@ -1478,19 +1498,13 @@ button:hover {
   .qcis-container,
   .question-container,
   .select-container {
-    margin: 10px;
+    margin: 10px auto;
     max-width: calc(100% - 20px);
-    height: 2800px;
-  }
-
-  .qcis-container {
-    height: auto;
   }
 
   .statisinfo-container {
-    margin: 10px;
+    margin: 10px auto;
     max-width: calc(100% - 20px);
-    height: 3200px;
   }
 
   .large-category-grid {
@@ -1524,41 +1538,28 @@ button:hover {
 
 @media screen and (max-width: 768px) {
 
-  /* 共通コンテナ：モバイルでは高さを auto に（PC の固定高さを上書き） */
+  /* コンテナ：edge余白を縮小 */
   .index-container,
   .qcis-container,
   .question-container,
-  .select-container {
-    height: auto;
-    overflow-y: visible;
-  }
-
+  .select-container,
   .statisinfo-container {
-    height: auto;
-    overflow-y: visible;
+    margin: 8px auto;
+    max-width: calc(100% - 16px);
   }
 }
 
 @media screen and (max-width: 600px) {
 
-  /* 共通コンテナのモバイル対応 */
+  /* 共通コンテナのモバイル対応（小画面） */
   .index-container,
   .qcis-container,
   .question-container,
-  .select-container {
-    padding: 15px;
-    margin: 5px;
-    max-width: calc(100% - 10px);
-    height: auto;
-    overflow-y: visible;
-  }
-
+  .select-container,
   .statisinfo-container {
     padding: 15px;
-    margin: 5px;
+    margin: 5px auto;
     max-width: calc(100% - 10px);
-    height: auto;
-    overflow-y: visible;
   }
 
   .large-category-grid {
@@ -1646,7 +1647,7 @@ button:hover {
   gap: 8px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
   .choice-grid {
     grid-template-columns: 1fr;
   }
@@ -6719,6 +6720,24 @@ a.small-category-link:hover {
   }
 }
 
+/* ---- タッチターゲット保証（768px以下） ---- */
+@media screen and (max-width: 768px) {
+  .choice-btn,
+  .btn-start,
+  .btn-next,
+  .btn-resume,
+  .btn-auth,
+  .btn-logout,
+  .btn-action,
+  .btn-answer-link {
+    min-height: 44px;
+  }
+
+  .choice-btn {
+    padding: 10px 12px;
+  }
+}
+
 /* ---- 430px 細部調整 ---- */
 @media screen and (max-width: 430px) {
   .site-title {
@@ -6727,11 +6746,6 @@ a.small-category-link:hover {
 
   #site-header .container {
     padding: 0.5rem 1rem;
-  }
-
-  .choice-btn {
-    min-height: 44px;
-    padding: 10px 12px;
   }
 
   .btn-next {
