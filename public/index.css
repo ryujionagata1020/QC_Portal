@@ -130,6 +130,17 @@
   --color-gray-800: #666;
   --color-gray-850: #5a6268;
   --color-gray-900: #444;
+
+  /* ============ Spacing Scale ============ */
+  /* 使用例: gap: var(--space-3); padding: var(--space-4) var(--space-5); */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
 }
 
 /* ============================================================
@@ -310,6 +321,22 @@ main {
 }
 
 /* =========================================================
+   流動的タイポグラフィ（メインコンテンツ領域）
+   画面幅に応じて見出しサイズがなめらかに変化する
+   ========================================================= */
+main h1 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+main h2 {
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+}
+
+main h3 {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+/* =========================================================
    main要素の共通レイアウト設定
    ========================================================= */
 .index-container,
@@ -463,7 +490,7 @@ a {
   background-color: var(--color-footer-bg);
   color: var(--color-gray-400);
   border-top: 1px solid var(--color-gray-900);
-  padding: 20px 0;
+  padding: var(--space-5) 0;
 }
 
 #global-footer ul {
@@ -623,16 +650,16 @@ a {
 .announcements-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 15px;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
 }
 
 .announcement-item {
   display: grid;
   grid-template-columns: 100px 95px 180px 1fr;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: var(--space-3);
+  padding: var(--space-2) 14px;
   background-color: var(--color-bg-body);
   border: 1px solid var(--color-gray-200);
   border-radius: 6px;
@@ -884,15 +911,15 @@ a {
 .blank-block {
   border: 1px solid var(--color-border-darker);
   border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
   background: var(--color-bg-container-alt);
 }
 
 .blank-header {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: var(--space-4);
 }
 
 .blank-header h3 {
@@ -2344,7 +2371,7 @@ img {
 .auth-form-container h2 {
   margin: 0 0 25px 0;
   color: var(--color-text-primary);
-  font-size: 24px;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
   text-align: center;
 }
 
@@ -2535,7 +2562,7 @@ img {
 .account-modal-header h2 {
   margin: 0;
   color: var(--color-text-primary);
-  font-size: 22px;
+  font-size: clamp(1rem, 2.5vw, 1.375rem);
 }
 
 /* タブ切り替え（履歴モーダル用） */
@@ -2778,7 +2805,7 @@ img {
 .account-section h3 {
   margin: 0 0 15px 0;
   color: var(--color-text-primary);
-  font-size: 18px;
+  font-size: clamp(0.9rem, 2vw, 1.125rem);
   border-bottom: 2px solid var(--color-brand);
   padding-bottom: 8px;
 }
