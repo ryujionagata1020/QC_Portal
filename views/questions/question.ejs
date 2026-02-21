@@ -52,7 +52,7 @@
           <% }); %>
         </div>
         <% blanks.forEach(function(blank, i) { %>
-          <div class="blank-panel" id="panel_<%= blank.blank_id %>"<%= i !== 0 ? ' style="display:none"' : '' %>>
+          <div class="blank-panel" id="panel_<%= blank.blank_id %>" style="<%= i !== 0 ? 'display:none' : '' %>">
             <div class="blank-block">
               <div class="blank-header">
                 <span id="result_<%= blank.blank_id %>" class="resultArea"></span>
