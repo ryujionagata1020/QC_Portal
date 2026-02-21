@@ -21,12 +21,12 @@
         <div class="question-progress"><%= currentNumber %>問目 / <%= totalCount %>問中</div>
       </div>
     <% } %>
-    <div class="question-header">
-      <h2>問題ID：<%= question_id %></h2>
-    </div>
     <div class="meta">
       <div>カテゴリ：<%= large_category_name %> ＞ <%= small_category_name %></div>
-      <div>難易度：<%= testlevel %>級</div>
+      <div class="meta-bottom-row">
+        <span>難易度：<%= testlevel %>級</span>
+        <span>問題ID：<%= question_id %></span>
+      </div>
     </div>
 
     <% if (image_data) { %>
@@ -88,7 +88,6 @@
         <% blanks.forEach(function(blank) { %>
           <div class="blank-block">
             <div class="blank-header">
-              <h3>（<%= blank.blank_number %>）</h3>
               <span id="result_<%= blank.blank_id %>" class="resultArea"></span>
             </div>
             <div class="choice-grid" id="choices_<%= blank.blank_id %>">

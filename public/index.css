@@ -344,6 +344,7 @@ main h3 {
 .question-container,
 .select-container {
   height: auto;
+  width: 100%;           /* フレックスアイテム時の shrink-wrap を防止 */
   max-width: 1000px;
   margin: clamp(5px, 2vw, 20px) auto;
   padding: clamp(15px, 4vw, 30px);
@@ -356,6 +357,7 @@ main h3 {
 
 .statisinfo-container {
   height: auto;
+  width: 100%;           /* フレックスアイテム時の shrink-wrap を防止 */
   max-width: 1000px;
   margin: clamp(5px, 2vw, 20px) auto;
   padding: clamp(15px, 4vw, 30px);
@@ -852,8 +854,6 @@ a {
 
 .question-container h2 {
   margin-top: 0;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 0.3em;
 }
 
 /* 進捗表示（問題番号/総問題数）*/
@@ -874,19 +874,18 @@ a {
   white-space: nowrap;
 }
 
-/* 問題ヘッダー（問題ID） */
-.question-header {
-  margin-bottom: 5px;
-}
-
-.question-header h2 {
-  margin: 0;
-}
-
 .meta {
   color: var(--color-text-secondary);
   font-size: 0.9em;
   margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.meta-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.2em;
 }
 
 .img-area {
@@ -937,6 +936,10 @@ a {
   margin-bottom: -1px;
   position: relative;
   z-index: 1;
+  /* 多ブランク時のはみ出し防止：横スクロール許可 */
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
 .blank-tab-btn {
@@ -949,6 +952,8 @@ a {
   font-size: 1em;
   color: var(--color-text-muted);
   transition: background 0.15s, color 0.15s;
+  flex-shrink: 0; /* ボタンが縮まないようにする */
+  white-space: nowrap;
 }
 
 .blank-tab-btn:hover {
@@ -965,6 +970,13 @@ a {
 
 .blank-panel > .blank-block {
   border-radius: 0 5px 5px 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .blank-tab-btn {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
 }
 
 .choice-btn {
