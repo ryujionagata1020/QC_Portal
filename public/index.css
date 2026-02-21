@@ -930,6 +930,43 @@ a {
   margin-top: 1em;
 }
 
+/* ブランクタブシステム */
+.blank-tab-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.blank-tab-btn {
+  padding: 8px 20px;
+  border: 1px solid var(--color-border-darker);
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background: var(--color-gray-100);
+  cursor: pointer;
+  font-size: 1em;
+  color: var(--color-text-muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.blank-tab-btn:hover {
+  background: var(--color-bg-container-alt);
+  color: inherit;
+}
+
+.blank-tab-btn.active {
+  background: var(--color-bg-container-alt);
+  color: inherit;
+  font-weight: bold;
+  border-bottom: 1px solid var(--color-bg-container-alt);
+}
+
+.blank-panel > .blank-block {
+  border-radius: 0 5px 5px 5px;
+}
+
 .choice-btn {
   display: inline-block;
   margin: 5px 0;

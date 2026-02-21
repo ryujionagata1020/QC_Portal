@@ -40,37 +40,83 @@
     </div>
 
     <div class="blanks-area">
-      <% blanks.forEach(function(blank) { %>
-        <div class="blank-block">
-          <div class="blank-header">
-            <h3>（<%= blank.blank_number %>）</h3>
-            <span id="result_<%= blank.blank_id %>" class="resultArea"></span>
-          </div>
-          <div class="choice-grid" id="choices_<%= blank.blank_id %>">
-            <% (blank.choices || []).forEach(function(choice) { %>
-              <div class="choice-cell">
-                <button class="choice-btn"
-                        id="btn_<%= blank.blank_id %>_<%= choice.choice_id %>"
-                        onclick="checkAnswer('<%= blank.blank_id %>', '<%= choice.choice_id %>')">
-                  <%= choice.label %>
-                </button>
-                <span class="latex-content" data-latex="true"><%= choice.text %></span>
+      <% if (blanks.length > 1) { %>
+        <!-- ブランクが複数の場合：タブ切り替え -->
+        <div class="blank-tab-bar">
+          <% blanks.forEach(function(blank, i) { %>
+            <button class="blank-tab-btn<%= i === 0 ? ' active' : '' %>"
+                    data-blank-id="<%= blank.blank_id %>"
+                    onclick="switchBlankTab('<%= blank.blank_id %>', this)">
+              （<%= blank.blank_number %>）
+            </button>
+          <% }); %>
+        </div>
+        <% blanks.forEach(function(blank, i) { %>
+          <div class="blank-panel" id="panel_<%= blank.blank_id %>"<%= i !== 0 ? ' style="display:none"' : '' %>>
+            <div class="blank-block">
+              <div class="blank-header">
+                <span id="result_<%= blank.blank_id %>" class="resultArea"></span>
               </div>
-            <% }); %>
-          </div>
-          <% if (blank.explanation) { %>
-            <button class="btn toggle-explanation-btn" data-blank="<%= blank.blank_id %>">解説をみる</button>
-            <div id="explanation_<%= blank.blank_id %>" class="blank-explanation" style="display:none;">
-              <div class="latex-content"><%= blank.explanation %></div>
-              <% if (blank.explanation_data) { %>
-                <div class="explanation-img-area">
-                  <img src="data:<%= blank.explanation_mime_type %>;base64,<%= blank.explanation_data %>" alt="解説図（<%= blank.blank_number %>）">
+              <div class="choice-grid" id="choices_<%= blank.blank_id %>">
+                <% (blank.choices || []).forEach(function(choice) { %>
+                  <div class="choice-cell">
+                    <button class="choice-btn"
+                            id="btn_<%= blank.blank_id %>_<%= choice.choice_id %>"
+                            onclick="checkAnswer('<%= blank.blank_id %>', '<%= choice.choice_id %>')">
+                      <%= choice.label %>
+                    </button>
+                    <span class="latex-content" data-latex="true"><%= choice.text %></span>
+                  </div>
+                <% }); %>
+              </div>
+              <% if (blank.explanation) { %>
+                <button class="btn toggle-explanation-btn" data-blank="<%= blank.blank_id %>">解説をみる</button>
+                <div id="explanation_<%= blank.blank_id %>" class="blank-explanation" style="display:none;">
+                  <div class="latex-content"><%= blank.explanation %></div>
+                  <% if (blank.explanation_data) { %>
+                    <div class="explanation-img-area">
+                      <img src="data:<%= blank.explanation_mime_type %>;base64,<%= blank.explanation_data %>" alt="解説図（<%= blank.blank_number %>）">
+                    </div>
+                  <% } %>
                 </div>
               <% } %>
             </div>
-          <% } %>
-        </div>
-      <% }); %>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <!-- ブランクが1つの場合：タブなし（従来レイアウト） -->
+        <% blanks.forEach(function(blank) { %>
+          <div class="blank-block">
+            <div class="blank-header">
+              <h3>（<%= blank.blank_number %>）</h3>
+              <span id="result_<%= blank.blank_id %>" class="resultArea"></span>
+            </div>
+            <div class="choice-grid" id="choices_<%= blank.blank_id %>">
+              <% (blank.choices || []).forEach(function(choice) { %>
+                <div class="choice-cell">
+                  <button class="choice-btn"
+                          id="btn_<%= blank.blank_id %>_<%= choice.choice_id %>"
+                          onclick="checkAnswer('<%= blank.blank_id %>', '<%= choice.choice_id %>')">
+                    <%= choice.label %>
+                  </button>
+                  <span class="latex-content" data-latex="true"><%= choice.text %></span>
+                </div>
+              <% }); %>
+            </div>
+            <% if (blank.explanation) { %>
+              <button class="btn toggle-explanation-btn" data-blank="<%= blank.blank_id %>">解説をみる</button>
+              <div id="explanation_<%= blank.blank_id %>" class="blank-explanation" style="display:none;">
+                <div class="latex-content"><%= blank.explanation %></div>
+                <% if (blank.explanation_data) { %>
+                  <div class="explanation-img-area">
+                    <img src="data:<%= blank.explanation_mime_type %>;base64,<%= blank.explanation_data %>" alt="解説図（<%= blank.blank_number %>）">
+                  </div>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+        <% }); %>
+      <% } %>
     </div>
 
     <% if (typeof isAuthenticated !== 'undefined' && isAuthenticated) { %>
@@ -233,6 +279,15 @@
       }
     }
 
+    // ==== タブ切り替え ====
+    function switchBlankTab(blankId, btnEl) {
+      document.querySelectorAll('.blank-panel').forEach(panel => panel.style.display = 'none');
+      document.querySelectorAll('.blank-tab-btn').forEach(btn => btn.classList.remove('active'));
+      const panel = document.getElementById('panel_' + blankId);
+      if (panel) panel.style.display = 'block';
+      btnEl.classList.add('active');
+    }
+
     // ==== 不正解時に解説を自動展開する関数 ====
     function autoExpandExplanation(blankId) {
       // SECURITY: blankIdをサニタイズしてCSS selector injection を防止
@@ -244,15 +299,17 @@
         return;
       }
 
-      // 既に展開されている解説があるかチェック（最初の不正解のみ展開）
-      const allExplanations = document.querySelectorAll('.blank-explanation');
-      const alreadyExpanded = Array.from(allExplanations).some(exp => exp.style.display === 'block');
-
-      if (alreadyExpanded) return;
-
       // サニタイズされたIDを使用してDOM要素を取得
       const exp = document.getElementById('explanation_' + sanitizedBlankId);
       const btn = document.querySelector(`.toggle-explanation-btn[data-blank="${sanitizedBlankId}"]`);
+
+      // 既に展開されている解説があるかチェック（同一パネル内のみ）
+      const scope = (exp && exp.closest('.blank-panel')) || document.querySelector('.blanks-area');
+      const alreadyExpanded = scope
+        ? Array.from(scope.querySelectorAll('.blank-explanation')).some(e => e.style.display === 'block')
+        : false;
+
+      if (alreadyExpanded) return;
 
       if (!exp || !btn) {
         console.warn('Explanation or button not found for blank_id:', sanitizedBlankId);
