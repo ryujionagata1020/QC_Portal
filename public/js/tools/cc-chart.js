@@ -379,11 +379,21 @@ var CCChart = (function () {
     ctx().clearRect(0, 0, canvas().width / DPR, canvas().height / DPR);
   }
 
+  function resizeAll() {
+    var prev = active;
+    Object.keys(registry).forEach(function (id) {
+      use(id);
+      resize();
+    });
+    active = prev;
+  }
+
   return {
     init: init,
     draw: draw,
     drawPlaceholder: drawPlaceholder,
     clear: clear,
-    resize: resize
+    resize: resize,
+    resizeAll: resizeAll
   };
 })();

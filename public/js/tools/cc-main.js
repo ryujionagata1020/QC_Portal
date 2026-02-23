@@ -15,7 +15,18 @@
     initBeginnerMode();
     initExpertMode();
     restoreSettings();
+    initResizeHandler();
   });
+
+  function initResizeHandler() {
+    var resizeTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        CCChart.resizeAll();
+      }, 150);
+    });
+  }
 
   /* -------------------------------------------------------
    * Tab switching (tools-level tabs)

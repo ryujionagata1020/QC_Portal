@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./_share/metadata.ejs")%>
+    <title>QC-Portal 参考書・問題集</title>
+
+    <!-- 外部CSSを使う場合 -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <!-- 自前CSSを使う場合 -->
+    <link rel="stylesheet" href="/public/index.css" />
+
+    <!-- 必要ならここに追加のmetaやfaviconなど -->
+    <!--<link rel="icon" href="../public/favicon.ico"> -->
+  </head>
+
+  <body>
+    <!-- 全体のラッパー -->
+    <div id="site-wrapper">
+      <!-- サイトのヘッダー（ロゴ、グローバルナビなど） -->
+      <%- include("./_share/navbar.ejs") %>
+
+      <!-- メインコンテンツ領域 -->
+      <main class="qcis-container">
+          <!-- パンくず（必要なら） -->
+
+          <!-- メインのセクション（複数セクション可能） -->
+      <section id="primary" aria-labelledby="primary-heading" class="primary-with-penguin">
+        <div class="speech-bubble">
+          <p>
+            QC検定®を目指すときに最初に悩むのが参考書選びです。特にQC４級受験者は「何からをつければいいのか分からない」という
+            不安を解消するため、イラストが豊富な参考書でイメージを持つことが大切です。
+          </p>
+        </div>
+        <div class="penguin-image">
+          <img src="/public/branch_pengin.png" alt="ペンギン" />
+        </div>
+      </section>
+ 
+          <section id="primary" aria-labelledby="primary-heading">
+            <h2 id="primary-heading">QC検定®のおすすめ参考書</h2>
+            <p>
+            ※最終更新日：2026年2月24日<br>
+            資格試験の勉強をするにあたって、参考書の選択は最初に迷う問題です。
+            </p>
+            <div class="qcis-content-with-image">
+              <!-- ✅ 画像表示エリア（左側） -->
+              <div class="qcis-img-side">
+                <img src="/public/pengin_engineer.png" alt="エンジニアペンギン" style="height: auto;" />
+              </div>
+              <div class="qcis-text">
+                <p>
+                  基本的に品質管理・問題解決能力を問う試験であり、それぞれ各級に応じて役割の規模が変化します。<br />
+                  品質管理の初めて学ぶ方や社会人になりたての場合3級からの取得がおすすめです。<br />
+                  各級の受験者平均は1級で41～42歳、2級で37～38歳、3級で34～35歳、4級で31～32歳であることから
+                  業務経験10～15年の中堅メカニックエンジニアやシステムエンジニア、その他社会人が受験者の中心であることが分かります。
+                  一方で3,4級の合格者の3割以上は10代～20代であり、若手の基本教育にも活用されています。<br />
+                </p>
+              </div>
+            </div>
+            <!-- １級として仕事している風の画像の挿入-->
+          </section>
+
+
+
+
+
+
+      </main>
+      <!-- フッター（共通化） -->
+      <%- include("./_share/footer.ejs") %>
+    </div>
+
+    <!-- 必要ならスクリプトをここに -->
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>

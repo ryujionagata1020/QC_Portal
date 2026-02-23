@@ -4547,6 +4547,7 @@ a.small-category-link:hover {
 /* Chi2 grid */
 .sim-chi2-grid {
   margin-top: 12px;
+  overflow-x: auto;
 }
 
 .sim-grid-header {
@@ -5012,18 +5013,27 @@ a.small-category-link:hover {
 
   .sim-premise-bar {
     flex-direction: column;
+    gap: 8px;
   }
 
   .sim-premise-card {
     min-width: unset;
+    padding: 10px 14px;
   }
 
   .sim-main-layout {
     flex-direction: column;
+    gap: 16px;
   }
 
   .sim-wizard-pane {
     width: 100%;
+    box-sizing: border-box;
+  }
+
+  .sim-input-card,
+  .sim-calc-card {
+    padding: 12px;
   }
 
   .sim-input-fields {
@@ -5036,6 +5046,67 @@ a.small-category-link:hover {
 
   .sim-anova-input {
     width: 70px;
+  }
+
+  .sim-action-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sim-btn-calc,
+  .sim-btn-execute {
+    width: 100%;
+    max-width: 260px;
+    box-sizing: border-box;
+  }
+
+  .sim-graph-legend {
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    font-size: 0.78em;
+  }
+
+  .sim-table-section {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .simulate-container {
+    padding: 12px;
+    margin: 4px;
+    max-width: calc(100% - 8px);
+  }
+
+  .sim-premise-card {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .sim-premise-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1em;
+  }
+
+  .sim-title {
+    font-size: 1.2em;
+  }
+
+  .sim-wizard-pane {
+    padding: 12px;
+  }
+
+  .sim-wizard-btn {
+    font-size: 0.82em;
+    padding: 8px 10px;
+  }
+
+  .sim-btn-calc,
+  .sim-btn-execute {
+    max-width: 100%;
+    padding: 10px 16px;
   }
 }
 
@@ -5884,10 +5955,18 @@ a.small-category-link:hover {
 @media (max-width: 768px) {
   .tools-tab-bar {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+
+  .tools-tab-bar::-webkit-scrollbar {
+    display: none;
   }
 
   .tools-tab {
-    padding: 10px 0;
+    flex: 0 0 auto;
+    padding: 10px 14px;
     font-size: 0.85rem;
   }
 
@@ -5951,6 +6030,39 @@ a.small-category-link:hover {
 
   .cc-stat-value {
     font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cc-title {
+    font-size: 1.2rem;
+  }
+
+  .cc-settings-bar {
+    gap: 8px;
+  }
+
+  .cc-setting-card {
+    padding: 10px 12px;
+  }
+
+  .cc-mode-btn {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+  }
+
+  .cc-stats-bar {
+    gap: 8px;
+    padding: 8px 10px;
+    flex-wrap: wrap;
+  }
+
+  .cc-stat {
+    flex: 0 0 auto;
+  }
+
+  .cc-expert-action-row {
+    gap: 8px;
   }
 }
 
@@ -6455,6 +6567,28 @@ a.small-category-link:hover {
   .dm-btn-replay,
   .dm-btn-step {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dm-title {
+    font-size: 1rem;
+  }
+
+  .dm-legend-hint {
+    display: none;
+  }
+
+  .dm-formula-card {
+    padding: 10px 12px;
+  }
+
+  .dm-formula-title {
+    font-size: 0.85em;
+  }
+
+  .dm-detail-canvas-area canvas {
+    max-height: 200px;
   }
 }
 
