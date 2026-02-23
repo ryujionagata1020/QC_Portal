@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../_share/metadata.ejs") %>
+    <title>お問い合わせ完了 | QC-Portal</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="/public/index.css" />
+  </head>
+  <body>
+    <div id="site-wrapper">
+      <%- include("../_share/navbar.ejs") %>
+
+      <main id="main-content" class="contact-page" role="main">
+        <div class="contact-container">
+          <nav class="contact-breadcrumb" aria-label="パンくずリスト">
+            <a href="/">ホーム</a>
+            <span aria-hidden="true">&rsaquo;</span>
+            <a href="/contact">お問い合わせ</a>
+            <span aria-hidden="true">&rsaquo;</span>
+            <span aria-current="page">送信完了</span>
+          </nav>
+
+          <div class="contact-complete-box">
+            <div class="contact-complete-icon" aria-hidden="true">&#10003;</div>
+            <h1 class="contact-complete-title">お問い合わせを受け付けました</h1>
+            <p class="contact-complete-message">
+              ご入力いただいたメールアドレス宛に受付確認メールをお送りしました。<br>
+              内容を確認の上、順次ご返信いたします。
+            </p>
+            <p class="contact-complete-note">
+              ※ 確認メールが届かない場合は、迷惑メールフォルダもご確認ください。
+            </p>
+            <a href="/" class="contact-btn-home">トップページへ戻る</a>
+          </div>
+        </div>
+      </main>
+
+      <%- include("../_share/footer.ejs") %>
+    </div>
+  </body>
+</html>

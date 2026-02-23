@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../_share/metadata.ejs") %>
+    <title>お問い合わせ内容の確認 | QC-Portal</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="/public/index.css" />
+  </head>
+  <body>
+    <div id="site-wrapper">
+      <%- include("../_share/navbar.ejs") %>
+
+      <main id="main-content" class="contact-page" role="main">
+        <div class="contact-container">
+          <nav class="contact-breadcrumb" aria-label="パンくずリスト">
+            <a href="/">ホーム</a>
+            <span aria-hidden="true">&rsaquo;</span>
+            <a href="/contact">お問い合わせ</a>
+            <span aria-hidden="true">&rsaquo;</span>
+            <span aria-current="page">内容確認</span>
+          </nav>
+
+          <h1 class="contact-page-title">お問い合わせ内容の確認</h1>
+          <p class="contact-description">
+            以下の内容でよろしければ「送信する」ボタンを押してください。
+          </p>
+
+          <div class="contact-confirm-table">
+            <div class="contact-confirm-row">
+              <dt class="contact-confirm-label">お名前</dt>
+              <dd class="contact-confirm-value"><%= form.name %></dd>
+            </div>
+            <div class="contact-confirm-row">
+              <dt class="contact-confirm-label">メールアドレス</dt>
+              <dd class="contact-confirm-value"><%= form.email %></dd>
+            </div>
+            <div class="contact-confirm-row">
+              <dt class="contact-confirm-label">お問い合わせ種別</dt>
+              <dd class="contact-confirm-value"><%= categoryLabel %></dd>
+            </div>
+            <div class="contact-confirm-row">
+              <dt class="contact-confirm-label">件名</dt>
+              <dd class="contact-confirm-value"><%= form.subject %></dd>
+            </div>
+            <div class="contact-confirm-row">
+              <dt class="contact-confirm-label">お問い合わせ内容</dt>
+              <dd class="contact-confirm-value contact-confirm-message"><%= form.message %></dd>
+            </div>
+          </div>
+
+          <div class="contact-confirm-actions">
+            <form method="POST" action="/contact/confirm">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button type="submit" class="contact-btn-submit">送信する</button>
+            </form>
+            <a href="/contact" class="contact-btn-back">修正する</a>
+          </div>
+        </div>
+      </main>
+
+      <%- include("../_share/footer.ejs") %>
+    </div>
+  </body>
+</html>

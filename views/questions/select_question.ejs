@@ -87,42 +87,64 @@
 
     <form id="selectForm" action="/questions/start" method="POST">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-      <!-- 出題条件選択エリア（横一列） -->
+      <!-- 出題条件選択エリア -->
       <div class="selection-controls">
-        <!-- 出題レベル選択 -->
-        <div class="control-group">
-          <div class="control-label">出題レベル</div>
-          <div id="testLevelArea" class="checkbox-area">
-            <label><input type="checkbox" name="testlevels" value="1" disabled> 1級</label>
-            <label><input type="checkbox" name="testlevels" value="2" disabled> 2級</label>
-            <label><input type="checkbox" name="testlevels" value="3" disabled> 3級</label>
-            <label><input type="checkbox" name="testlevels" value="4" checked> 4級</label>
+
+        <!-- Row 1: 出題レベル ・ 出題範囲 ・ 未回答のみ（右端） -->
+        <div class="sq-row">
+          <!-- 出題レベル選択 -->
+          <div class="control-group">
+            <div class="control-label">出題レベル</div>
+            <div id="testLevelArea" class="checkbox-area">
+              <label><input type="checkbox" name="testlevels" value="1" disabled> 1級</label>
+              <label><input type="checkbox" name="testlevels" value="2" disabled> 2級</label>
+              <label><input type="checkbox" name="testlevels" value="3" disabled> 3級</label>
+              <label><input type="checkbox" name="testlevels" value="4" checked> 4級</label>
+            </div>
           </div>
+
+          <!-- 出題範囲選択（カテゴリ反映用、フォーム送信対象外） -->
+          <div class="control-group">
+            <div class="control-label">出題範囲</div>
+            <div id="examScopeArea" class="checkbox-area">
+              <label><input type="checkbox" data-scope-filter="1" onclick="setScope(1)" disabled> 1級</label>
+              <label><input type="checkbox" data-scope-filter="2" onclick="setScope(2)" disabled> 2級</label>
+              <label><input type="checkbox" data-scope-filter="3" onclick="setScope(3)" disabled> 3級</label>
+              <label><input type="checkbox" data-scope-filter="4" onclick="setScope(4)" checked> 4級</label>
+            </div>
+          </div>
+
+          <!-- 未回答のみ（右端） -->
+          <% if (typeof user !== 'undefined' && user) { %>
+            <div class="control-group sq-unanswered-group">
+              <div class="checkbox-area">
+                <label>
+                  <input type="checkbox" name="unanswered_only" value="1">
+                  未回答のみ
+                </label>
+              </div>
+            </div>
+          <% } %>
         </div>
 
-        <!-- 出題範囲選択（カテゴリ反映用、フォーム送信対象外） -->
-        <div class="control-group">
-          <div class="control-label">出題範囲</div>
-          <div id="examScopeArea" class="checkbox-area">
-            <label><input type="checkbox" data-scope-filter="1" onclick="setScope(1)" disabled> 1級</label>
-            <label><input type="checkbox" data-scope-filter="2" onclick="setScope(2)" disabled> 2級</label>
-            <label><input type="checkbox" data-scope-filter="3" onclick="setScope(3)" disabled> 3級</label>
-            <label><input type="checkbox" data-scope-filter="4" onclick="setScope(4)" checked> 4級</label>
+        <!-- Row 2: カテゴリ選択 ・ 出題数 -->
+        <div class="sq-row">
+          <!-- カテゴリ全選択・全解除 -->
+          <div class="control-group">
+            <div class="control-label">カテゴリ選択</div>
+            <div class="action-buttons">
+              <button type="button" class="btn-action" onclick="checkAll(true)">すべて選択</button>
+              <button type="button" class="btn-action" onclick="checkAll(false)">すべて解除</button>
+            </div>
           </div>
-        </div>
 
-        <!-- 出題数選択 -->
-        <div class="control-group">
-          <div class="control-label">出題数</div>
-          <div class="question-limit-area">
-            <input type="range" id="questionLimitSlider" name="question_limit" min="1" max="101" value="101">
-            <span id="questionLimitDisplay" class="question-limit-display">全問</span>
-            <% if (typeof user !== 'undefined' && user) { %>
-              <label class="unanswered-only-label">
-                <input type="checkbox" name="unanswered_only" value="1">
-                未回答のみ出題
-              </label>
-            <% } %>
+          <!-- 出題数選択 -->
+          <div class="control-group">
+            <div class="control-label">出題数</div>
+            <div class="question-limit-area">
+              <input type="range" id="questionLimitSlider" name="question_limit" min="1" max="101" value="101">
+              <span id="questionLimitDisplay" class="question-limit-display">全問</span>
+            </div>
           </div>
         </div>
 
@@ -142,15 +164,6 @@
             </a>
           <% } %>
         <% } %>
-      </div>
-
-      <!-- カテゴリ選択 -->
-      <div class="section-title-row">
-        <div class="section-title">カテゴリ選択</div>
-        <div class="action-buttons">
-          <button type="button" class="btn-action" onclick="checkAll(true)">すべて選択</button>
-          <button type="button" class="btn-action" onclick="checkAll(false)">すべて解除</button>
-        </div>
       </div>
 
       <!-- カテゴリタブ -->

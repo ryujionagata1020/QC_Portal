@@ -1194,18 +1194,28 @@ a {
   border-color: transparent #fff transparent transparent;
 }
 
-/* 横一列の選択コントロール */
+/* 出題条件選択エリア */
 .selection-controls {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
+  flex-direction: column;
+  gap: 15px;
   margin-bottom: 30px;
   padding: 20px;
   background-color: var(--color-bg-section);
   border-radius: 8px;
   border: 1px solid var(--color-gray-300);
+}
+
+.sq-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
   flex-wrap: wrap;
+}
+
+.sq-unanswered-group {
+  margin-left: auto;
 }
 
 .control-group {
@@ -1259,7 +1269,7 @@ a {
 
 .action-buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
 }
 
@@ -1441,10 +1451,7 @@ a {
   gap: 10px;
 }
 
-.unanswered-only-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.sq-unanswered-group .checkbox-area label {
   font-size: 0.9em;
   font-weight: 500;
   color: var(--color-text-secondary);
@@ -1452,15 +1459,7 @@ a {
   white-space: nowrap;
 }
 
-.section-title-row .unanswered-only-label {
-  margin-left: auto;
-}
-
-.question-limit-area .unanswered-only-label {
-  margin-left: 20px;
-}
-
-.unanswered-only-label input[type="checkbox"] {
+.sq-unanswered-group input[type="checkbox"] {
   width: 16px;
   height: 16px;
   accent-color: var(--color-brand);
@@ -1626,9 +1625,14 @@ button:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .selection-controls {
+  .sq-row {
     flex-direction: column;
     gap: 15px;
+    align-items: flex-start;
+  }
+
+  .sq-unanswered-group {
+    margin-left: 0;
   }
 
   .control-group {
@@ -1740,9 +1744,6 @@ button:hover {
     font-size: 1.1em;
   }
 
-  .action-buttons {
-    flex-direction: column;
-  }
 }
 
 /* =========================================================
@@ -6888,4 +6889,289 @@ a.small-category-link:hover {
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   object-fit: contain;
+}
+
+/* ============================================================
+   お問い合わせ (contact-*)
+   ============================================================ */
+.contact-page {
+  padding: 40px 16px 80px;
+}
+
+.contact-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* パンくず */
+.contact-breadcrumb {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.contact-breadcrumb a {
+  color: #8b6ccf;
+  text-decoration: none;
+}
+.contact-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* ページタイトル */
+.contact-page-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.contact-description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+/* エラーボックス */
+.contact-error-box {
+  background: #fff0f0;
+  border: 1px solid #f5a5a5;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  color: #c0392b;
+  font-size: 0.9rem;
+}
+.contact-error-box ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.contact-error-box li + li {
+  margin-top: 4px;
+}
+
+/* フォーム */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-required {
+  background: #8b6ccf;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+}
+
+.contact-input,
+.contact-select,
+.contact-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #333;
+  background: #fff;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.contact-input:focus,
+.contact-select:focus,
+.contact-textarea:focus {
+  outline: none;
+  border-color: #8b6ccf;
+  box-shadow: 0 0 0 3px rgba(139, 108, 207, 0.15);
+}
+
+.contact-textarea {
+  resize: vertical;
+  min-height: 160px;
+  line-height: 1.6;
+}
+
+.contact-char-count {
+  font-size: 0.8rem;
+  color: #888;
+  text-align: right;
+}
+
+/* ボタン群 */
+.contact-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.contact-btn-submit {
+  background: #8b6ccf;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 40px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.contact-btn-submit:hover {
+  background: #7558b8;
+}
+.contact-btn-submit:active {
+  transform: scale(0.98);
+}
+
+/* 確認画面テーブル */
+.contact-confirm-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.contact-confirm-row {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+.contact-confirm-row:last-child {
+  border-bottom: none;
+}
+
+.contact-confirm-label {
+  width: 180px;
+  min-width: 180px;
+  background: #f5f2fb;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: flex-start;
+}
+
+.contact-confirm-value {
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  color: #333;
+  flex: 1;
+  word-break: break-all;
+}
+
+.contact-confirm-message {
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.contact-confirm-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.contact-btn-back {
+  color: #8b6ccf;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.contact-btn-back:hover {
+  color: #7558b8;
+}
+
+/* 完了画面 */
+.contact-complete-box {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.contact-complete-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #8b6ccf;
+  color: #fff;
+  font-size: 2.2rem;
+  line-height: 72px;
+  margin: 0 auto 24px;
+}
+
+.contact-complete-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.contact-complete-message {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.contact-complete-note {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 36px;
+}
+
+.contact-btn-home {
+  display: inline-block;
+  background: #8b6ccf;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 36px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+.contact-btn-home:hover {
+  background: #7558b8;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .contact-confirm-row {
+    flex-direction: column;
+  }
+  .contact-confirm-label {
+    width: 100%;
+    min-width: unset;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .contact-confirm-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .contact-btn-submit {
+    width: 100%;
+  }
+  .contact-btn-back {
+    text-align: center;
+  }
 }
