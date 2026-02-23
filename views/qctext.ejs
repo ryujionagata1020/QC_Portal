@@ -27,12 +27,12 @@
       <section id="primary" aria-labelledby="primary-heading" class="primary-with-penguin">
         <div class="speech-bubble">
           <p>
-            QC検定®を目指すときに最初に悩むのが参考書選びです。特にQC４級受験者は「何からをつければいいのか分からない」という
+            QC検定®を目指すときに最初に悩むのが参考書選びです。特にQC4級受験者は「何からをつければいいのか分からない」という
             不安を解消するため、イラストが豊富な参考書でイメージを持つことが大切です。
           </p>
         </div>
         <div class="penguin-image">
-          <img src="/public/branch_pengin.png" alt="ペンギン" />
+          <img src="/public/pengin_honya.png" alt="ペンギン" />
         </div>
       </section>
  
@@ -41,24 +41,39 @@
             <p>
             ※最終更新日：2026年2月24日<br>
             資格試験の勉強をするにあたって、参考書の選択は最初に迷う問題です。
+            参考書選びが合格までの勉強時間を決めると言ってもいいくらいの重要性を持っています。
+            自分に合うテキストであれば、いち早く合格ラインにたどりつくことができたり、
+            自分に合わない参考書であればすべての範囲を学習し終えるまでに挫折してしまうこともあるのです。
+            あなたのパートナとなる1冊を真剣に選んでいきましょう。
             </p>
-            <div class="qcis-content-with-image">
-              <!-- ✅ 画像表示エリア（左側） -->
-              <div class="qcis-img-side">
-                <img src="/public/pengin_engineer.png" alt="エンジニアペンギン" style="height: auto;" />
-              </div>
-              <div class="qcis-text">
-                <p>
-                  基本的に品質管理・問題解決能力を問う試験であり、それぞれ各級に応じて役割の規模が変化します。<br />
-                  品質管理の初めて学ぶ方や社会人になりたての場合3級からの取得がおすすめです。<br />
-                  各級の受験者平均は1級で41～42歳、2級で37～38歳、3級で34～35歳、4級で31～32歳であることから
-                  業務経験10～15年の中堅メカニックエンジニアやシステムエンジニア、その他社会人が受験者の中心であることが分かります。
-                  一方で3,4級の合格者の3割以上は10代～20代であり、若手の基本教育にも活用されています。<br />
-                </p>
-              </div>
-            </div>
-            <!-- １級として仕事している風の画像の挿入-->
           </section>
+
+          <!-- 級別タブ -->
+          <nav class="tools-tab-bar" id="qctext-tab-bar" role="tablist" aria-label="QC検定 級別">
+            <button class="tools-tab" role="tab" data-tab="grade1" aria-selected="false" aria-controls="panel-grade1">1級</button>
+            <button class="tools-tab" role="tab" data-tab="grade2" aria-selected="false" aria-controls="panel-grade2">2級</button>
+            <button class="tools-tab" role="tab" data-tab="grade3" aria-selected="false" aria-controls="panel-grade3">3級</button>
+            <button class="tools-tab active" role="tab" data-tab="grade4" aria-selected="true" aria-controls="panel-grade4">4級</button>
+          </nav>
+
+          <div class="tools-tab-panels">
+            <div class="tools-tab-panel active" id="panel-grade1" role="tabpanel" aria-labelledby="tab-grade1">
+              <h3>1級 おすすめ参考書</h3>
+              <p>（準備中）</p>
+            </div>
+            <div class="tools-tab-panel" id="panel-grade2" role="tabpanel" aria-labelledby="tab-grade2">
+              <h3>2級 おすすめ参考書</h3>
+              <p>（準備中）</p>
+            </div>
+            <div class="tools-tab-panel" id="panel-grade3" role="tabpanel" aria-labelledby="tab-grade3">
+              <h3>3級 おすすめ参考書</h3>
+              <p>（準備中）</p>
+            </div>
+            <div class="tools-tab-panel" id="panel-grade4" role="tabpanel" aria-labelledby="tab-grade4">
+              <h3>4級 おすすめ参考書</h3>
+              <p>（準備中）</p>
+            </div>
+          </div>
 
 
 
@@ -70,7 +85,26 @@
       <%- include("./_share/footer.ejs") %>
     </div>
 
-    <!-- 必要ならスクリプトをここに -->
-    <!-- <script src="script.js"></script> -->
+    <script>
+      (function () {
+        var bar    = document.getElementById('qctext-tab-bar');
+        var panels = document.querySelectorAll('#site-wrapper .tools-tab-panel');
+
+        bar.addEventListener('click', function (e) {
+          var btn = e.target.closest('.tools-tab');
+          if (!btn) return;
+
+          bar.querySelectorAll('.tools-tab').forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach(function (p) { p.classList.remove('active'); });
+
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+        });
+      })();
+    </script>
   </body>
 </html>

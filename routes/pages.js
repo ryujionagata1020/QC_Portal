@@ -21,4 +21,9 @@ router.get("/manual", (req, res) => {
   res.render("Manual");
 });
 
+// 参考書・問題集ページ
+router.get("/qctext", (req, res) => {
+  res.render("qctext");
+});
+
 module.exports = router;
