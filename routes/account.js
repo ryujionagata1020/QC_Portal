@@ -10,7 +10,7 @@ function ensureAuthenticated(req, res, next) {
   return res.status(401).json({ error: "ログインが必要です" });
 }
 
-// ユーザーの回答履歴を級ごとに取得するAPI
+// ユーザーの回答履歴を級ごとに取得するAPI（未回答含む全blank）
 router.get("/history/:testlevel", ensureAuthenticated, async (req, res, next) => {
   try {
     const testlevel = parseInt(req.params.testlevel, 10);
@@ -20,39 +20,41 @@ router.get("/history/:testlevel", ensureAuthenticated, async (req, res, next) =>
 
     const userId = req.user.user_id;
 
-    // 各blank_idごとの直近3回までの履歴を取得
-    const query = await sql("SELECT_user_history_BY_testlevel");
-    const rows = await MySQLClient.executeQuery(query, [userId, testlevel]);
+    // 全blank一覧（カテゴリ順）と回答履歴を並行取得
+    const [allBlanksQuery, historyQuery] = await Promise.all([
+      sql("SELECT_all_blanks_BY_testlevel"),
+      sql("SELECT_user_history_BY_testlevel"),
+    ]);
+    const [allBlanks, historyRows] = await Promise.all([
+      MySQLClient.executeQuery(allBlanksQuery, [testlevel]),
+      MySQLClient.executeQuery(historyQuery, [userId, testlevel]),
+    ]);
 
-    // blank_idごとにグループ化（カテゴリ情報付き）
-    const historyMap = {};
-    rows.forEach(row => {
-      // attempt_rank が 3 以下のものだけを保持
+    // 回答済みblank_idごとに直近3回の履歴をマップ化
+    const answeredMap = {};
+    historyRows.forEach(row => {
       if (row.attempt_rank <= 3) {
-        if (!historyMap[row.blank_id]) {
-          historyMap[row.blank_id] = {
-            question_id: row.question_id,
-            blank_number: row.blank_number,
-            small_category_name: row.small_category_name,
-            large_category_name: row.large_category_name,
-            attempts: []
-          };
+        if (!answeredMap[row.blank_id]) {
+          answeredMap[row.blank_id] = [];
         }
-        historyMap[row.blank_id].attempts.push({
+        answeredMap[row.blank_id].push({
           is_correct: row.is_correct,
           attempt_rank: row.attempt_rank
         });
       }
     });
 
-    // レスポンス用に整形（blank_id単位、カテゴリ順を維持）
-    const history = Object.entries(historyMap).map(([blankId, data]) => ({
-      blank_id: blankId,
-      question_id: data.question_id,
-      blank_number: data.blank_number,
-      small_category_name: data.small_category_name,
-      large_category_name: data.large_category_name,
-      attempts: data.attempts.sort((a, b) => a.attempt_rank - b.attempt_rank)
+    // 全blankに回答履歴をマージ（未回答は attempts: []）
+    // カテゴリ順はSQLのORDER BY（qlc.num, qsc.num, question_id, blank_number）を維持
+    const history = allBlanks.map(blank => ({
+      blank_id: blank.blank_id,
+      question_id: blank.question_id,
+      blank_number: blank.blank_number,
+      small_category_name: blank.small_category_name,
+      large_category_name: blank.large_category_name,
+      attempts: answeredMap[blank.blank_id]
+        ? answeredMap[blank.blank_id].sort((a, b) => a.attempt_rank - b.attempt_rank)
+        : [],
     }));
 
     res.json({ history });
