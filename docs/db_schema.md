@@ -93,3 +93,15 @@ published_at	datetime	NO	MUL	CURRENT_TIMESTAMP	DEFAULT_GENERATED
 is_visible	tinyint(1)	NO		1	
 created_at	datetime	NO		CURRENT_TIMESTAMP	DEFAULT_GENERATED
 updated_at	datetime	NO		CURRENT_TIMESTAMP	DEFAULT_GENERATED on update CURRENT_TIMESTAMP
+
+contact_inquiries
+inquiry_id	int unsigned	NO	PRI		auto_increment
+name	varchar(100)	NO			
+email	varchar(254)	NO			
+category	varchar(50)	NO			
+subject	varchar(200)	NO			
+message	text	NO			
+status	enum('new','in_progress','resolved')	YES		new	
+ip_address	varchar(45)	YES			
+user_id	int unsigned	YES			
+created_at	timestamp	YES		CURRENT_TIMESTAMP	DEFAULT_GENERATED

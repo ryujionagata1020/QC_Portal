@@ -7309,3 +7309,157 @@ a.small-category-link:hover {
     text-align: center;
   }
 }
+
+/* ============================================================
+ * Book Cards / 参考書ページ (bk-*)
+ * ============================================================ */
+
+.bk-section-intro {
+  margin-bottom: 24px;
+}
+
+.bk-section-intro p {
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.bk-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.bk-card {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  background: var(--color-bg-container);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.bk-card:hover {
+  box-shadow: 0 4px 16px rgba(139, 108, 207, 0.12);
+  border-color: var(--color-brand-border);
+}
+
+.bk-card-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bk-badge {
+  font-size: 0.72rem;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.bk-badge--official {
+  background: #e8f0fd;
+  color: #1a5fa8;
+}
+
+.bk-badge--cbt {
+  background: #e6f8f0;
+  color: #1a7a4a;
+}
+
+.bk-badge--beginner {
+  background: #fff3e0;
+  color: #c76400;
+}
+
+.bk-badge--calc {
+  background: #f0e8ff;
+  color: #6b3fbe;
+}
+
+.bk-badge--essay {
+  background: #fdedf0;
+  color: #b5132a;
+}
+
+.bk-card-title {
+  font-size: 0.93rem;
+  font-weight: bold;
+  line-height: 1.55;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.bk-card-publisher {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.bk-card-features {
+  font-size: 0.84rem;
+  line-height: 1.8;
+  padding-left: 18px;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.bk-card-target {
+  margin-top: auto;
+  font-size: 0.82rem;
+  color: var(--color-brand);
+  font-weight: bold;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.bk-recommend-box {
+  background: var(--color-brand-pale);
+  border-left: 4px solid var(--color-brand);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin-top: 4px;
+}
+
+.bk-recommend-box h4 {
+  font-size: 0.93rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--color-brand-dark);
+}
+
+.bk-recommend-box p {
+  font-size: 0.87rem;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.bk-warning-box {
+  background: #fff8e1;
+  border-left: 4px solid #f9a825;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.bk-subsection-heading {
+  font-size: 0.92rem;
+  font-weight: bold;
+  color: var(--color-text-secondary);
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+@media (max-width: 768px) {
+  .bk-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
