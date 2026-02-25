@@ -1,11 +1,94 @@
-<h2>プライバシーポリシー（個人情報保護方針）</h2>
-<div class="roundBox sentence">
-    <ol>
-        <li>当サイトでは、ユーザーがページを閲覧する際にユーザーに関する情報（IPアドレスを含む）を自動的に取得することがあります。</li>
-        <li>当サイトで取得するユーザー情報は、広告が配信される過程においてクッキーやWebビーコンなどを用いて収集されることがあります。</li>
-        <li>当サイトで取得するユーザー情報は、情報収集目的およびWebサイトの適切な管理を行うためのみに収集され、それ以外の用途には使用いたしません（クッキーとして送るテキストファイルには、個人を特定するような情報は含んでいません）。
-        </li>
-        <li>ユーザーは、プライバシー保護のため、クッキーの取得を拒否することができます。クッキーの取得を拒否したい場合には、お使いのブラウザの「ヘルプ」メニューをご覧になり、クッキーの送受信に関する設定を行ってください。
-        </li>
-        <li>お問い合わせの際にご記入いただいたメールアドレスは、お問い合わせへの対応以外の目的で使用しません。</li>
-    </ol>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./_share/metadata.ejs")%>
+    <title>プライバシーポリシー | QC-Portal</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="/public/index.css" />
+  </head>
+
+  <body>
+    <div id="site-wrapper">
+      <%- include("./_share/navbar.ejs") %>
+
+      <main class="qcis-container">
+
+        <section aria-labelledby="privacy-heading">
+          <h2 id="privacy-heading">プライバシーポリシー（個人情報保護方針）</h2>
+          <p>QC-Portal（以下「当サイト」）は、ユーザーの個人情報を適切に管理・保護することを重要な責務と考えています。当サイトにおける個人情報の取り扱いについて、以下のとおり定めます。</p>
+        </section>
+
+        <section aria-labelledby="collect-heading">
+          <h2 id="collect-heading">1. 収集する情報</h2>
+          <p>当サイトでは、以下の情報を収集することがあります。</p>
+          <dl>
+            <dt>アカウント登録情報</dt>
+            <dd>アカウント登録の際に、ユーザーID（ユーザー名）、メールアドレス、およびパスワード（暗号化して保存）を収集します。アカウント登録はオプションであり、登録なしでもサービスの一部を利用できます。</dd>
+            <dt>学習データ</dt>
+            <dd>登録ユーザーが本サービスを利用することで生成される解答履歴、正誤判定結果、学習統計情報等をサーバーに記録・保存します。</dd>
+            <dt>お問い合わせ情報</dt>
+            <dd>お問い合わせフォームをご利用の際に、メールアドレスおよびお問い合わせ内容を収集します。収集したメールアドレスはお問い合わせへの対応以外の目的では使用しません。</dd>
+            <dt>アクセス情報</dt>
+            <dd>ページの閲覧時に、IPアドレスやアクセス日時などのアクセスログを取得することがあります。これらの情報は、サービスの適切な管理・不正利用の防止を目的として収集されます。</dd>
+          </dl>
+        </section>
+
+        <section aria-labelledby="purpose-heading">
+          <h2 id="purpose-heading">2. 利用目的</h2>
+          <p>収集した情報は、以下の目的のみに使用します。</p>
+          <ul class="qcis-list">
+            <li>本サービスの提供・運営・品質向上</li>
+            <li>ユーザーの本人確認・認証（ログイン状態の管理）</li>
+            <li>学習履歴・統計の記録および表示</li>
+            <li>お問い合わせへの対応</li>
+            <li>サービスの不正利用防止およびセキュリティの維持</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="cookie-heading">
+          <h2 id="cookie-heading">3. Cookie・セッション・LocalStorageの利用</h2>
+          <dl>
+            <dt>Cookie・セッション</dt>
+            <dd>当サイトでは、ログイン状態の維持および出題制御のためにCookie（クッキー）およびセッション情報を使用しています。ブラウザの設定によりCookieを無効にした場合、ログインを必要とする機能が正常に動作しないことがあります。</dd>
+            <dt>LocalStorage</dt>
+            <dd>テーマ（ライト・ダーク）設定やシミュレーターの各種設定など、ユーザーの環境設定をブラウザのLocalStorageに保存することがあります。LocalStorageのデータはサーバーには送信されず、ご利用のブラウザ内にのみ保存されます。</dd>
+          </dl>
+        </section>
+
+        <section aria-labelledby="third-party-heading">
+          <h2 id="third-party-heading">4. 第三者への提供</h2>
+          <p>当サイトは、以下の場合を除き、収集した個人情報を第三者に提供することはありません。</p>
+          <ul class="qcis-list">
+            <li>ユーザーの同意がある場合</li>
+            <li>法令に基づき開示が求められる場合</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="management-heading">
+          <h2 id="management-heading">5. 個人情報の管理</h2>
+          <p>当サイトは、収集した個人情報を適切に管理するために以下の措置を講じます。</p>
+          <ul class="qcis-list">
+            <li>パスワードは適切なハッシュアルゴリズムにより暗号化して保存します。</li>
+            <li>登録ユーザーがアカウント削除を行った場合、当該ユーザーに紐づく学習データは速やかに削除されます。</li>
+            <li>収集した個人情報は、利用目的の達成に必要な期間を超えて保持しません。</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="changes-heading">
+          <h2 id="changes-heading">6. プライバシーポリシーの変更</h2>
+          <p>当サイトは、必要に応じて本プライバシーポリシーを変更することがあります。変更後のポリシーは、当サイト上に掲示した時点から効力を生じます。</p>
+        </section>
+
+        <section aria-labelledby="contact-pp-heading">
+          <h2 id="contact-pp-heading">7. お問い合わせ</h2>
+          <p>個人情報の取り扱いに関するご質問・ご相談は、<a href="/contact">お問い合わせフォーム</a>よりご連絡ください。</p>
+        </section>
+
+        <p style="text-align: right; color: var(--color-text-muted); font-size: 0.9em; margin-top: 2em;">【2026年5月1日制定】</p>
+
+      </main>
+
+      <%- include("./_share/footer.ejs") %>
+    </div>
+  </body>
+</html>
