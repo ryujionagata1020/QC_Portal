@@ -20,6 +20,9 @@ const app = express();
 app.set("view engine", "ejs");
 app.disable("x-powered-by");
 
+// Nginx リバースプロキシ経由のクライアントIPを信頼
+app.set("trust proxy", 1);
+
 // Helmet セキュリティヘッダー
 app.use(helmet({
   contentSecurityPolicy: {
@@ -65,7 +68,7 @@ app.use(session({
   name: "sid",
   cookie: {
     httpOnly: true,
-    secure: false, // 本番環境ではtrueに設定（HTTPS使用時）
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     maxAge: null // デフォルトはブラウザを閉じるまで
   }
