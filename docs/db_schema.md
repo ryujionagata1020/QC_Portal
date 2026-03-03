@@ -12,6 +12,8 @@ quiz_blanks
 blank_id	varchar(50)	NO	PRI		
 question_id	varchar(50)	NO	MUL		
 blank_number	int	NO			
+explanation	text	YES			
+explanation_data	longblob	YES					
 
 quiz_choices
 choice_id	varchar(50)	NO	PRI		
