@@ -29,9 +29,9 @@
       </div>
     </div>
 
-    <% if (image_data) { %>
+    <% if (image_url) { %>
       <div class="img-area">
-        <img src="data:<%= image_mime_type %>;base64,<%= image_data %>" alt="問題図">
+        <img src="<%= image_url %>" alt="問題図">
       </div>
     <% } %>
 
@@ -73,9 +73,9 @@
                 <button class="btn toggle-explanation-btn" data-blank="<%= blank.blank_id %>">解説をみる</button>
                 <div id="explanation_<%= blank.blank_id %>" class="blank-explanation" style="display:none;">
                   <div class="latex-content"><%= blank.explanation %></div>
-                  <% if (blank.explanation_data) { %>
+                  <% if (blank.explanation_url) { %>
                     <div class="explanation-img-area">
-                      <img src="data:<%= blank.explanation_mime_type %>;base64,<%= blank.explanation_data %>" alt="解説図（<%= blank.blank_number %>）">
+                      <img src="<%= blank.explanation_url %>" alt="解説図（<%= blank.blank_number %>）">
                     </div>
                   <% } %>
                 </div>

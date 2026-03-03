@@ -19,7 +19,7 @@ router.get("/", async (req, res, next) => {
         q.question_id,
         q.body,
         q.testlevel,
-        q.image_data,
+        q.image_url,
         s.small_category_name,
         l.large_category_name
       FROM quiz_questions AS q
@@ -73,28 +73,11 @@ router.get("/", async (req, res, next) => {
         text: normalizeLatex(c.choice_text)
       }));
 
-      // image_dataがBufferの場合はBase64に変換し、MIMEタイプを判定
-      let imageDataBase64 = null;
-      let imageMimeType = 'image/png';
-      if (question.image_data) {
-        const buf = Buffer.isBuffer(question.image_data) ? question.image_data : Buffer.from(question.image_data);
-        // マジックバイトでMIMEタイプを判定
-        if (buf[0] === 0xFF && buf[1] === 0xD8) {
-          imageMimeType = 'image/jpeg';
-        } else if (buf[0] === 0x89 && buf[1] === 0x50) {
-          imageMimeType = 'image/png';
-        } else if (buf[0] === 0x47 && buf[1] === 0x49) {
-          imageMimeType = 'image/gif';
-        }
-        imageDataBase64 = buf.toString('base64');
-      }
-
       randomQuestion = {
         question_id: question.question_id,
         body: normalizeLatex(question.body),
         testlevel: question.testlevel,
-        image_data: imageDataBase64,
-        image_mime_type: imageMimeType,
+        image_url: question.image_url || null,
         small_category_name: question.small_category_name,
         large_category_name: question.large_category_name,
         blanks: blanks,

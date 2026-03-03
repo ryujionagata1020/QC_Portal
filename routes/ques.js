@@ -246,7 +246,7 @@ router.get("/:question_id", questionLimiter, async (req, res, next) => {
         q.question_id,
         q.body,
         q.testlevel,
-        q.image_data,
+        q.image_url,
         s.small_category_name,
         l.large_category_name,
         c.choice_id,
@@ -255,7 +255,7 @@ router.get("/:question_id", questionLimiter, async (req, res, next) => {
         b.blank_id,
         b.blank_number,
         b.explanation,
-        b.explanation_data
+        b.explanation_url
       FROM quiz_questions AS q
       JOIN quiz_small_category AS s ON q.small_category_id = s.small_category_id
       JOIN quiz_large_category AS l ON s.large_category_id = l.large_category_id
@@ -273,28 +273,11 @@ router.get("/:question_id", questionLimiter, async (req, res, next) => {
     }
 
     // 重複除去してquestion構造に整形
-    // image_dataとexplanation_dataがBufferの場合はBase64に変換し、MIMEタイプを判定
-    // MIMEタイプ判定用のヘルパー関数
-    function detectMimeType(buf) {
-      if (buf[0] === 0xFF && buf[1] === 0xD8) return 'image/jpeg';
-      if (buf[0] === 0x89 && buf[1] === 0x50) return 'image/png';
-      if (buf[0] === 0x47 && buf[1] === 0x49) return 'image/gif';
-      return 'image/png';
-    }
-
-    let imageDataBase64 = null;
-    let imageMimeType = 'image/png';
-    if (rows[0].image_data) {
-      const buf = Buffer.isBuffer(rows[0].image_data) ? rows[0].image_data : Buffer.from(rows[0].image_data);
-      imageMimeType = detectMimeType(buf);
-      imageDataBase64 = buf.toString('base64');
-    }
     const question = {
       question_id: rows[0].question_id,
       body: normalizeLatex(rows[0].body),
       testlevel: rows[0].testlevel,
-      image_data: imageDataBase64,
-      image_mime_type: imageMimeType,
+      image_url: rows[0].image_url || null,
       small_category_name: rows[0].small_category_name,
       large_category_name: rows[0].large_category_name,
       choices: [],
@@ -307,20 +290,11 @@ router.get("/:question_id", questionLimiter, async (req, res, next) => {
     rows.forEach(r => {
       if (r.blank_id) {
         if (!blankMap.has(r.blank_id)) {
-          // blank_idごとの解説データを処理
-          let blankExplanationData = null;
-          let blankExplanationMimeType = 'image/png';
-          if (r.explanation_data) {
-            const buf = Buffer.isBuffer(r.explanation_data) ? r.explanation_data : Buffer.from(r.explanation_data);
-            blankExplanationMimeType = detectMimeType(buf);
-            blankExplanationData = buf.toString('base64');
-          }
           blankMap.set(r.blank_id, {
             blank_id: r.blank_id,
             blank_number: r.blank_number,
             explanation: normalizeLatex(r.explanation),
-            explanation_data: blankExplanationData,
-            explanation_mime_type: blankExplanationMimeType,
+            explanation_url: r.explanation_url || null,
             choices: []
           });
         }

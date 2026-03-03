@@ -77,9 +77,9 @@
               <span>難易度：<%= randomQuestion.testlevel %>級</span>
             </div>
 
-            <% if (randomQuestion.image_data) { %>
+            <% if (randomQuestion.image_url) { %>
               <div class="random-question-img">
-                <img src="data:<%= randomQuestion.image_mime_type %>;base64,<%= randomQuestion.image_data %>" alt="問題図" width="300">
+                <img src="<%= randomQuestion.image_url %>" alt="問題図" width="300">
               </div>
             <% } %>
 
