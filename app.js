@@ -31,7 +31,7 @@ app.use(helmet({
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "cdn.jsdelivr.net"],
       scriptSrcAttr: ["'unsafe-inline'"],  // onclick などのインラインイベントハンドラーを許可
       styleSrc: ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "unpkg.com"],
-      imgSrc: ["'self'", "data:", "blob:"],
+      imgSrc: ["'self'", "data:", "blob:", "https://*.s3.ap-northeast-1.amazonaws.com"],
       fontSrc: ["'self'", "cdn.jsdelivr.net"],
       connectSrc: ["'self'"],
       objectSrc: ["'none'"],
