@@ -1,3 +1,4 @@
+すど
 # Amazon Lightsail デプロイ手順書
 
 **対象プロジェクト:** QC Portal
@@ -372,7 +373,7 @@ server {
 sudo ln -s /etc/nginx/sites-available/qc-portal /etc/nginx/sites-enabled/
 
 # デフォルト設定の無効化（競合防止）
-sudo rm -f /etc/nginx/sites-enabled/default
+ｃ
 
 # 設定ファイルの文法チェック
 sudo nginx -t

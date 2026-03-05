@@ -170,6 +170,8 @@ function renderActivityChart(labels, answerData, accuracyData) {
 
   var ctx = newCanvas.getContext('2d');
 
+  var maxAnswers = Math.max.apply(null, answerData.filter(function(v) { return v > 0; })) || 1;
+
   activityChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -209,6 +211,7 @@ function renderActivityChart(labels, answerData, accuracyData) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      clip: false,
       interaction: {
         mode: 'index',
         intersect: false
@@ -216,6 +219,7 @@ function renderActivityChart(labels, answerData, accuracyData) {
       scales: {
         y: {
           beginAtZero: true,
+          max: maxAnswers,
           position: 'left',
           ticks: {
             stepSize: 1,
@@ -232,7 +236,7 @@ function renderActivityChart(labels, answerData, accuracyData) {
         },
         y1: {
           beginAtZero: true,
-          max: 120,
+          max: 100,
           position: 'right',
           grid: {
             drawOnChartArea: false
