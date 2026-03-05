@@ -45,7 +45,7 @@ router.get("/history/:testlevel", ensureAuthenticated, async (req, res, next) =>
     });
 
     // 全blankに回答履歴をマージ（未回答は attempts: []）
-    // カテゴリ順はSQLのORDER BY（qlc.num, qsc.num, question_id, blank_number）を維持
+    // 問題ID昇順はSQLのORDER BY（question_id, blank_number）で維持
     const history = allBlanks.map(blank => ({
       blank_id: blank.blank_id,
       question_id: blank.question_id,

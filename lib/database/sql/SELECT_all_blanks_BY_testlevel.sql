@@ -10,4 +10,4 @@ JOIN quiz_questions q   ON qb.question_id       = q.question_id
 JOIN quiz_small_category qsc ON q.small_category_id = qsc.small_category_id
 JOIN quiz_large_category qlc ON qsc.large_category_id = qlc.large_category_id
 WHERE q.testlevel = ?
-ORDER BY qlc.num, qsc.num, q.question_id, qb.blank_number;
+ORDER BY q.question_id, qb.blank_number;
