@@ -232,7 +232,7 @@ function renderActivityChart(labels, answerData, accuracyData) {
         },
         y1: {
           beginAtZero: true,
-          max: 100,
+          max: 120,
           position: 'right',
           grid: {
             drawOnChartArea: false
@@ -240,6 +240,7 @@ function renderActivityChart(labels, answerData, accuracyData) {
           ticks: {
             stepSize: 20,
             callback: function(value) {
+              if (value > 100) return null;
               return value + '%';
             }
           },
