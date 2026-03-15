@@ -3,6 +3,7 @@ var currentSection = 'activity';
 
 function openAccountModal() {
   document.getElementById('accountModal').style.display = 'block';
+  if (typeof gtag === 'function') gtag('event', 'modal_open', { modal_name: 'account' });
   switchAccountSection('activity');
 }
 
@@ -29,6 +30,8 @@ function switchAccountSection(section) {
     sec.classList.remove('active');
   });
   document.getElementById('section-' + section).classList.add('active');
+
+  if (typeof gtag === 'function') gtag('event', 'account_section_view', { section: section });
 
   // 各セクションのデータ読み込み
   if (section === 'history') {

@@ -1,6 +1,7 @@
 // ==== 認証モーダル制御 ====
 function openAuthModal() {
   document.getElementById('authModal').style.display = 'block';
+  if (typeof gtag === 'function') gtag('event', 'modal_open', { modal_name: 'auth' });
 }
 
 function closeAuthModal() {
@@ -23,6 +24,7 @@ function switchAuthTab(tab) {
     document.getElementById('registerForm').classList.add('active');
   }
 
+  if (typeof gtag === 'function') gtag('event', 'auth_tab_switch', { tab: tab });
   clearAuthMessages();
 }
 
@@ -61,6 +63,7 @@ async function handleLogin(event) {
     if (data.success) {
       messageEl.textContent = data.message;
       messageEl.style.color = 'green';
+      if (typeof gtag === 'function') gtag('event', 'login', { method: 'user_id' });
       setTimeout(function() {
         location.reload();
       }, 1000);
@@ -97,6 +100,7 @@ async function handleRegister(event) {
     if (data.success) {
       messageEl.textContent = data.message;
       messageEl.style.color = 'green';
+      if (typeof gtag === 'function') gtag('event', 'sign_up', { method: 'user_id' });
       form.reset();
       setTimeout(function() {
         switchAuthTab('login');

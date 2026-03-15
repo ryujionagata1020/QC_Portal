@@ -118,6 +118,7 @@ document.getElementById('categoryAccuracyList').addEventListener('click', functi
   document.getElementById('categoryConfirmName').textContent = categoryName;
   document.getElementById('categoryStartSmallId').value = smallId;
   document.getElementById('categoryConfirmOverlay').classList.add('active');
+  if (typeof gtag === 'function') gtag('event', 'modal_open', { modal_name: 'category_confirm', category: categoryName });
 });
 
 // 「解く！」ボタン

@@ -4,5 +4,14 @@
     <meta name="description" content="QC-Portal: QC検定の学習・情報サイト" />
     <meta name="csrf-token" content="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>" />
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-85XCM9G8Y4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-85XCM9G8Y4');
+    </script>
+
     <!-- コピー・右クリック抑制スクリプト -->
     <script src="/public/copy-protection.js"></script>
