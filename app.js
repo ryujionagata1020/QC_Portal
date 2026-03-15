@@ -28,12 +28,12 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "cdn.jsdelivr.net", "https://www.googletagmanager.com"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "cdn.jsdelivr.net", "https://www.googletagmanager.com", "https://static.cloudflareinsights.com"],
       scriptSrcAttr: ["'unsafe-inline'"],  // onclick などのインラインイベントハンドラーを許可
       styleSrc: ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "unpkg.com"],
       imgSrc: ["'self'", "data:", "blob:", "https://*.s3.ap-northeast-1.amazonaws.com"],
       fontSrc: ["'self'", "cdn.jsdelivr.net"],
-      connectSrc: ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://www.googletagmanager.com"],
+      connectSrc: ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://www.googletagmanager.com", "https://cloudflareinsights.com"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
       frameSrc: ["'none'"]
