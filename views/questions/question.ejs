@@ -71,6 +71,14 @@
               </div>
               <% if (blank.explanation) { %>
                 <button class="btn toggle-explanation-btn" data-blank="<%= blank.blank_id %>">解説をみる</button>
+                <div id="ad_<%= blank.blank_id %>" class="explanation-ad" style="display:none;">
+                  <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-4841029986576213"
+                    data-ad-slot="XXXXXXXXXX"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                </div>
                 <div id="explanation_<%= blank.blank_id %>" class="blank-explanation" style="display:none;">
                   <div class="latex-content"><%= blank.explanation %></div>
                   <% if (blank.explanation_url) { %>
@@ -104,6 +112,14 @@
             </div>
             <% if (blank.explanation) { %>
               <button class="btn toggle-explanation-btn" data-blank="<%= blank.blank_id %>">解説をみる</button>
+              <div id="ad_<%= blank.blank_id %>" class="explanation-ad" style="display:none;">
+                <ins class="adsbygoogle"
+                  style="display:block"
+                  data-ad-client="ca-pub-4841029986576213"
+                  data-ad-slot="XXXXXXXXXX"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+              </div>
               <div id="explanation_<%= blank.blank_id %>" class="blank-explanation" style="display:none;">
                 <div class="latex-content"><%= blank.explanation %></div>
                 <% if (blank.explanation_url) { %>
@@ -200,6 +216,14 @@
         const show = exp.style.display === 'none';
         exp.style.display = show ? 'block' : 'none';
         btn.textContent = show ? '解説を隠す' : '解説をみる';
+        const adDiv = document.getElementById('ad_' + blankId);
+        if (adDiv) {
+          adDiv.style.display = show ? 'block' : 'none';
+          if (show && !adDiv.dataset.adLoaded) {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            adDiv.dataset.adLoaded = '1';
+          }
+        }
         // 初回表示時にKaTeXをレンダリング
         if (show && !exp.dataset.rendered) {
           exp.querySelectorAll('.latex-content').forEach(function(elem) {
@@ -318,6 +342,14 @@
       // 解説を展開
       exp.style.display = 'block';
       btn.textContent = '解説を隠す';
+      const adDiv = document.getElementById('ad_' + sanitizedBlankId);
+      if (adDiv) {
+        adDiv.style.display = 'block';
+        if (!adDiv.dataset.adLoaded) {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+          adDiv.dataset.adLoaded = '1';
+        }
+      }
 
       // 初回表示時にKaTeXをレンダリング
       if (!exp.dataset.rendered) {
