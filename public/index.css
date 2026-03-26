@@ -7477,17 +7477,21 @@ a.small-category-link:hover {
 
 .articles-index-header {
   margin-bottom: 40px;
+  padding: 32px 32px 28px;
+  background: linear-gradient(135deg, #f5f0ff 0%, #ede8ff 100%);
+  border-radius: 12px;
+  border-left: 5px solid #8b6ccf;
 }
 
 .articles-index-header h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: var(--color-text-primary);
+  color: #3d2c7a;
   margin-bottom: 8px;
 }
 
 .articles-index-desc {
-  color: var(--color-text-secondary);
+  color: #666;
   font-size: 0.95rem;
 }
 
@@ -7508,21 +7512,28 @@ a.small-category-link:hover {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .articles-list-item a {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 16px;
-  border-radius: 8px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px solid #e8e0f5;
   text-decoration: none;
-  transition: background 0.15s;
-  color: var(--color-text-primary);
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  color: #222;
+  background: #fff;
 }
 
 .articles-list-item a:hover {
-  background: var(--color-bg-secondary, #f5f5f5);
+  background: #f9f6ff;
+  border-color: #8b6ccf;
+  box-shadow: 0 2px 8px rgba(139, 108, 207, 0.12);
 }
 
 .articles-item-label {
@@ -7598,22 +7609,25 @@ a.small-category-link:hover {
 /* Markdown本文スタイル */
 .article-content {
   line-height: 1.9;
-  color: var(--color-text-primary);
+  color: #222;
+  font-size: 1rem;
 }
 
 .article-content h1 {
   font-size: 1.6rem;
   font-weight: bold;
+  color: #111;
   margin: 0 0 24px;
   padding-bottom: 12px;
-  border-bottom: 2px solid var(--color-border-light, #e5e5e5);
+  border-bottom: 2px solid #e5e5e5;
 }
 
 .article-content h2 {
   font-size: 1.25rem;
   font-weight: bold;
+  color: #111;
   margin: 40px 0 16px;
-  padding-left: 12px;
+  padding: 4px 0 4px 14px;
   border-left: 4px solid #8b6ccf;
 }
 
@@ -7621,17 +7635,30 @@ a.small-category-link:hover {
   font-size: 1.05rem;
   font-weight: bold;
   margin: 28px 0 12px;
-  color: #8b6ccf;
+  color: #5a3ea0;
+}
+
+.article-content h4 {
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin: 20px 0 8px;
+  color: #333;
 }
 
 .article-content p {
   margin-bottom: 16px;
+  color: #333;
+}
+
+.article-content strong {
+  font-weight: bold;
+  color: #111;
 }
 
 .article-content table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   font-size: 0.9rem;
   overflow-x: auto;
   display: block;
@@ -7639,27 +7666,35 @@ a.small-category-link:hover {
 
 .article-content th,
 .article-content td {
-  border: 1px solid var(--color-border-light, #ddd);
-  padding: 8px 12px;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
   text-align: left;
+  white-space: nowrap;
 }
 
 .article-content th {
-  background: var(--color-bg-secondary, #f5f5f5);
+  background: #f4f0fb;
   font-weight: bold;
+  color: #3d2c7a;
+}
+
+.article-content tr:nth-child(even) td {
+  background: #fafafa;
 }
 
 .article-content code {
-  background: var(--color-bg-secondary, #f0f0f0);
+  background: #f0edf8;
+  color: #5a3ea0;
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.88em;
-  font-family: monospace;
+  font-family: 'Courier New', monospace;
 }
 
 .article-content pre {
-  background: var(--color-bg-secondary, #f0f0f0);
-  padding: 16px;
+  background: #f5f2fb;
+  border: 1px solid #e0d8f5;
+  padding: 16px 20px;
   border-radius: 8px;
   overflow-x: auto;
   margin-bottom: 20px;
@@ -7667,22 +7702,29 @@ a.small-category-link:hover {
 
 .article-content pre code {
   background: none;
+  color: #333;
   padding: 0;
 }
 
 .article-content blockquote {
   border-left: 4px solid #8b6ccf;
   margin: 20px 0;
-  padding: 12px 16px;
+  padding: 12px 20px;
   background: #f9f6ff;
   border-radius: 0 8px 8px 0;
-  color: var(--color-text-secondary);
+  color: #555;
+}
+
+.article-content blockquote p {
+  margin-bottom: 0;
+  color: #555;
 }
 
 .article-content ul,
 .article-content ol {
-  padding-left: 24px;
+  padding-left: 28px;
   margin-bottom: 16px;
+  color: #333;
 }
 
 .article-content li {
@@ -7691,8 +7733,13 @@ a.small-category-link:hover {
 
 .article-content hr {
   border: none;
-  border-top: 1px solid var(--color-border-light, #e5e5e5);
-  margin: 32px 0;
+  border-top: 1px solid #e5e5e5;
+  margin: 36px 0;
+}
+
+.article-content a {
+  color: #8b6ccf;
+  text-decoration: underline;
 }
 
 /* ページネーション */
