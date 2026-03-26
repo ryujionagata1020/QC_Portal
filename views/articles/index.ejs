@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../_share/metadata.ejs") %>
+    <title>QCの時間 - QC-Portal</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="/public/index.css" />
+  </head>
+  <body>
+    <div id="site-wrapper">
+      <%- include("../_share/navbar.ejs") %>
+
+      <main class="articles-index-container">
+        <div class="articles-index-header">
+          <h1>QCの時間</h1>
+          <p class="articles-index-desc">QC検定®の合格に役立つ解説記事をまとめています。</p>
+        </div>
+
+        <% const gradeLabels = { 4: '4級', 3: '3級', 2: '2級', 1: '1級' }; %>
+        <% const sortedGrades = Object.keys(byGrade).map(Number).sort((a, b) => a - b); %>
+
+        <% if (sortedGrades.length === 0) { %>
+          <p class="articles-empty">記事は準備中です。もうしばらくお待ちください。</p>
+        <% } else { %>
+          <% for (const grade of sortedGrades) { %>
+            <section class="articles-grade-section">
+              <h2 class="articles-grade-title">QC検定® <%= gradeLabels[grade] || grade + '級' %></h2>
+              <ul class="articles-list">
+                <% for (const article of byGrade[grade]) { %>
+                  <li class="articles-list-item">
+                    <a href="/articles/learn/<%= article.slug %>">
+                      <span class="articles-item-label">Chapter <%= article.chapter %></span>
+                      <span class="articles-item-title"><%= article.title %></span>
+                    </a>
+                  </li>
+                <% } %>
+              </ul>
+            </section>
+          <% } %>
+        <% } %>
+      </main>
+
+      <%- include("../_share/footer.ejs") %>
+    </div>
+    <%- include("../_share/javascripts.ejs") %>
+  </body>
+</html>

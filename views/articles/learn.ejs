@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../_share/metadata.ejs") %>
+    <title><%= frontmatter.title %> - QC-Portal</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="/public/index.css" />
+    <!-- KaTeX（数式レンダリング） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+      onload="renderMathInElement(document.getElementById('article-body'), {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]
+      });"></script>
+  </head>
+  <body>
+    <div id="site-wrapper">
+      <%- include("../_share/navbar.ejs") %>
+
+      <main class="article-learn-container">
+        <nav class="article-breadcrumb">
+          <a href="/articles">QCの時間</a>
+          <span>›</span>
+          <span>QC検定® <%= frontmatter.grade %>級</span>
+          <span>›</span>
+          <span><%= frontmatter.title %></span>
+        </nav>
+
+        <article class="article-body" id="article-body">
+          <header class="article-header">
+            <div class="article-meta">
+              <span class="article-grade-badge"><%= frontmatter.grade %>級</span>
+              <span class="article-chapter">Chapter <%= frontmatter.chapter %></span>
+            </div>
+          </header>
+
+          <div class="article-content">
+            <%- content %>
+          </div>
+
+          <nav class="article-pagination">
+            <% if (frontmatter.prev) { %>
+              <a href="/articles/learn/<%= frontmatter.prev %>" class="article-prev">← 前の記事</a>
+            <% } else { %>
+              <span class="article-prev-disabled"></span>
+            <% } %>
+            <a href="/articles" class="article-index-link">一覧へ戻る</a>
+            <% if (frontmatter.next) { %>
+              <a href="/articles/learn/<%= frontmatter.next %>" class="article-next">次の記事 →</a>
+            <% } else { %>
+              <span class="article-next-disabled"></span>
+            <% } %>
+          </nav>
+        </article>
+      </main>
+
+      <%- include("../_share/footer.ejs") %>
+    </div>
+    <%- include("../_share/javascripts.ejs") %>
+  </body>
+</html>

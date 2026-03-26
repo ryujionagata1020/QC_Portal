@@ -112,6 +112,7 @@ app.use((req, res, next) => {
 });
 
 // ✅ ルーティング
+app.use("/articles", require("./routes/articles.js"));
 app.use("/contact", require("./routes/contact.js"));
 app.use("/", require("./routes/pages.js"));
 app.use("/auth", require("./routes/auth.js"));
