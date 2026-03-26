@@ -1,0 +1,538 @@
+[
+  {
+    "grade": 4,
+    "label": "4級編",
+    "chapters": [
+      {
+        "chapter": 1,
+        "title": "品質管理",
+        "sections": [
+          { "slug": "grade4/ch01/01-quality-control",       "title": "品質とは・品質管理とは" },
+          { "slug": "grade4/ch01/02-quality-first",         "title": "品質優先の考え方" },
+          { "slug": "grade4/ch01/03-customer-satisfaction", "title": "お客様満足とねらいの品質" },
+          { "slug": "grade4/ch01/04-problems-tasks",        "title": "問題と課題" },
+          { "slug": "grade4/ch01/05-complaints",            "title": "苦情・クレーム" }
+        ]
+      },
+      {
+        "chapter": 2,
+        "title": "QC的ものの見方・考え方",
+        "sections": [
+          { "slug": "grade4/ch02/01-market-in", "title": "マーケットイン" }
+        ]
+      },
+      {
+        "chapter": 3,
+        "title": "管理",
+        "sections": [
+          { "slug": "grade4/ch03/01-management",    "title": "管理活動とは" },
+          { "slug": "grade4/ch03/02-work-process",  "title": "仕事の進め方" },
+          { "slug": "grade4/ch03/03-pdca",          "title": "PDCAサイクル" },
+          { "slug": "grade4/ch03/04-sdca",          "title": "SDCAサイクル" },
+          { "slug": "grade4/ch03/05-control-items", "title": "管理項目" }
+        ]
+      },
+      {
+        "chapter": 4,
+        "title": "改善",
+        "sections": [
+          { "slug": "grade4/ch04/01-kaizen",      "title": "改善とは" },
+          { "slug": "grade4/ch04/02-qc-story",    "title": "QCストーリー" },
+          { "slug": "grade4/ch04/03-3m",          "title": "3M（ムリ・ムダ・ムラ）" },
+          { "slug": "grade4/ch04/04-small-group", "title": "小集団改善活動" },
+          { "slug": "grade4/ch04/05-priority",    "title": "重点指向" }
+        ]
+      },
+      {
+        "chapter": 5,
+        "title": "QC七つ道具",
+        "sections": [
+          { "slug": "grade4/ch05/01-pareto",          "title": "パレート図" },
+          { "slug": "grade4/ch05/02-fishbone",        "title": "特性要因図" },
+          { "slug": "grade4/ch05/03-checksheet",      "title": "チェックシート" },
+          { "slug": "grade4/ch05/04-histogram",       "title": "ヒストグラム" },
+          { "slug": "grade4/ch05/05-scatter",         "title": "散布図" },
+          { "slug": "grade4/ch05/06-graph",           "title": "グラフ" },
+          { "slug": "grade4/ch05/07-stratification",  "title": "層別" }
+        ]
+      },
+      {
+        "chapter": 6,
+        "title": "データの取り方・まとめ方",
+        "sections": [
+          { "slug": "grade4/ch06/01-data-types",   "title": "データの種類（計量値・計数値）" },
+          { "slug": "grade4/ch06/02-data-transform","title": "データの変換" },
+          { "slug": "grade4/ch06/03-sampling",     "title": "サンプリングと誤差" }
+        ]
+      },
+      {
+        "chapter": 7,
+        "title": "標準・標準化",
+        "sections": [
+          { "slug": "grade4/ch07/01-company-standard",  "title": "社内標準" },
+          { "slug": "grade4/ch07/02-standardization",   "title": "標準化とは" },
+          { "slug": "grade4/ch07/03-work-standard",     "title": "業務の標準" },
+          { "slug": "grade4/ch07/04-quality-standard",  "title": "品質の標準（規格）" },
+          { "slug": "grade4/ch07/05-various-standards", "title": "様々な標準" }
+        ]
+      },
+      {
+        "chapter": 8,
+        "title": "工程（プロセス）",
+        "sections": [
+          { "slug": "grade4/ch08/01-prev-next-process", "title": "前工程と後工程" },
+          { "slug": "grade4/ch08/02-5m",               "title": "工程の5M" },
+          { "slug": "grade4/ch08/03-abnormality",      "title": "異常とは" }
+        ]
+      },
+      {
+        "chapter": 9,
+        "title": "検査",
+        "sections": [
+          { "slug": "grade4/ch09/01-inspection",       "title": "検査とは・目的" },
+          { "slug": "grade4/ch09/02-conformance",      "title": "適合・不適合" },
+          { "slug": "grade4/ch09/03-lot",              "title": "ロットの合格・不合格" },
+          { "slug": "grade4/ch09/04-inspection-types", "title": "検査の種類" }
+        ]
+      }
+    ]
+  },
+  {
+    "grade": 3,
+    "label": "3級編",
+    "chapters": [
+      {
+        "chapter": 1,
+        "title": "品質の概念",
+        "sections": [
+          { "slug": "grade3/ch01/01-quality-definition",    "title": "品質の定義" },
+          { "slug": "grade3/ch01/02-required-quality",      "title": "要求品質と品質要素" },
+          { "slug": "grade3/ch01/03-aimed-vs-actual",       "title": "ねらいの品質とできばえの品質" },
+          { "slug": "grade3/ch01/04-quality-characteristics","title": "品質特性・代用特性" },
+          { "slug": "grade3/ch01/05-obvious-vs-attractive", "title": "当たり前品質と魅力的品質" },
+          { "slug": "grade3/ch01/06-service-quality",       "title": "サービスと仕事の品質" },
+          { "slug": "grade3/ch01/07-customer-satisfaction", "title": "顧客満足・顧客価値" },
+          { "slug": "grade3/ch01/08-social-quality",        "title": "社会的品質" }
+        ]
+      },
+      {
+        "chapter": 2,
+        "title": "データの取り方・まとめ方",
+        "sections": [
+          { "slug": "grade3/ch02/01-basic-statistics", "title": "基本統計量とグラフ" }
+        ]
+      },
+      {
+        "chapter": 3,
+        "title": "統計的方法の基礎",
+        "sections": [
+          { "slug": "grade3/ch03/01-normal-distribution",   "title": "正規分布（確率計算を含む）" },
+          { "slug": "grade3/ch03/02-binomial-distribution", "title": "二項分布（確率計算を含む）" }
+        ]
+      },
+      {
+        "chapter": 4,
+        "title": "管理の方法",
+        "sections": [
+          { "slug": "grade3/ch04/01-maintain-manage",         "title": "維持と管理" },
+          { "slug": "grade3/ch04/02-pdcas",                   "title": "PDCAS" },
+          { "slug": "grade3/ch04/03-continuous-improvement",  "title": "継続的改善" },
+          { "slug": "grade3/ch04/04-problem-solving-story",   "title": "問題解決型QCストーリー" },
+          { "slug": "grade3/ch04/05-task-achievement-story",  "title": "課題達成型QCストーリー" }
+        ]
+      },
+      {
+        "chapter": 5,
+        "title": "管理図",
+        "sections": [
+          { "slug": "grade3/ch05/01-control-chart-basics", "title": "管理図の考え方・使い方" },
+          { "slug": "grade3/ch05/02-xbar-r-chart",         "title": "X̄-R管理図" },
+          { "slug": "grade3/ch05/03-p-np-chart",           "title": "p管理図・np管理図" }
+        ]
+      },
+      {
+        "chapter": 6,
+        "title": "工程能力指数",
+        "sections": [
+          { "slug": "grade3/ch06/01-process-capability", "title": "工程能力指数の計算と評価方法" }
+        ]
+      },
+      {
+        "chapter": 7,
+        "title": "新QC七つ道具",
+        "sections": [
+          { "slug": "grade3/ch07/01-affinity-diagram",     "title": "親和図法" },
+          { "slug": "grade3/ch07/02-relations-diagram",    "title": "連関図法" },
+          { "slug": "grade3/ch07/03-tree-diagram",         "title": "系統図法" },
+          { "slug": "grade3/ch07/04-matrix-diagram",       "title": "マトリックス図法" },
+          { "slug": "grade3/ch07/05-arrow-diagram",        "title": "アローダイアグラム法" },
+          { "slug": "grade3/ch07/06-pdpc",                 "title": "PDPC法" },
+          { "slug": "grade3/ch07/07-matrix-data-analysis", "title": "マトリックスデータ解析法" }
+        ]
+      },
+      {
+        "chapter": 8,
+        "title": "相関分析",
+        "sections": [
+          { "slug": "grade3/ch08/01-correlation", "title": "相関係数" }
+        ]
+      },
+      {
+        "chapter": 9,
+        "title": "品質保証（プロセス保証）",
+        "sections": [
+          { "slug": "grade3/ch09/01-work-instructions",       "title": "作業標準書" },
+          { "slug": "grade3/ch09/02-process-concept",         "title": "プロセスの考え方" },
+          { "slug": "grade3/ch09/03-qc-flow-chart",           "title": "QC工程図・フローチャート" },
+          { "slug": "grade3/ch09/04-process-abnormality",     "title": "工程異常の考え方" },
+          { "slug": "grade3/ch09/05-process-capability-check","title": "工程能力検査" },
+          { "slug": "grade3/ch09/06-process-analysis",        "title": "工程解析" },
+          { "slug": "grade3/ch09/07-inspection-purpose",      "title": "検査の目的・意義・考え方" },
+          { "slug": "grade3/ch09/08-inspection-types",        "title": "検査の種類と方法" },
+          { "slug": "grade3/ch09/09-measurement-basics",      "title": "計測の基本" },
+          { "slug": "grade3/ch09/10-measurement-management",  "title": "計測の管理" },
+          { "slug": "grade3/ch09/11-measurement-error",       "title": "測定誤差の評価" },
+          { "slug": "grade3/ch09/12-sensory-inspection",      "title": "官能検査・感性品質" }
+        ]
+      },
+      {
+        "chapter": 10,
+        "title": "品質保証（新製品開発）",
+        "sections": [
+          { "slug": "grade3/ch10/01-warranty-compensation", "title": "保証と補償" },
+          { "slug": "grade3/ch10/02-qa-system-diagram",     "title": "品質保証体系図" },
+          { "slug": "grade3/ch10/03-qfd",                   "title": "品質機能展開（QFD）" },
+          { "slug": "grade3/ch10/04-qa-process",            "title": "品質保証のプロセス" },
+          { "slug": "grade3/ch10/05-qa-network",            "title": "QAネットワーク" },
+          { "slug": "grade3/ch10/06-product-lifecycle",     "title": "製品ライフサイクル" },
+          { "slug": "grade3/ch10/07-product-safety",        "title": "製品安全・環境配慮・PL" },
+          { "slug": "grade3/ch10/08-market-trouble",        "title": "市場トラブル・苦情処理" },
+          { "slug": "grade3/ch10/09-result-process-warranty","title": "結果の保証とプロセス保証" }
+        ]
+      },
+      {
+        "chapter": 11,
+        "title": "標準・標準化",
+        "sections": [
+          { "slug": "grade3/ch11/01-standardization-purpose", "title": "標準化の目的・意義" }
+        ]
+      },
+      {
+        "chapter": 12,
+        "title": "日常管理",
+        "sections": [
+          { "slug": "grade3/ch12/01-responsibilities",    "title": "業務分掌・責任と権限" },
+          { "slug": "grade3/ch12/02-abnormality-handling","title": "異常とその処理" },
+          { "slug": "grade3/ch12/03-change-point",        "title": "変化点とその管理" }
+        ]
+      },
+      {
+        "chapter": 13,
+        "title": "方針管理",
+        "sections": [
+          { "slug": "grade3/ch13/01-policy",            "title": "方針とは" },
+          { "slug": "grade3/ch13/02-policy-deployment", "title": "方針の展開とすり合わせ" },
+          { "slug": "grade3/ch13/03-policy-management", "title": "方針管理の運用" },
+          { "slug": "grade3/ch13/04-policy-evaluation", "title": "方針の達成度評価と反省" }
+        ]
+      },
+      {
+        "chapter": 14,
+        "title": "品質マネジメントシステム",
+        "sections": [
+          { "slug": "grade3/ch14/01-qm-principles",      "title": "品質マネジメントの原則" },
+          { "slug": "grade3/ch14/02-iso9001",             "title": "ISO9001" },
+          { "slug": "grade3/ch14/03-third-party-cert",    "title": "第三者認証制度" },
+          { "slug": "grade3/ch14/04-qms-operation",       "title": "品質マネジメントシステムの運用" }
+        ]
+      },
+      {
+        "chapter": 15,
+        "title": "人材育成",
+        "sections": [
+          { "slug": "grade3/ch15/01-quality-education", "title": "品質教育とその体系" }
+        ]
+      }
+    ]
+  },
+  {
+    "grade": 2,
+    "label": "2級編",
+    "chapters": [
+      {
+        "chapter": 1,
+        "title": "QC的ものの見方・考え方",
+        "sections": [
+          { "slug": "grade2/ch01/01-quality-first",        "title": "品質優先・プロセス重視" },
+          { "slug": "grade2/ch01/02-next-process-customer","title": "後工程はお客様" },
+          { "slug": "grade2/ch01/03-prevention-recurrence","title": "再発防止・未然防止" },
+          { "slug": "grade2/ch01/04-source-management",    "title": "源流管理" },
+          { "slug": "grade2/ch01/05-qcd-psme",             "title": "QCD+PSME・目的志向" },
+          { "slug": "grade2/ch01/06-fact-based",           "title": "事実に基づく行動（三現主義）" },
+          { "slug": "grade2/ch01/07-visualization",        "title": "見える化・ばらつき" },
+          { "slug": "grade2/ch01/08-all-participation",    "title": "全部門全員参加" },
+          { "slug": "grade2/ch01/09-human-respect",        "title": "人間性尊重・ES" }
+        ]
+      },
+      {
+        "chapter": 2,
+        "title": "データの取り方・まとめ方",
+        "sections": [
+          { "slug": "grade2/ch02/01-sampling-types", "title": "サンプリングの種類と性質" }
+        ]
+      },
+      {
+        "chapter": 3,
+        "title": "統計的方法の基礎",
+        "sections": [
+          { "slug": "grade2/ch03/01-poisson",                    "title": "ポアソン分布" },
+          { "slug": "grade2/ch03/02-statistical-distributions",  "title": "統計量の分布" },
+          { "slug": "grade2/ch03/03-expected-value-variance",    "title": "期待値と分散" }
+        ]
+      },
+      {
+        "chapter": 4,
+        "title": "計量値データに基づく検定と推定",
+        "sections": [
+          { "slug": "grade2/ch04/01-test-estimation-concept", "title": "検定と推定の考え方" },
+          { "slug": "grade2/ch04/02-one-mean",                "title": "1つの母平均の検定と推定" },
+          { "slug": "grade2/ch04/03-one-variance",            "title": "1つの母分散の検定と推定" },
+          { "slug": "grade2/ch04/04-two-variances-ratio",     "title": "2つの母分散の比の検定と推定" },
+          { "slug": "grade2/ch04/05-two-means-diff",          "title": "2つの母平均の差の検定と推定" },
+          { "slug": "grade2/ch04/06-paired-data",             "title": "対応のあるデータの検定と推定" }
+        ]
+      },
+      {
+        "chapter": 5,
+        "title": "計数値データに基づく検定と推定",
+        "sections": [
+          { "slug": "grade2/ch05/01-defective-rate",      "title": "母不適合品率の検定と推定" },
+          { "slug": "grade2/ch05/02-two-defective-rates", "title": "2つの母不適合品率の違い" },
+          { "slug": "grade2/ch05/03-defect-count",        "title": "母不適合数の検定と推定" },
+          { "slug": "grade2/ch05/04-two-defect-counts",   "title": "2つの母不適合数の違い" },
+          { "slug": "grade2/ch05/05-contingency-table",   "title": "分割表による検定" }
+        ]
+      },
+      {
+        "chapter": 6,
+        "title": "単回帰分析",
+        "sections": [
+          { "slug": "grade2/ch06/01-simple-regression",   "title": "単回帰式の推定" },
+          { "slug": "grade2/ch06/02-regression-test",     "title": "回帰母数の検定と推定" },
+          { "slug": "grade2/ch06/03-regression-diagnosis","title": "回帰診断（残差の検討）" },
+          { "slug": "grade2/ch06/04-anova",               "title": "分散分析" }
+        ]
+      },
+      {
+        "chapter": 7,
+        "title": "実験計画法",
+        "sections": [
+          { "slug": "grade2/ch07/01-doe-concept",    "title": "実験計画法の考え方" },
+          { "slug": "grade2/ch07/02-one-way-anova",  "title": "一元配置実験" },
+          { "slug": "grade2/ch07/03-two-way-anova",  "title": "二元配置実験" }
+        ]
+      },
+      {
+        "chapter": 8,
+        "title": "管理図",
+        "sections": [
+          { "slug": "grade2/ch08/01-xbar-s-chart", "title": "X̄-s管理図" },
+          { "slug": "grade2/ch08/02-x-rs-chart",   "title": "X-Rs管理図" },
+          { "slug": "grade2/ch08/03-u-c-chart",    "title": "u管理図・c管理図" }
+        ]
+      },
+      {
+        "chapter": 9,
+        "title": "信頼性工学",
+        "sections": [
+          { "slug": "grade2/ch09/01-reliability-concept", "title": "耐久性・保全性・設計信頼性" },
+          { "slug": "grade2/ch09/02-reliability-model",   "title": "信頼性モデル（直列・並列系）" },
+          { "slug": "grade2/ch09/03-bathtub-curve",       "title": "バスタブ曲線" },
+          { "slug": "grade2/ch09/04-reliability-data",    "title": "信頼性データの解析" }
+        ]
+      },
+      {
+        "chapter": 10,
+        "title": "機能別管理",
+        "sections": [
+          { "slug": "grade2/ch10/01-matrix-management",       "title": "マトリックス管理" },
+          { "slug": "grade2/ch10/02-cross-function-team",     "title": "クロスファンクションチーム" },
+          { "slug": "grade2/ch10/03-functional-committee",    "title": "機能別委員会" },
+          { "slug": "grade2/ch10/04-functional-responsibility","title": "機能別の責任と権限" }
+        ]
+      },
+      {
+        "chapter": 11,
+        "title": "抜取検査",
+        "sections": [
+          { "slug": "grade2/ch11/01-sampling-inspection", "title": "抜取検査の考え方" },
+          { "slug": "grade2/ch11/02-attribute-sampling",  "title": "計数規準型抜取検査" },
+          { "slug": "grade2/ch11/03-variable-sampling",   "title": "計量規準型抜取検査" }
+        ]
+      },
+      {
+        "chapter": 12,
+        "title": "品質保証（新製品開発）",
+        "sections": [
+          { "slug": "grade2/ch12/01-dr-fmea-fta",   "title": "DRとトラブル予測・FMEA・FTA" },
+          { "slug": "grade2/ch12/02-initial-flow",  "title": "初期流動管理" }
+        ]
+      },
+      {
+        "chapter": 13,
+        "title": "標準・標準化",
+        "sections": [
+          { "slug": "grade2/ch13/01-industrial-standardization", "title": "産業標準化・国際標準化" }
+        ]
+      },
+      {
+        "chapter": 14,
+        "title": "診断・監査",
+        "sections": [
+          { "slug": "grade2/ch14/01-quality-audit",  "title": "品質監査" },
+          { "slug": "grade2/ch14/02-top-diagnosis",  "title": "トップ診断" }
+        ]
+      },
+      {
+        "chapter": 15,
+        "title": "品質管理周辺の実践活動",
+        "sections": [
+          { "slug": "grade2/ch15/01-customer-value",    "title": "顧客価値創造技術" },
+          { "slug": "grade2/ch15/02-ie-ve",             "title": "IE・VE" },
+          { "slug": "grade2/ch15/03-equipment-materials","title": "設備管理・資材管理" }
+        ]
+      },
+      {
+        "chapter": 16,
+        "title": "倫理・社会的責任",
+        "sections": [
+          { "slug": "grade2/ch16/01-ethics",             "title": "品質管理に携わる人の倫理" },
+          { "slug": "grade2/ch16/02-social-responsibility","title": "社会的責任" }
+        ]
+      }
+    ]
+  },
+  {
+    "grade": 1,
+    "label": "1級編",
+    "chapters": [
+      {
+        "chapter": 1,
+        "title": "統計的方法の基礎",
+        "sections": [
+          { "slug": "grade1/ch01/01-uniform-distribution",    "title": "一様分布" },
+          { "slug": "grade1/ch01/02-exponential-distribution","title": "指数分布" },
+          { "slug": "grade1/ch01/03-bivariate-distribution",  "title": "二次元分布" },
+          { "slug": "grade1/ch01/04-covariance",              "title": "共分散" },
+          { "slug": "grade1/ch01/05-law-of-large-numbers",    "title": "大数の法則と中心極限定理" }
+        ]
+      },
+      {
+        "chapter": 2,
+        "title": "計量値データに基づく検定と推定",
+        "sections": [
+          { "slug": "grade1/ch02/01-multi-variance-test", "title": "3つ以上の母分散に関する検定" }
+        ]
+      },
+      {
+        "chapter": 3,
+        "title": "計数値データに基づく検定と推定",
+        "sections": [
+          { "slug": "grade1/ch03/01-goodness-of-fit", "title": "適合度の検定" }
+        ]
+      },
+      {
+        "chapter": 4,
+        "title": "実験計画法",
+        "sections": [
+          { "slug": "grade1/ch04/01-multi-factor",      "title": "多元配置実験" },
+          { "slug": "grade1/ch04/02-split-plot",        "title": "分割法" },
+          { "slug": "grade1/ch04/03-nested-design",     "title": "枝分かれ実験" },
+          { "slug": "grade1/ch04/04-orthogonal-array",  "title": "直交表実験" },
+          { "slug": "grade1/ch04/05-response-surface",  "title": "応答曲面法・直交多項式" },
+          { "slug": "grade1/ch04/06-nonparametric",     "title": "ノンパラメトリック法" },
+          { "slug": "grade1/ch04/07-sensory-evaluation","title": "感性品質と官能評価手法" }
+        ]
+      },
+      {
+        "chapter": 5,
+        "title": "重回帰分析",
+        "sections": [
+          { "slug": "grade1/ch05/01-multiple-regression", "title": "重回帰式の推定" },
+          { "slug": "grade1/ch05/02-variable-selection",  "title": "変数選択" },
+          { "slug": "grade1/ch05/03-various-regression",  "title": "さまざまな回帰式" }
+        ]
+      },
+      {
+        "chapter": 6,
+        "title": "相関分析",
+        "sections": [
+          { "slug": "grade1/ch06/01-serial-correlation",   "title": "系列相関" },
+          { "slug": "grade1/ch06/02-correlation-test",     "title": "母相関係数の検定と推定" }
+        ]
+      },
+      {
+        "chapter": 7,
+        "title": "多変量解析法",
+        "sections": [
+          { "slug": "grade1/ch07/01-discriminant-analysis", "title": "判別分析" },
+          { "slug": "grade1/ch07/02-principal-component",   "title": "主成分分析" },
+          { "slug": "grade1/ch07/03-cluster-analysis",      "title": "クラスター分析" },
+          { "slug": "grade1/ch07/04-quantification-theory", "title": "数量化理論" }
+        ]
+      },
+      {
+        "chapter": 8,
+        "title": "ロバストパラメータ設計",
+        "sections": [
+          { "slug": "grade1/ch08/01-parameter-design-concept",  "title": "パラメータ設計の考え方" },
+          { "slug": "grade1/ch08/02-static-parameter-design",   "title": "静特性のパラメータ設計" },
+          { "slug": "grade1/ch08/03-dynamic-parameter-design",  "title": "動特性のパラメータ設計" }
+        ]
+      },
+      {
+        "chapter": 9,
+        "title": "管理図",
+        "sections": [
+          { "slug": "grade1/ch09/01-median-chart", "title": "メディアン管理図" }
+        ]
+      },
+      {
+        "chapter": 10,
+        "title": "工程能力指数",
+        "sections": [
+          { "slug": "grade1/ch10/01-process-capability-interval", "title": "工程能力指数の区間推定" }
+        ]
+      },
+      {
+        "chapter": 11,
+        "title": "データの取り方・まとめ方",
+        "sections": [
+          { "slug": "grade1/ch11/01-finite-population-sampling", "title": "有限母集団サンプリング（超幾何分布）" }
+        ]
+      },
+      {
+        "chapter": 12,
+        "title": "単回帰分析",
+        "sections": [
+          { "slug": "grade1/ch12/01-repeated-regression", "title": "繰り返しのある場合の単回帰分析" }
+        ]
+      },
+      {
+        "chapter": 13,
+        "title": "品質管理周辺の実践活動",
+        "sections": [
+          { "slug": "grade1/ch13/01-marketing-crm", "title": "マーケティング・顧客関係性管理" },
+          { "slug": "grade1/ch13/02-data-mining",   "title": "データマイニング" }
+        ]
+      },
+      {
+        "chapter": 14,
+        "title": "品質の概念",
+        "sections": [
+          { "slug": "grade1/ch14/01-social-quality", "title": "社会的品質" }
+        ]
+      }
+    ]
+  }
+]
