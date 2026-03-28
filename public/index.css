@@ -7470,28 +7470,30 @@ a.small-category-link:hover {
 
 /* 一覧ページ */
 .articles-index-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 48px 24px;
+  max-width: 1000px;
+  margin: clamp(5px, 2vw, 20px) auto;
+  padding: clamp(15px, 4vw, 30px);
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .articles-index-header {
-  margin-bottom: 40px;
-  padding: 32px 32px 28px;
-  background: linear-gradient(135deg, #f5f0ff 0%, #ede8ff 100%);
-  border-radius: 12px;
-  border-left: 5px solid #8b6ccf;
+  margin-bottom: 32px;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .articles-index-header h1 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #3d2c7a;
+  color: var(--color-gray-900);
   margin-bottom: 8px;
 }
 
 .articles-index-desc {
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 0.95rem;
 }
 
@@ -7502,9 +7504,10 @@ a.small-category-link:hover {
 .articles-grade-title {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #8b6ccf;
-  border-bottom: 2px solid #8b6ccf;
-  padding-bottom: 8px;
+  color: var(--color-gray-900);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 0.3em;
+  margin-top: 1.5em;
   margin-bottom: 16px;
 }
 
