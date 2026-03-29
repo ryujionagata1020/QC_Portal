@@ -33,7 +33,7 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "unpkg.com"],
       imgSrc: ["'self'", "data:", "blob:", "https://*.s3.ap-northeast-1.amazonaws.com", "https://pagead2.googlesyndication.com", "https://googleads.g.doubleclick.net"],
       fontSrc: ["'self'", "cdn.jsdelivr.net"],
-      connectSrc: ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://www.googletagmanager.com", "https://cloudflareinsights.com"],
+      connectSrc: ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://www.googletagmanager.com", "https://cloudflareinsights.com", "https://ep1.adtrafficquality.google"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
       frameSrc: ["https://googleads.g.doubleclick.net", "https://tpc.googlesyndication.com"]
