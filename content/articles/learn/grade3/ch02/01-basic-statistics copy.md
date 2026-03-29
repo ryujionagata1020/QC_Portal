@@ -1,9 +1,9 @@
 ---
-title: 基本統計量とグラフ2
+title: 基本統計量とグラフ
 grade: 3
 chapter: 1
-section: 2
-chapter_title: データの取り方・まとめ方2
+section: 1
+chapter_title: データの取り方・まとめ方
 question_category: basic_statistics
 prev: null
 next: grade3/ch03/02-normal-distribution2
