@@ -1,7 +1,7 @@
 ---
 title: 基本統計量とグラフ2
 grade: 3
-chapter: 2
+chapter: 1
 section: 2
 chapter_title: データの取り方・まとめ方2
 question_category: basic_statistics
