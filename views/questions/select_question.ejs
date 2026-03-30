@@ -324,22 +324,26 @@
     }
     const categoryParam = urlParams.get('category');
     if (categoryParam) {
-      // すべての小カテゴリを解除
-      document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = false);
-
-      // 一致するカテゴリのみチェック & どのパネルかを特定
+      // どのパネルに該当カテゴリがあるか先に特定
       let foundPanel = null;
       document.querySelectorAll(".category-panel label[data-scope]").forEach(lbl => {
         const cb = lbl.querySelector("input[name='smalls']");
         if (!cb || cb.disabled) return;
-        if (lbl.textContent.trim().includes(categoryParam)) {
-          cb.checked = true;
-          if (!foundPanel) foundPanel = lbl.closest('.category-panel');
+        if (!foundPanel && lbl.textContent.trim().includes(categoryParam)) {
+          foundPanel = lbl.closest('.category-panel');
         }
       });
 
-      // 該当カテゴリのパネルタブに切り替え
+      // タブ切り替え（内部でsetScopeが呼ばれる）を先に実行
       if (foundPanel) switchCategoryTab(foundPanel.dataset.panel);
+
+      // setScope後にすべて解除し、一致するカテゴリのみ再チェック
+      document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = false);
+      document.querySelectorAll(".category-panel label[data-scope]").forEach(lbl => {
+        const cb = lbl.querySelector("input[name='smalls']");
+        if (!cb || cb.disabled) return;
+        if (lbl.textContent.trim().includes(categoryParam)) cb.checked = true;
+      });
 
       // 大カテゴリチェックボックスを更新
       document.querySelectorAll(".large-category-checkbox").forEach(cb => {
