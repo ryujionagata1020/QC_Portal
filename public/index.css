@@ -488,6 +488,10 @@ a {
 /* =========================================================
    フッター
    ========================================================= */
+#site-footer {
+  overflow-x: hidden;
+}
+
 #global-footer {
   background-color: var(--color-footer-bg);
   color: var(--color-gray-400);
@@ -500,8 +504,10 @@ a {
   padding: 0;
   margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  row-gap: 8px;
 }
 
 #global-footer li {
