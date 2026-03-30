@@ -7658,13 +7658,17 @@ a.small-category-link:hover {
   color: #111;
 }
 
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 24px;
+}
+
 .article-content table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 24px;
+  margin-bottom: 0;
   font-size: 0.9rem;
-  overflow-x: auto;
-  display: block;
 }
 
 .article-content th,
@@ -7794,5 +7798,20 @@ a.small-category-link:hover {
   .article-pagination {
     flex-wrap: wrap;
     gap: 12px;
+  }
+
+  .article-content table {
+    font-size: 0.78rem;
+  }
+
+  .article-content th,
+  .article-content td {
+    padding: 6px 8px;
+  }
+
+  .article-content .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 0;
   }
 }

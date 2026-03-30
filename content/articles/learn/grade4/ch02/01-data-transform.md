@@ -6,7 +6,7 @@ section: 1
 chapter_title: データの変換
 question_category: dataTransformation
 prev: null
-next: grade4/ch02/01-data-transform
+next: grade4/ch03/03-
 published: true
 ---
 
