@@ -317,6 +317,36 @@
     // ✅ 初期化デフォルト：4級反映
     setScope(4);
 
+    // ✅ URLパラメータによる初期選択
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('tab') === 'custom') {
+      switchSQTab('custom');
+    }
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+      // すべての小カテゴリを解除
+      document.querySelectorAll("input[name='smalls']").forEach(cb => cb.checked = false);
+
+      // 一致するカテゴリのみチェック & どのパネルかを特定
+      let foundPanel = null;
+      document.querySelectorAll(".category-panel label[data-scope]").forEach(lbl => {
+        const cb = lbl.querySelector("input[name='smalls']");
+        if (!cb || cb.disabled) return;
+        if (lbl.textContent.trim().includes(categoryParam)) {
+          cb.checked = true;
+          if (!foundPanel) foundPanel = lbl.closest('.category-panel');
+        }
+      });
+
+      // 該当カテゴリのパネルタブに切り替え
+      if (foundPanel) switchCategoryTab(foundPanel.dataset.panel);
+
+      // 大カテゴリチェックボックスを更新
+      document.querySelectorAll(".large-category-checkbox").forEach(cb => {
+        updateLargeCategoryCheckbox(cb.dataset.largeId);
+      });
+    }
+
     // ✅ 範囲チェックボックスのイベント設定
     document.querySelectorAll("input[data-scope-filter]").forEach(cb => {
       cb.addEventListener("change", ev => {
