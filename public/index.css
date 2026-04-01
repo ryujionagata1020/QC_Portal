@@ -7508,7 +7508,7 @@ a.small-category-link:hover {
 }
 
 .articles-index-hero-img {
-  width: 220px;
+  width: 140px;
   flex-shrink: 0;
   border-radius: 8px;
   object-fit: contain;
