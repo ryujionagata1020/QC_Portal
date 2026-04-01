@@ -322,14 +322,14 @@
     if (urlParams.get('tab') === 'custom') {
       switchSQTab('custom');
     }
-    const categoryParam = urlParams.get('category');
-    if (categoryParam) {
+    const categoryParams = urlParams.getAll('category');
+    if (categoryParams.length > 0) {
       // どのパネルに該当カテゴリがあるか先に特定
       let foundPanel = null;
       document.querySelectorAll(".category-panel label[data-scope]").forEach(lbl => {
         const cb = lbl.querySelector("input[name='smalls']");
         if (!cb || cb.disabled) return;
-        if (!foundPanel && lbl.textContent.trim().includes(categoryParam)) {
+        if (!foundPanel && categoryParams.some(p => lbl.textContent.trim().includes(p))) {
           foundPanel = lbl.closest('.category-panel');
         }
       });
@@ -342,7 +342,7 @@
       document.querySelectorAll(".category-panel label[data-scope]").forEach(lbl => {
         const cb = lbl.querySelector("input[name='smalls']");
         if (!cb || cb.disabled) return;
-        if (lbl.textContent.trim().includes(categoryParam)) cb.checked = true;
+        if (categoryParams.some(p => lbl.textContent.trim().includes(p))) cb.checked = true;
       });
 
       // 大カテゴリチェックボックスを更新
