@@ -1,7 +1,7 @@
 ---
 title: パレート図
 grade: 4
-chapter: 3
+chapter: 4
 section: 1
 chapter_title: パレート図
 question_category: SevenQCtools
