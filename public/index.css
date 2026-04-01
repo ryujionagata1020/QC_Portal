@@ -7501,9 +7501,31 @@ a.small-category-link:hover {
   margin-bottom: 8px;
 }
 
+.articles-index-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.articles-index-hero-img {
+  width: 220px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
 .articles-index-desc {
   color: var(--color-text-secondary);
   font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .articles-index-intro {
+    flex-direction: column;
+  }
+  .articles-index-hero-img {
+    width: 100%;
+  }
 }
 
 .articles-grade-section {
