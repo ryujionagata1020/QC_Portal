@@ -6,7 +6,7 @@ section: 1
 chapter_title: 母集団とサンプル
 question_category: DataCollectionandSummary
 prev: null
-next: grade4/ch04/04-
+next: grade4/ch04/01-patate
 published: true
 ---
 
