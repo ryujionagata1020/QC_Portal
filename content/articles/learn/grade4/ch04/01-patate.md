@@ -6,7 +6,7 @@ section: 1
 chapter_title: パレート図
 question_category: SevenQCtools
 prev: null
-next: grade4/ch04/04-
+next: grade4/ch05/01-Cause-EffectDiagram
 published: true
 ---
 
