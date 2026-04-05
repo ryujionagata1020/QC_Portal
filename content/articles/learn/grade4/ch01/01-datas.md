@@ -21,6 +21,7 @@ published: true
 
 
 品質管理において取り扱う代表的な数値データは、大きく**計量値**と**計数値**の2種類に分類されます。
+<img src="/public/images/articles/grade4/ch01/data-syurui.png" alt="データ種類の例" style="width:100%;max-width:100%;" />
 
 データの種類によって適用すべき統計的手法が異なるため、両者の区別は非常に重要です。
 
