@@ -27,7 +27,7 @@ published: true
 散布図を作成する最大の目的は、点の散らばり具合（点の集まり方）を見て、**2つのデータの間にどのような関係（相関関係）があるのか（ないのか）、またその関係の強さはどのくらいか**を視覚的に判断することです。
 
 **[図解イラスト挿入：横軸（$x$）と縦軸（$y$）のグラフに、点（プロット）がたくさん打たれているイメージ図]**
-<img src="public\images\articles\grade4\ch08\sanpuzu_sei.png" alt="散布図の例" style="width:100%;max-width:100%;" />
+<img src="/public/images/articles/grade4/ch08/sanpuzu_sei.png" alt="散布図の例" style="width:100%;max-width:100%;" />
 
 ---
 
