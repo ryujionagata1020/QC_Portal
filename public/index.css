@@ -7851,4 +7851,43 @@ a.small-category-link:hover {
     overflow-y: hidden;
     padding: 4px 0;
   }
+
+  .scatter-correlation-item {
+    flex-direction: column;
+  }
+
+  .scatter-correlation-item img {
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+}
+
+/* Scatter correlation image-left layout */
+.scatter-correlation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.scatter-correlation-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.scatter-correlation-item img {
+  width: 240px;
+  flex-shrink: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+}
+
+.scatter-correlation-item p {
+  margin: 0;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
