@@ -90,12 +90,12 @@ published: true
 #### ① 異常な点（外れ値）がないか確認する
 全体の点の集まり（集団）から、ポツンと大きく飛び離れた点がある場合があります。これを「異常な点（**外れ値**）」と呼びます。
 このような点がある場合、そのままにしてはいけません。「測定ミス（測り間違い）」や「入力ミス」、あるいは「その時だけ機械の調子がおかしかった」などの特別な原因が潜んでいる可能性が高いため、必ず原因を調査する必要があります。
-  <img src="/public/images/articles/grade4/ch08/hazurechi.png" alt="強い負の相関の例" />
+  <img src="/public/images/articles/grade4/ch08/hazurechi.png" alt="外れ値の例" style="width:100%;max-width:100%;"/>
 
 #### ② 全体で無相関でも「層別」してみる
 全体として点を見たときはバラバラで「無相関」に見えても、データを機械別、担当者別、曜日別などにグループ分け（**層別**）して色分けなどを行ってみると、グループごとに「正の相関」や「負の相関」が隠れていることがあります。
 「散布図を描いて関係がなさそうなら、層別を試してみる」のが、データ分析の鉄則です。
-    <img src="/public/images/articles/grade4/ch08/soubetu.png" alt="強い負の相関の例" />
+    <img src="/public/images/articles/grade4/ch08/soubetu.png" alt="層別の例" style="width:100%;max-width:100%;"/>
 ---
 
 ### 5. 【QC検定対策】よく問われる出題パターン
