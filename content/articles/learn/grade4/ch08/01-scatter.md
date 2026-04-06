@@ -37,23 +37,23 @@ published: true
 <div class="scatter-correlation-list">
   <div class="scatter-correlation-item">
     <img src="/public/images/articles/grade4/ch08/tuyoisei.png" alt="強い正の相関" />
-    <p><strong>1. 正の相関</strong>：$x$が増加すれば、$y$も増加する関係です。点が右上がりの直線に近い形で細長く集まっています。</p>
+    <p><strong>①. 正の相関</strong>：$x$が増加すれば、$y$も増加する関係です。点が右上がりの直線に近い形で細長く集まっています。</p>
   </div>
   <div class="scatter-correlation-item">
     <img src="/public/images/articles/grade4/ch08/yowaisei.png" alt="弱い正の相関例" />
-    <p><strong>2. 弱い正の相関</strong>：$x$が増加すれば$y$も増加する傾向が見られますが、1に比べて点の散らばり方が少し大きい状態です。</p>
+    <p><strong>②. 弱い正の相関</strong>：$x$が増加すれば$y$も増加する傾向が見られますが、1に比べて点の散らばり方が少し大きい状態です。</p>
   </div>
   <div class="scatter-correlation-item">
     <img src="/public/images/articles/grade4/ch08/musoukan.png" alt="無相関の例" />
-    <p><strong>3. 無相関（相関なし）</strong>：点がグラフ全体にバラバラに散らばっており、$x$と$y$の間に特別な関係が見られない状態です。</p>
+    <p><strong>③. 無相関（相関なし）</strong>：点がグラフ全体にバラバラに散らばっており、$x$と$y$の間に特別な関係が見られない状態です。</p>
   </div>
   <div class="scatter-correlation-item">
     <img src="/public/images/articles/grade4/ch08/yowaihu.png" alt="弱い負の相関の例" />
-    <p><strong>4. 弱い負の相関</strong>：$x$が増加すれば$y$は減少する傾向が見られますが、3に比べて点の散らばり方が大きい状態です。</p>
+    <p><strong>④. 弱い負の相関</strong>：$x$が増加すれば$y$は減少する傾向が見られますが、3に比べて点の散らばり方が大きい状態です。</p>
   </div>
   <div class="scatter-correlation-item">
     <img src="/public/images/articles/grade4/ch08/tuyoihunosoukan.png" alt="強い負の相関の例" />
-    <p><strong>5. 負の相関</strong>：$x$が増加すれば、$y$は減少する関係です。点が右下がりの直線に近い形で集まっています。</p>
+    <p><strong>⑤. 負の相関</strong>：$x$が増加すれば、$y$は減少する関係です。点が右下がりの直線に近い形で集まっています。</p>
   </div>
 </div>
 
