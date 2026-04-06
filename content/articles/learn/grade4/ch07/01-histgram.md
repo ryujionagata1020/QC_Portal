@@ -6,7 +6,7 @@ section: 1
 chapter_title: ヒストグラム
 question_category: SevenQCtools
 prev: null
-next: grade4/ch08/01-
+next: grade4/ch08/01-scatter
 published: true
 ---
 
@@ -42,6 +42,29 @@ published: true
 ヒストグラムの「形」を見れば、その背後にある工程（プロセス）で何が起きているのかをある程度推測することができます。QC検定でも非常によく問われる「5つの代表的な形」について、以下の表に整理しました。
 
 **【表1：ヒストグラムの形と工程の状況】**
+
+<div class="scatter-correlation-list">
+  <div class="scatter-correlation-item">
+    <img src="/public/images/articles/grade4/ch08/tuyoisei.png" alt="正常型" />
+    <p><strong>①. 正常型</strong>：中心付近の度数が多く、中心から離れるに従って少なくなる。ほぼ左右対称の富士山のような形をしている。工程は安定しており、正常な状態であると言えます。</p>
+  </div>
+  <div class="scatter-correlation-item">
+    <img src="/public/images/articles/grade4/ch08/yowaisei.png" alt="絶壁型" />
+    <p><strong>②. 絶壁型</strong>：右または左の端が切り落とされたような、絶壁の分布になっている。規格外品を全数選別して取り除いた製品のヒストグラムなどに現れます。</p>
+  </div>
+  <div class="scatter-correlation-item">
+    <img src="/public/images/articles/grade4/ch08/musoukan.png" alt="離れ小島" />
+    <p><strong>③. 離れ小島</strong>：ヒストグラムの右端または左端に、ポツンと離れた少数のデータがある。工程の変化などで異常があった場合に現れます。原材料の変化、機械・設備のトラブル、作業者のミスなど、異なった母集団のデータが混入した可能性が考えられます。</p>
+  </div>
+  <div class="scatter-correlation-item">
+    <img src="/public/images/articles/grade4/ch08/yowaihu.png" alt="ふた山型" />
+    <p><strong>④. ふた山型</strong>：分布の中心付近のデータが少なく、左右に2つの山がある。平均値の異なる2つの母集団のデータが混在しています。たとえば、2台の機械で製造した製品が混ざっているときや、2人の作業者の結果が混在している場合などによく現れます。</p>
+  </div>
+  <div class="scatter-correlation-item">
+    <img src="/public/images/articles/grade4/ch08/tuyoihunosoukan.png" alt="は抜け型" />
+    <p><strong>⑤. 歯抜け型</strong>：区間の1つおきに度数が変動し、凸凹している。測定器にクセがあったり、度数表を作るときの区間の幅の設定が適切でない場合などに起こります。</p>
+  </div>
+</div>
 
 | 名称 | 形の特徴 | 工程の状況・考えられる原因 |
 | :--- | :--- | :--- |
