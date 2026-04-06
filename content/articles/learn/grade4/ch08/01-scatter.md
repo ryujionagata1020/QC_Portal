@@ -41,7 +41,7 @@ published: true
 <img src="/public/images/articles/grade4/ch08/yowaisei.png" alt="弱い正の相関例" style="width:100%;max-width:100%;" />
 
 3.  **負の相関**：$x$が増加すれば、$y$は減少する関係です。点が右下がりの直線に近い形で集まっています。
-<img src="/public/images/articles/grade4/ch08/tuyoisei.png" alt="強い負の相関の例" style="width:100%;max-width:100%;" />
+<img src="/public/images/articles/grade4/ch08/tuyoihunosoukan.png" alt="強い負の相関の例" style="width:100%;max-width:100%;" />
 
 4.  **弱い負の相関**：$x$が増加すれば$y$は減少する傾向が見られますが、3に比べて点の散らばり方が大きい状態です。
 <img src="/public/images/articles/grade4/ch08/yowaihu.png" alt="弱い負の相関の例" style="width:100%;max-width:100%;" />
