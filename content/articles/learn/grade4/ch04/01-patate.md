@@ -17,7 +17,7 @@ published: true
 
 これまでの学習で、事実に基づく判断のためにデータを集める重要性を学んできました。しかし、集めたデータをただ眺めているだけでは、どこから手を付けてよいか分かりません。 
 そこで今回は、QC七つ道具の中でも最も頻繁に使われ、試験でも超頻出となる**パレート図**について、図や表を交えて詳細に解説いていきます。
-製造業だけでなく、飲食業や介護業でもそのまま使える「問題解決の最強ツール」ですので、しっかりとマスターしていきましょう！
+製造業だけでなく、飲食業や介護業でもそのまま使える「問題解決の最強ツール」ですので、しっかりとマスターしていきましょう！パレート図について理解ができたら力試しに[試験対策問題](/questions/select?tab=custom&category=%E3%83%91%E3%83%AC%E3%83%BC%E3%83%88%E5%9B%B3)を解いてみましょう！
 
 ---
 ## 1. パレート図とは？（定義と構成）<br>
@@ -34,12 +34,34 @@ published: true
 ③「その他」の項目：件数が少ない項目は「その他」としてひとまとめにし、<strong>件数の大小に関わらず必ず一番右側（最後）</strong>に配置します。
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ## 2. なぜパレート図が必要なのか？（重点指向とパレートの法則）
 職場には無数の問題が存在しますが、限られた人員、時間、資金の中で、すべての問題に同時に手をつけることは不可能です。
 そこで、パレート図を作成すると、「もっとも大きな問題はどの項目か」「ある項目の全体に対する占有率はどのくらいか」が一目で視覚的に理解できるようになります。 このように、結果に対して影響の大きい重要な項目（多数軽微項目ではなく少数重点項目）を特定し、そこに高い優先順位を与えて重点的に改善に取り組む考え方を「**重点指向**」と呼びます。
 また、この考え方の背景には、イタリアの経済学者が提唱した「**パレートの法則**」があります。これは、「全体の20％の項目（原因）が、全体の80％の結果を支配している」という経験則であり、「80:20の法則」と呼ばれることもあります。 （QC検定でもたまーに出題されます）パレート図は、この法則を品質管理に応用し、改善効果が最も大きく見込める「重点項目」を見つけ出すためのツールです。
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ## 3. 【図解】業界別で見る！パレート図の活用具体例
 
 
@@ -59,6 +81,16 @@ published: true
 
 ---
 
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ## 4. 【QC検定対策】よく問われる出題パターン
 QC検定4級において、「パレート図」はQC七つ道具の中でも最も出題頻度が高いテーマの一つです。以下のポイントは必ず暗記しておきましょう。<br>
 📝 頻出ポイントのチェック<br>
@@ -72,7 +104,17 @@ QC検定4級において、「パレート図」はQC七つ道具の中でも最
 
 ---
 
->### まとめ
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+>### まとめ📌
 >
 >事実に基づく判断を効率的に進めるため、パレート図は欠かせない武器となります。
 >パレート図は、問題の項目を大きい順に並べた棒グラフと、累積比率の折れ線グラフを組み合わせた図です。

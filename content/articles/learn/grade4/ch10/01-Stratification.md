@@ -32,6 +32,16 @@ published: true
 
 ---
 
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ### 2. 要注意！「層別」と「分類」の違い
 
 QC検定で非常によく出題され、多くの人が間違えやすいのが「層別」と「分類」の違いです。この2つは目的や方法が異なります。
@@ -44,6 +54,16 @@ QC検定で非常によく出題され、多くの人が間違えやすいのが
 試験では、「この行為は層別か、分類か？」を判断させる問題がよく出ます。**「原因（要因）を探るために分けているか」**を基準に判断してください。
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 ### 3. 【図解】業界別で見る！層別の切り口（5W1H）
 
@@ -59,6 +79,16 @@ QC検定で非常によく出題され、多くの人が間違えやすいのが
 | **材料・部品別** | A社から仕入れた部品とB社の部品で強度を比べる | 産地の違う野菜で調理時間を比べる | メニューAとメニューBで食べ残しの量を比べる |
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 ### 4. 他のQC七つ道具とのよくある組み合わせ
 
@@ -96,13 +126,23 @@ QC検定で非常によく出題され、多くの人が間違えやすいのが
 
 ---
 
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ### 5. 【QC検定対策】よく問われる出題パターン
 
 QC検定において、「層別」に関する問題は他の道具とセットで出題されます。以下のポイントは必ずおさえておきましょう。
 
 **📝 頻出ポイント**
 1.  **用語の定義**
-    「たくさんのデータを、そのデータのもつ特徴から、いくつかのグループに分けること」という説明文が出たら「層別」です。
+    「たくさんのデータを、そのデータのもつ特徴から、いくつかのグループに分けること」という内容は「層別」のことを指しています。
 2.  **「分類」との違いを見抜く**
     ライン別や時間帯別など「原因・要因の切り口」で分けているものは層別です。「1級品・2級品」のようにカテゴリーに当てはめるだけの「分類」は層別ではありません。
 3.  **層別サンプリング**
@@ -110,7 +150,17 @@ QC検定において、「層別」に関する問題は他の道具とセット
 
 ---
 
-### まとめ
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+### まとめ📌
 
 事実に基づく判断をスピーディかつ正確に行うためには、「全体を漫然と見る」のではなく、「意味のある切り口で分けて比べる」ことが不可欠です。
 

@@ -16,7 +16,7 @@ published: true
 ## はじめに：「なんとなくわかる」から「使える」へ
 
 **サンプル**と聞いて何を思い浮かべますか？まだ商品化されていない試供品としてのサンプルや、資材を選定するときのサンプル品、工場で製造ラインから抜き取った一部の製品のことなどサンプルという言葉は様々に受け取られます。
-品質管理においてのサンプルは明確に定義されているので、**サンプル**と**サンプリング**の違いをしっかりおさえて取り組みましょう。
+品質管理においてのサンプルは明確に定義されているので、**サンプル**と**サンプリング**の違いをしっかりおさえて取り組みましょう。一通り学習したら、力試しに[試験対策問題](/questions/select?tab=custom&category=%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%A8%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB&category=%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%A8%E8%AA%A4%E5%B7%AE)を解いてみましょう！
 
 ### 1. 全体と一部の関係：「母集団」と「サンプル」
 
@@ -53,6 +53,16 @@ published: true
 このとき、お玉一口分がサンプル、鍋の味噌汁が母集団という関係になっています。
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 ### 2. 正しく母集団を推測するための条件：「ランダムサンプリング」
 
@@ -92,6 +102,16 @@ published: true
 
 ---
 
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ### 3. データに潜むズレ：「誤差」の正体
 
 品質管理において、事実を客観的なデータとして把握することは重要ですが、「データ＝絶対に正しい真実」とは限りません。母集団の真の情報と、手元のデータとの間には必ずズレが生じます。これを「**誤差**」と呼びます。
@@ -107,6 +127,16 @@ $$ 測定値 ＝ 真の値 ＋ サンプリング誤差 ＋ 測定誤差 $$
 2.  **測定誤差**：サンプルを実際に測定する際に、測定器の精度や測定者の作業によって生じるズレです。
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 ### 4. 誤差の2つの性質：「かたより」と「ばらつき」
 
@@ -130,6 +160,16 @@ $$ 測定値 ＝ 真の値 ＋ サンプリング誤差 ＋ 測定誤差 $$
 
 ---
 
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ### 5. 【QC検定対策】よく問われる出題ポイント
 
 今回の学習内容について、QC検定4級でよく問われるポイントを整理します。<br>
@@ -141,6 +181,6 @@ $$ 測定値 ＝ 真の値 ＋ サンプリング誤差 ＋ 測定誤差 $$
 >3.  **誤差の分類**
 >    誤差は「サンプリングの際の誤差」と「測定の際の誤差」に分けられること。また、誤差の性質として「かたより」と「ばらつき」があることを理解しておきましょう。
 
-### まとめ
+### まとめ📌
 
 品質管理の現場では、「母集団」の品質を保証するために、「ランダムサンプリング」によって「サンプル」を抽出し、データを測定します。しかし、そこには常に「かたより」や「ばらつき」といった「誤差」が含まれていることを認識しておかなければなりません。

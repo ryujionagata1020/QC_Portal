@@ -26,6 +26,16 @@ published: true
 
 ---
 
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 ### 2. データを揃える画期的な仕組み「標準化」
 
 データを変換する最も代表的な手法が**標準化**です。
@@ -49,6 +59,16 @@ $$ 標準化された値 ＝ \frac{元のデータ － 平均値}{標準偏差} 
 表1のように標準化を行うことで、単位が違う競技であっても横並びで比較することが可能になります。この結果を見ると、すべての競技の中で最も成績が良かったのは標準化された値が最も大きい「走り幅跳び（4.0）」であることが一目でわかります。
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 ### 3. より直感的に理解するための「偏差値」
 
@@ -80,6 +100,17 @@ $$ 偏差値 ＝ 標準化した値 \times 10 ＋ 50 $$
 4. **取り得る値の範囲**：ばらつき（標準偏差）が小さく、平均値から極端にかけ離れた点数を取った場合には、偏差値はマイナスの値になったり、100以上の大きな値をとったりすることがあります。
 
 ---
+
+<div style="margin: 2em 0;">
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-4841029986576213"
+  data-ad-slot="XXXXXXXXXX"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 品質管理の現場において「事実に基づく判断」を行うためには、収集した生データをそのまま眺めるだけでなく、標準化や偏差値といった「データの変換」を活用することが不可欠です。さっそく[**試験対策**](/questions/select?tab=custom&category=データの変換)を実施しましょう。
 
 
