@@ -213,21 +213,50 @@ aria-label="グローバルナビゲーション"
   window.closeHamburger = closeMenu;
 })();
 
-// ナビドロップダウン：位置をCSSカスタムプロパティで設定（表示/非表示はCSS :hover）
+// ナビドロップダウン：li とパネル両方をまたぐホバー制御 + クリック外で閉じる
 (function initNavDropdown() {
   var li     = document.getElementById('nav-qctime');
   var panel  = document.getElementById('nav-qctime-panel');
   var header = document.getElementById('site-header');
   if (!li || !panel || !header) return;
 
+  var closeTimer = null;
+
   function updatePosition() {
     var liRect     = li.getBoundingClientRect();
     var headerRect = header.getBoundingClientRect();
-    panel.style.setProperty('top',  headerRect.bottom + 'px');
-    panel.style.setProperty('left', liRect.left + 'px');
+    panel.style.top  = headerRect.bottom + 'px';
+    panel.style.left = liRect.left + 'px';
   }
 
-  // ページ読み込み時に1回だけ位置を確定（表示はCSSホバーが制御）
+  function openPanel() {
+    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    updatePosition();
+    panel.classList.add('is-open');
+  }
+
+  function scheduleClose() {
+    // 少し待ってから閉じる（li→panel間の隙間を通過しても閉じないように）
+    closeTimer = setTimeout(function() {
+      panel.classList.remove('is-open');
+      closeTimer = null;
+    }, 120);
+  }
+
+  // li（トリガー）とパネル両方にホバー検知を設定
+  li.addEventListener('mouseenter', openPanel);
+  li.addEventListener('mouseleave', scheduleClose);
+  panel.addEventListener('mouseenter', openPanel);
+  panel.addEventListener('mouseleave', scheduleClose);
+
+  // ドロップダウン外のクリックで閉じる
+  document.addEventListener('click', function(e) {
+    if (!li.contains(e.target) && !panel.contains(e.target)) {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+      panel.classList.remove('is-open');
+    }
+  });
+
   updatePosition();
   window.addEventListener('resize', updatePosition);
 })();
