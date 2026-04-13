@@ -7894,12 +7894,14 @@ a.small-category-link:hover {
 /* ============================================================
    ナビ ドロップダウン（デスクトップ用メガメニュー）
    ============================================================ */
+
+/* li は static のまま。panel は #site-header(fixed) を基準に absolute 配置 */
 .nav-has-dropdown {
   position: static;
 }
 
 .nav-dropdown-trigger {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
   cursor: pointer;
@@ -7907,67 +7909,70 @@ a.small-category-link:hover {
 }
 
 .nav-dropdown-arrow {
-  font-size: 0.7em;
+  font-size: 0.65em;
   transition: transform 0.2s ease;
   line-height: 1;
+  display: inline-block;
 }
 
 .nav-has-dropdown:hover .nav-dropdown-arrow {
   transform: rotate(180deg);
 }
 
+/* パネル本体：#site-header(position:fixed) を基準に absolute */
 .nav-dropdown-panel {
   display: none;
-  position: fixed;
-  top: calc(var(--header-height, 56px));
+  position: absolute;   /* 最近傍の positioned 祖先 = #site-header */
+  top: 100%;            /* ヘッダー下端に揃える */
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-nav-bg);
-  border: 1px solid var(--color-nav-border, rgba(255,255,255,0.1));
   border-top: 2px solid var(--color-brand);
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  padding: 16px 20px;
-  z-index: 999;
-  gap: 0;
-  min-width: 520px;
-  max-width: 90vw;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+  padding: 20px 0 16px;
+  z-index: 998;
+  min-width: 640px;
+  max-width: 92vw;
   flex-direction: row;
   align-items: flex-start;
+  gap: 0;
 }
 
 .nav-has-dropdown:hover .nav-dropdown-panel {
   display: flex;
 }
 
+/* 各級の列 */
 .nav-dropdown-col {
   flex: 1;
-  min-width: 120px;
-  padding: 0 12px;
-  border-right: 1px solid var(--color-nav-border, rgba(255,255,255,0.1));
+  padding: 0 20px;
+  border-right: 1px solid rgba(255,255,255,0.08);
 }
 
 .nav-dropdown-col:last-child {
   border-right: none;
 }
 
+/* 級ラベル（列ヘッダー） */
 .nav-dropdown-grade-label {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--color-brand-lighter, #b39ddb);
-  border-bottom: 1px solid var(--color-brand, #8b6ccf);
-  padding-bottom: 6px;
-  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(139, 108, 207, 0.4);
+  padding: 0 4px 8px;
+  margin-bottom: 10px;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .nav-dropdown-grade-label:hover {
-  color: var(--color-brand-light, #a084d8);
+  color: #fff;
 }
 
+/* Chapter リスト */
 .nav-dropdown-chapter-list {
   list-style: none;
   margin: 0;
@@ -7984,22 +7989,18 @@ a.small-category-link:hover {
 
 .nav-dropdown-chapter-list a {
   display: block;
-  padding: 5px 4px;
-  font-size: 0.82rem;
-  color: var(--color-gray-300);
+  padding: 7px 8px;
+  font-size: 0.85rem;
+  color: var(--color-gray-300, #ccc);
   border-bottom: none;
   line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 160px;
-  transition: color 0.2s ease, background 0.2s ease;
   border-radius: 4px;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
 .nav-dropdown-chapter-list a:hover {
-  color: var(--color-brand-lighter, #b39ddb);
-  background: rgba(139, 108, 207, 0.12);
+  background: rgba(139, 108, 207, 0.18);
+  color: #fff;
   border-bottom: none;
 }
 
