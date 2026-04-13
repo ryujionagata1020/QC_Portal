@@ -7890,3 +7890,219 @@ a.small-category-link:hover {
     max-width: 100%;
   }
 }
+
+/* ============================================================
+   ナビ ドロップダウン（デスクトップ用メガメニュー）
+   ============================================================ */
+.nav-has-dropdown {
+  position: static;
+}
+
+.nav-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-dropdown-arrow {
+  font-size: 0.7em;
+  transition: transform 0.2s ease;
+  line-height: 1;
+}
+
+.nav-has-dropdown:hover .nav-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-panel {
+  display: none;
+  position: fixed;
+  top: calc(var(--header-height, 56px));
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-nav-bg);
+  border: 1px solid var(--color-nav-border, rgba(255,255,255,0.1));
+  border-top: 2px solid var(--color-brand);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  padding: 16px 20px;
+  z-index: 999;
+  gap: 0;
+  min-width: 520px;
+  max-width: 90vw;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.nav-has-dropdown:hover .nav-dropdown-panel {
+  display: flex;
+}
+
+.nav-dropdown-col {
+  flex: 1;
+  min-width: 120px;
+  padding: 0 12px;
+  border-right: 1px solid var(--color-nav-border, rgba(255,255,255,0.1));
+}
+
+.nav-dropdown-col:last-child {
+  border-right: none;
+}
+
+.nav-dropdown-grade-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-lighter, #b39ddb);
+  border-bottom: 1px solid var(--color-brand, #8b6ccf);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-dropdown-grade-label:hover {
+  color: var(--color-brand-light, #a084d8);
+}
+
+.nav-dropdown-chapter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-dropdown-chapter-list li {
+  padding: 0;
+}
+
+.nav-dropdown-chapter-list li::after {
+  display: none;
+}
+
+.nav-dropdown-chapter-list a {
+  display: block;
+  padding: 5px 4px;
+  font-size: 0.82rem;
+  color: var(--color-gray-300);
+  border-bottom: none;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+  transition: color 0.2s ease, background 0.2s ease;
+  border-radius: 4px;
+}
+
+.nav-dropdown-chapter-list a:hover {
+  color: var(--color-brand-lighter, #b39ddb);
+  background: rgba(139, 108, 207, 0.12);
+  border-bottom: none;
+}
+
+/* ============================================================
+   モバイル用サブメニュー（アコーディオン）
+   ============================================================ */
+.mobile-has-submenu {
+  border-bottom: 1px solid var(--color-nav-border);
+}
+
+.mobile-submenu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 20px;
+  background: transparent;
+  border: none;
+  color: var(--color-nav-link);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-submenu-toggle:hover {
+  background: rgba(139, 108, 207, 0.15);
+  color: var(--color-brand-lighter);
+}
+
+.mobile-submenu-arrow {
+  font-size: 0.75em;
+  transition: transform 0.25s ease;
+}
+
+.mobile-submenu-toggle[aria-expanded="true"] .mobile-submenu-arrow {
+  transform: rotate(180deg);
+}
+
+.mobile-submenu-panel {
+  display: none;
+  padding: 0 0 8px;
+  background: rgba(0,0,0,0.15);
+}
+
+.mobile-submenu-panel.is-open {
+  display: block;
+}
+
+.mobile-submenu-all-link {
+  display: block;
+  padding: 10px 28px;
+  font-size: 13px;
+  color: var(--color-brand-lighter, #b39ddb);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-nav-border);
+  transition: color 0.2s ease;
+}
+
+.mobile-submenu-all-link:hover {
+  color: var(--color-brand-light);
+}
+
+.mobile-submenu-grade {
+  padding: 8px 20px 4px;
+}
+
+.mobile-submenu-grade-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-brand-lighter, #b39ddb);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.mobile-submenu-chapter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 8px;
+}
+
+.mobile-submenu-chapter-list li {
+  border-bottom: none;
+}
+
+.mobile-submenu-chapter-list a {
+  display: block;
+  padding: 6px 8px;
+  font-size: 13px;
+  color: var(--color-gray-300);
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.mobile-submenu-chapter-list a:hover {
+  color: var(--color-brand-lighter);
+  background: none;
+}
+
+/* モバイルメニューをサブメニュー展開に対応（スクロール可能に） */
+.mobile-menu.is-open {
+  max-height: 80vh;
+  overflow-y: auto;
+}

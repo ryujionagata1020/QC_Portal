@@ -7,6 +7,7 @@ const path = require("path");
 const express = require("express");
 const helmet = require("helmet");
 const { MySQLClient, sql } = require("./lib/database/client.js");
+const { getAllLearnArticles } = require("./lib/articles/loader.js");
 const favicon = require("serve-favicon");
 const cookie = require("cookie-parser");
 const session = require("express-session");
@@ -83,10 +84,22 @@ app.use(passport.session());
 // Flash messages初期化
 app.use(flash());
 
+// 記事ナビデータ（起動時に1回だけ生成してres.localsで全ビューへ共有）
+const _navByGrade = (() => {
+  const map = {};
+  for (const a of getAllLearnArticles()) {
+    if (!map[a.grade]) map[a.grade] = [];
+    map[a.grade].push(a);
+  }
+  for (const g of Object.keys(map)) map[g].sort((a, b) => a.chapter - b.chapter);
+  return map;
+})();
+
 // ローカル変数をすべてのビューで使用可能にする
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
   res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.navByGrade = _navByGrade;
   next();
 });
 

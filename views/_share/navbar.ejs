@@ -10,7 +10,25 @@ aria-label="グローバルナビゲーション"
 >
 <ul>
 <!-- <a href="/qcis">QC検定®とは</a> -->
-<li><a href="/articles">QCの時間</a></li>
+<li class="nav-has-dropdown">
+  <a href="/articles" class="nav-dropdown-trigger">QCの時間<span class="nav-dropdown-arrow" aria-hidden="true">▾</span></a>
+  <div class="nav-dropdown-panel" role="region" aria-label="QCの時間 メニュー">
+    <%
+      const _gradeLabels = { 4: '4級', 3: '3級', 2: '2級', 1: '1級' };
+      const _sortedGrades = Object.keys(navByGrade).map(Number).sort((a, b) => b - a);
+    %>
+    <% for (const _grade of _sortedGrades) { %>
+      <div class="nav-dropdown-col">
+        <a href="/articles#grade-<%= _grade %>" class="nav-dropdown-grade-label">QC検定® <%= _gradeLabels[_grade] || _grade + '級' %></a>
+        <ul class="nav-dropdown-chapter-list">
+          <% for (const _art of navByGrade[_grade]) { %>
+            <li><a href="/articles/learn/<%= _art.slug %>">Ch.<%= _art.chapter %>&nbsp;<%= _art.title %></a></li>
+          <% } %>
+        </ul>
+      </div>
+    <% } %>
+  </div>
+</li>
 <li><a href="/questions/select">試験対策</a></li>
 <li><a href="/statisinfo">統計情報</a></li>
 <li><a href="/qctext">参考書</a></li>
@@ -75,7 +93,28 @@ aria-label="グローバルナビゲーション"
   <nav aria-label="モバイルナビゲーション">
     <ul class="mobile-nav-list">
       <li><a href="/qcis">QC検定®とは</a></li>
-      <li><a href="/articles">QCの時間</a></li>
+      <li class="mobile-has-submenu">
+        <button class="mobile-submenu-toggle" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+          QCの時間<span class="mobile-submenu-arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="mobile-submenu-panel">
+          <a href="/articles" class="mobile-submenu-all-link">記事一覧を見る →</a>
+          <%
+            const _mGradeLabels = { 4: '4級', 3: '3級', 2: '2級', 1: '1級' };
+            const _mSortedGrades = Object.keys(navByGrade).map(Number).sort((a, b) => b - a);
+          %>
+          <% for (const _mg of _mSortedGrades) { %>
+            <div class="mobile-submenu-grade">
+              <span class="mobile-submenu-grade-label">QC検定® <%= _mGradeLabels[_mg] || _mg + '級' %></span>
+              <ul class="mobile-submenu-chapter-list">
+                <% for (const _ma of navByGrade[_mg]) { %>
+                  <li><a href="/articles/learn/<%= _ma.slug %>" onclick="window.closeHamburger && closeHamburger()">Ch.<%= _ma.chapter %>&nbsp;<%= _ma.title %></a></li>
+                <% } %>
+              </ul>
+            </div>
+          <% } %>
+        </div>
+      </li>
       <li><a href="/questions/select">試験対策</a></li>
       <li><a href="/statisinfo">統計情報</a></li>
       <li><a href="/qctext">参考書</a></li>
@@ -175,6 +214,14 @@ aria-label="グローバルナビゲーション"
   // 他のスクリプト（モバイルメニュー内ボタン等）から呼べるようにグローバル公開
   window.closeHamburger = closeMenu;
 })();
+
+// モバイルサブメニュー開閉
+function toggleMobileSubmenu(btn) {
+  var panel = btn.nextElementSibling;
+  var expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  panel.classList.toggle('is-open', !expanded);
+}
 
 // ログアウト処理（navbar用）
 async function handleNavLogout() {
