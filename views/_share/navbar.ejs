@@ -13,20 +13,18 @@ aria-label="グローバルナビゲーション"
 <li class="nav-has-dropdown" id="nav-qctime">
   <a href="/articles" class="nav-dropdown-trigger">QCの時間<span class="nav-dropdown-arrow" aria-hidden="true">▾</span></a>
   <div class="nav-dropdown-panel" id="nav-qctime-panel" role="region" aria-label="QCの時間 メニュー">
-    <%
-      const _gradeLabels = { 4: '4級', 3: '3級', 2: '2級', 1: '1級' };
-      const _sortedGrades = Object.keys(navByGrade).map(Number).sort((a, b) => b - a);
-    %>
-    <% for (const _grade of _sortedGrades) { %>
-      <div class="nav-dropdown-grade-section">
+    <div class="nav-dropdown-grid">
+      <%
+        const _gradeLabels = { 4: '4級', 3: '3級', 2: '2級', 1: '1級' };
+        const _sortedGrades = Object.keys(navByGrade).map(Number).sort((a, b) => b - a);
+      %>
+      <% for (const _grade of _sortedGrades) { %>
         <a href="/articles#grade-<%= _grade %>" class="nav-dropdown-grade-label">QC検定® <%= _gradeLabels[_grade] || _grade + '級' %></a>
-        <div class="nav-dropdown-chapter-grid">
-          <% for (const _art of navByGrade[_grade]) { %>
-            <a href="/articles/learn/<%= _art.slug %>" class="nav-dropdown-chapter-item">Ch.<%= _art.chapter %>&nbsp;<%= _art.title %></a>
-          <% } %>
-        </div>
-      </div>
-    <% } %>
+        <% for (const _art of navByGrade[_grade]) { %>
+          <a href="/articles/learn/<%= _art.slug %>" class="nav-dropdown-chapter-item">Ch.<%= _art.chapter %>.&nbsp;<%= _art.title %></a>
+        <% } %>
+      <% } %>
+    </div>
   </div>
 </li>
 <li><a href="/questions/select">試験対策</a></li>

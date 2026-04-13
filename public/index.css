@@ -7925,52 +7925,48 @@ a.small-category-link:hover {
   background: var(--color-nav-bg);
   border-top: 2px solid var(--color-brand);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
-  padding: 16px 20px 20px;
+  padding: 12px 16px 16px;
   z-index: 998;
-  min-width: 540px;
+  min-width: 480px;
   max-width: 92vw;
-  flex-direction: column;
-  gap: 0;
 }
 
 .nav-dropdown-panel.is-open {
-  display: flex;
+  display: block;
 }
 
-/* 各級のセクション（縦積み） */
-.nav-dropdown-grade-section {
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+/* 3カラムのフラットグリッド（grade ラベル・chapter アイテム共存） */
+.nav-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px 8px;
 }
 
-.nav-dropdown-grade-section:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-/* 級ラベル */
+/* 級ラベル：3カラム全幅スパン */
 .nav-dropdown-grade-label {
+  grid-column: 1 / -1;
   display: block;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--color-brand-lighter, #b39ddb);
-  margin-bottom: 8px;
+  padding: 8px 6px 4px;
+  margin-top: 4px;
+  border-bottom: 1px solid rgba(139, 108, 207, 0.35);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
+.nav-dropdown-grade-label:first-child {
+  margin-top: 0;
+}
+
 .nav-dropdown-grade-label:hover {
   color: #fff;
+  border-bottom-color: rgba(139, 108, 207, 0.6);
 }
 
-/* Chapter を3カラムグリッドで表示 */
-.nav-dropdown-chapter-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px 6px;
-}
-
+/* Chapter アイテム */
 .nav-dropdown-chapter-item {
   display: block;
   padding: 6px 8px;
