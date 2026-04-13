@@ -7931,7 +7931,8 @@ a.small-category-link:hover {
   max-width: 92vw;
 }
 
-.nav-dropdown-panel.is-open {
+/* 表示/非表示はCSSホバーのみで制御（JSはposition計算のみ） */
+.nav-has-dropdown:hover .nav-dropdown-panel {
   display: block;
 }
 

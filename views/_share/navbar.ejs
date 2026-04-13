@@ -213,30 +213,23 @@ aria-label="グローバルナビゲーション"
   window.closeHamburger = closeMenu;
 })();
 
-// ナビドロップダウン位置制御（"QCの時間" 左端 × ヘッダー下端）
+// ナビドロップダウン：位置をCSSカスタムプロパティで設定（表示/非表示はCSS :hover）
 (function initNavDropdown() {
-  var li    = document.getElementById('nav-qctime');
-  var panel = document.getElementById('nav-qctime-panel');
-  if (!li || !panel) return;
+  var li     = document.getElementById('nav-qctime');
+  var panel  = document.getElementById('nav-qctime-panel');
+  var header = document.getElementById('site-header');
+  if (!li || !panel || !header) return;
 
-  function positionPanel() {
+  function updatePosition() {
     var liRect     = li.getBoundingClientRect();
-    var headerRect = document.getElementById('site-header').getBoundingClientRect();
-    panel.style.top  = headerRect.bottom + 'px';
-    panel.style.left = liRect.left + 'px';
+    var headerRect = header.getBoundingClientRect();
+    panel.style.setProperty('top',  headerRect.bottom + 'px');
+    panel.style.setProperty('left', liRect.left + 'px');
   }
 
-  li.addEventListener('mouseenter', function() {
-    positionPanel();
-    panel.classList.add('is-open');
-  });
-  li.addEventListener('mouseleave', function() {
-    panel.classList.remove('is-open');
-  });
-  // リサイズ時も位置を更新
-  window.addEventListener('resize', function() {
-    if (panel.classList.contains('is-open')) positionPanel();
-  });
+  // ページ読み込み時に1回だけ位置を確定（表示はCSSホバーが制御）
+  updatePosition();
+  window.addEventListener('resize', updatePosition);
 })();
 
 // モバイルサブメニュー開閉
