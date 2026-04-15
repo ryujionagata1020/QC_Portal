@@ -98,7 +98,7 @@
             <div id="testLevelArea" class="checkbox-area">
               <label><input type="checkbox" name="testlevels" value="1" disabled> 1級</label>
               <label><input type="checkbox" name="testlevels" value="2" disabled> 2級</label>
-              <label><input type="checkbox" name="testlevels" value="3" disabled> 3級</label>
+              <label><input type="checkbox" name="testlevels" value="3"> 3級</label>
               <label><input type="checkbox" name="testlevels" value="4" checked> 4級</label>
             </div>
           </div>
@@ -109,7 +109,7 @@
             <div id="examScopeArea" class="checkbox-area">
               <label><input type="checkbox" data-scope-filter="1" onclick="setScope(1)" disabled> 1級</label>
               <label><input type="checkbox" data-scope-filter="2" onclick="setScope(2)" disabled> 2級</label>
-              <label><input type="checkbox" data-scope-filter="3" onclick="setScope(3)" disabled> 3級</label>
+              <label><input type="checkbox" data-scope-filter="3" onclick="setScope(3)"> 3級</label>
               <label><input type="checkbox" data-scope-filter="4" onclick="setScope(4)" checked> 4級</label>
             </div>
           </div>
@@ -185,7 +185,7 @@
             <div id="small_<%= large.id %>" class="small-list">
               <% large.smalls.forEach(function(small){ %>
                 <label data-scope="<%= small.scope_exam %>">
-                  <input type="checkbox" name="smalls" value="<%= small.id %>" <%= small.scope_exam !== 4 ? 'disabled' : '' %>>
+                  <input type="checkbox" name="smalls" value="<%= small.id %>" <%= small.scope_exam < 3 ? 'disabled' : '' %>>
                   <%= small.name %>（<%= small.scope_exam %>級）
                 </label><br>
               <% }); %>
@@ -207,7 +207,7 @@
             <div id="small_<%= large.id %>" class="small-list">
               <% large.smalls.forEach(function(small){ %>
                 <label data-scope="<%= small.scope_exam %>">
-                  <input type="checkbox" name="smalls" value="<%= small.id %>" <%= small.scope_exam !== 4 ? 'disabled' : '' %>>
+                  <input type="checkbox" name="smalls" value="<%= small.id %>" <%= small.scope_exam < 3 ? 'disabled' : '' %>>
                   <%= small.name %>（<%= small.scope_exam %>級）
                 </label><br>
               <% }); %>
