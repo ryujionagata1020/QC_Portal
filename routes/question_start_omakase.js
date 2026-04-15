@@ -31,6 +31,34 @@ const OMAKASE_MODES = {
     scope_exam: 4,
     category_name: null,
     limit: null
+  },
+  // 3級おまかせ10問: testlevel=3 & scope_exam=3, 10問ランダム
+  grade3_30: {
+    testlevel: 3,
+    scope_exam: 3,
+    category_name: null,
+    limit: 10
+  },
+  // 3級実践編10問: testlevel=3 & scope_exam=3 & 実践編, 10問
+  grade3_practical_30: {
+    testlevel: 3,
+    scope_exam: 3,
+    category_name: "実践編",
+    limit: 10
+  },
+  // 3級手法編10問: testlevel=3 & scope_exam=3 & 手法編, 10問
+  grade3_methods_30: {
+    testlevel: 3,
+    scope_exam: 3,
+    category_name: "手法編",
+    limit: 10
+  },
+  // 3級対応ALL問題セット: testlevel=3 & scope_exam=3, 全問ランダム
+  grade3_all: {
+    testlevel: 3,
+    scope_exam: 3,
+    category_name: null,
+    limit: null
   }
 };
 

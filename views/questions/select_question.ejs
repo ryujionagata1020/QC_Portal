@@ -58,27 +58,53 @@
 
     <!-- おまかせパネル -->
     <div class="sq-panel active" id="sq-panel-omakase">
-      <div class="sq-omakase-buttons">
-        <form method="POST" action="/questions/start-omakase">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <input type="hidden" name="mode" value="grade4_30">
-          <button type="submit" class="btn-start">4級おまかせ10問</button>
-        </form>
-        <form method="POST" action="/questions/start-omakase">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <input type="hidden" name="mode" value="grade4_practical_30">
-          <button type="submit" class="btn-start">4級実践編10問</button>
-        </form>
-        <form method="POST" action="/questions/start-omakase">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <input type="hidden" name="mode" value="grade4_methods_30">
-          <button type="submit" class="btn-start">4級手法編10問</button>
-        </form>
-        <form method="POST" action="/questions/start-omakase">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <input type="hidden" name="mode" value="grade4_all">
-          <button type="submit" class="btn-start">4級対応ALL問題セット</button>
-        </form>
+      <div class="sq-omakase-section">
+        <div class="sq-omakase-section-label">4級</div>
+        <div class="sq-omakase-buttons">
+          <form method="POST" action="/questions/start-omakase">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="mode" value="grade4_30">
+            <button type="submit" class="btn-start">4級おまかせ10問</button>
+          </form>
+          <form method="POST" action="/questions/start-omakase">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="mode" value="grade4_practical_30">
+            <button type="submit" class="btn-start">4級実践編10問</button>
+          </form>
+          <form method="POST" action="/questions/start-omakase">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="mode" value="grade4_methods_30">
+            <button type="submit" class="btn-start">4級手法編10問</button>
+          </form>
+          <form method="POST" action="/questions/start-omakase">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="mode" value="grade4_all">
+            <button type="submit" class="btn-start">4級対応ALL問題セット</button>
+          </form>
+        </div>
+      </div>
+      <div class="sq-omakase-section">
+        <div class="sq-omakase-section-label">3級</div>
+        <div class="sq-omakase-buttons">
+          <form method="POST" action="/questions/start-omakase">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="mode" value="grade3_30">
+            <button type="submit" class="btn-start">3級おまかせ10問</button>
+          </form>
+          <form>
+            <button type="button" class="btn-start btn-start--disabled" disabled title="準備中">3級実践編10問</button>
+          </form>
+          <form method="POST" action="/questions/start-omakase">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="mode" value="grade3_methods_30">
+            <button type="submit" class="btn-start">3級手法編10問</button>
+          </form>
+          <form method="POST" action="/questions/start-omakase">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="mode" value="grade3_all">
+            <button type="submit" class="btn-start">3級対応ALL問題セット</button>
+          </form>
+        </div>
       </div>
     </div>
 

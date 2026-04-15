@@ -1388,6 +1388,19 @@ a {
   display: block;
 }
 
+.sq-omakase-section {
+  margin-bottom: 20px;
+}
+
+.sq-omakase-section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted, #888);
+  margin-bottom: 8px;
+  padding-left: 4px;
+  letter-spacing: 0.05em;
+}
+
 .sq-omakase-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1400,6 +1413,12 @@ a {
 
 .sq-omakase-buttons .btn-start {
   width: 100%;
+}
+
+.btn-start--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 480px) {
