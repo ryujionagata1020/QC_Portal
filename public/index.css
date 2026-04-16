@@ -5030,9 +5030,12 @@ a.small-category-link:hover {
 /* --- Top Hero Image --- */
 .top-hero-image {
   position: relative;
-  width: 100%;
-  overflow: hidden;
+  margin-top: calc(-1 * clamp(15px, 4vw, 30px));
+  margin-left: calc(-1 * clamp(15px, 4vw, 30px));
+  margin-right: calc(-1 * clamp(15px, 4vw, 30px));
   margin-bottom: 24px;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
 }
 
 .top-hero-image img {
