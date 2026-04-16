@@ -5062,6 +5062,15 @@ a.small-category-link:hover {
   text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
+.top-hero-brand {
+  color: #c4a8ff;
+  background: rgba(139, 108, 207, 0.35);
+  padding: 0 6px;
+  border-radius: 4px;
+  border-bottom: 2px solid #8b6ccf;
+  text-shadow: 0 0 8px rgba(139, 108, 207, 0.8);
+}
+
 @media (max-width: 768px) {
   .top-hero-text p {
     font-size: 0.95rem;
