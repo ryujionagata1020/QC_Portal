@@ -5027,6 +5027,44 @@ a.small-category-link:hover {
   }
 }
 
+/* --- Top Hero Image --- */
+.top-hero-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.top-hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.top-hero-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 24px;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+  color: #fff;
+}
+
+.top-hero-text p {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 768px) {
+  .top-hero-text p {
+    font-size: 0.95rem;
+  }
+}
+
 /* --- Responsive (600px) --- */
 @media (max-width: 600px) {
   .simulate-container {
