@@ -59,6 +59,43 @@
         </p>
       </section>
 
+      <!-- オンボーディング：機能紹介 -->
+      <section id="onboarding-section" class="onb-section">
+
+        <!-- Block 1: アカウント登録 -->
+        <div class="onb-block">
+          <div class="onb-images onb-images--duo">
+            <img class="onb-img onb-img--back" src="/public/raderchart.png" alt="レーダーチャート" />
+            <img class="onb-img onb-img--front" src="/public/activity.png" alt="学習アクティビティ" />
+          </div>
+          <div class="onb-text">
+            <p>アカウント登録すると学習履歴が使えるようになり、あなたを合格へ最短に導くことができます</p>
+          </div>
+        </div>
+
+        <!-- Block 2: 解説記事 -->
+        <div class="onb-block onb-block--reverse">
+          <div class="onb-images onb-images--duo">
+            <img class="onb-img onb-img--back" src="/public/kihontoukeiryo.png" alt="基本統計量" />
+            <img class="onb-img onb-img--front" src="/public/soubetu.png" alt="層別" />
+          </div>
+          <div class="onb-text">
+            <p>品質管理の基礎知識やQC検定に対策するための解説を記事にしています。イラストや図をたくさん使っているので初心者の方でも理解しやすいです。</p>
+          </div>
+        </div>
+
+        <!-- Block 3: 模擬問題 -->
+        <div class="onb-block">
+          <div class="onb-images onb-images--single">
+            <img class="onb-img" src="/public/paretzu.png" alt="パレート図" />
+          </div>
+          <div class="onb-text">
+            <p>過去問の傾向から模擬問題を解くことができます。過去問から頻出分野と問題の傾向を独自に分析しています。特によくある間違いやすいポイントを徹底的に習得することができます。</p>
+          </div>
+        </div>
+
+      </section>
+
       <section id="announcements-section" aria-labelledby="announcements-heading">
         <h2 id="announcements-heading">新着情報</h2>
         <% if (typeof announcements !== 'undefined' && announcements && announcements.length > 0) { %>
