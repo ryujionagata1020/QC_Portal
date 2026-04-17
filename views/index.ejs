@@ -71,6 +71,11 @@
           </div>
           <div class="onb-text">
             <p>アカウント登録すると学習履歴が使えるようになり、合格へ最短で導くことができます。</p>
+            <% if (typeof isAuthenticated === 'undefined' || !isAuthenticated) { %>
+            <div class="onb-register-wrap">
+              <button class="onb-register-btn" onclick="openAuthModal(); switchAuthTab('register');">アカウント登録はこちら</button>
+            </div>
+            <% } %>
           </div>
         </div>
 
@@ -82,6 +87,9 @@
           </div>
           <div class="onb-text">
             <p>品質管理の基礎知識やQC検定に対策するための解説を記事にしています。イラストや図を使っているので初心者の方でも理解しやすい内容になっています。</p>
+            <div class="onb-link-wrap onb-link-wrap--left">
+              <a class="onb-link-btn" href="/articles">解説記事一覧</a>
+            </div>
           </div>
         </div>
 
@@ -92,11 +100,9 @@
           </div>
           <div class="onb-text">
             <p>過去問から頻出分野と問題の傾向を独自に分析しています。よくある間違いやすいポイントを徹底的に習得することができます。</p>
-            <% if (typeof isAuthenticated === 'undefined' || !isAuthenticated) { %>
-            <div class="onb-register-wrap">
-              <button class="onb-register-btn" onclick="openAuthModal(); switchAuthTab('register');">アカウント登録はこちら</button>
+            <div class="onb-link-wrap onb-link-wrap--right">
+              <a class="onb-link-btn" href="/questions/select">模擬問題集はこちら</a>
             </div>
-            <% } %>
           </div>
         </div>
 

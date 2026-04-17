@@ -8241,6 +8241,36 @@ a.small-category-link:hover {
   margin-top: 16px;
 }
 
+.onb-link-wrap {
+  display: flex;
+  margin-top: 16px;
+}
+
+.onb-link-wrap--left {
+  justify-content: flex-start;
+}
+
+.onb-link-wrap--right {
+  justify-content: flex-end;
+}
+
+.onb-link-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  background-color: #8b6ccf;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.onb-link-btn:hover {
+  background-color: #7558b8;
+  transform: translateY(-1px);
+}
+
 .onb-register-btn {
   display: inline-block;
   padding: 10px 24px;
