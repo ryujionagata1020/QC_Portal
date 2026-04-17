@@ -70,7 +70,7 @@
             <img class="onb-img onb-img--front" src="/public/activity.png" alt="学習アクティビティ" />
           </div>
           <div class="onb-text">
-            <p>アカウント登録すると学習履歴が使えるようになり、あなたを合格へ最短に導くことができます</p>
+            <p>アカウント登録すると学習履歴が使えるようになり、合格へ最短で導くことができます。</p>
           </div>
         </div>
 
@@ -81,7 +81,7 @@
             <img class="onb-img onb-img--front" src="/public/soubetu.png" alt="層別" />
           </div>
           <div class="onb-text">
-            <p>品質管理の基礎知識やQC検定に対策するための解説を記事にしています。イラストや図をたくさん使っているので初心者の方でも理解しやすいです。</p>
+            <p>品質管理の基礎知識やQC検定に対策するための解説を記事にしています。イラストや図を使っているので初心者の方でも理解しやすい内容になっています。</p>
           </div>
         </div>
 
@@ -91,7 +91,12 @@
             <img class="onb-img" src="/public/paretzu.png" alt="パレート図" />
           </div>
           <div class="onb-text">
-            <p>過去問の傾向から模擬問題を解くことができます。過去問から頻出分野と問題の傾向を独自に分析しています。特によくある間違いやすいポイントを徹底的に習得することができます。</p>
+            <p>過去問から頻出分野と問題の傾向を独自に分析しています。よくある間違いやすいポイントを徹底的に習得することができます。</p>
+            <% if (typeof isAuthenticated === 'undefined' || !isAuthenticated) { %>
+            <div class="onb-register-wrap">
+              <button class="onb-register-btn" onclick="openAuthModal(); switchAuthTab('register');">アカウント登録はこちら</button>
+            </div>
+            <% } %>
           </div>
         </div>
 
