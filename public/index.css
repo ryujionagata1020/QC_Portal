@@ -2001,15 +2001,12 @@ button:hover {
 }
 
 .about-avatar {
-  width: 72px;
-  height: 72px;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-}
-
-.about-heading-row h1 {
-  margin: 0;
+  vertical-align: middle;
 }
 
 .qcis-container p,
