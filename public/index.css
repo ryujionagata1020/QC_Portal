@@ -8227,6 +8227,13 @@ a.small-category-link:hover {
   flex: 1;
 }
 
+.onb-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #8b6ccf;
+  margin: 0 0 10px 0;
+}
+
 .onb-text p {
   font-size: 1.05rem;
   font-weight: 500;
