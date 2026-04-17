@@ -26,4 +26,9 @@ router.get("/qctext", (req, res) => {
   res.render("qctext");
 });
 
+// このサイトについてページ
+router.get("/about", (req, res) => {
+  res.render("about");
+});
+
 module.exports = router;

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./_share/metadata.ejs")%>
+    <title>このサイトについて | QC-Portal</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="/public/index.css" />
+  </head>
+
+  <body>
+    <div id="site-wrapper">
+      <%- include("./_share/navbar.ejs") %>
+
+      <main class="qcis-container">
+
+        <section aria-labelledby="about-heading">
+          <h1 id="about-heading">このサイトについて</h1>
+          <p>QC-Portalは、QC検定®（品質管理検定）の学習を支援するための無料Webサービスです。</p>
+        </section>
+
+      </main>
+
+      <%- include("./_share/footer.ejs") %>
+    </div>
+  </body>
+</html>
