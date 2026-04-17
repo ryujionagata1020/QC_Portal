@@ -1993,6 +1993,25 @@ button:hover {
   padding-bottom: 0.3em;
 }
 
+.about-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1.2em;
+}
+
+.about-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.about-heading-row h1 {
+  margin: 0;
+}
+
 .qcis-container p,
 .qcis-container dd,
 .qcis-container dt {
