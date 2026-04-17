@@ -8046,6 +8046,18 @@ a.small-category-link:hover {
   border-bottom: none;
 }
 
+/* 単列リスト型ドロップダウン（このサイトについて等） */
+.nav-dropdown-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  min-width: 180px;
+}
+
+.nav-dropdown-panel--sm {
+  min-width: 220px;
+}
+
 /* ============================================================
    モバイル用サブメニュー（アコーディオン）
    ============================================================ */

@@ -31,7 +31,19 @@ aria-label="グローバルナビゲーション"
 <li><a href="/statisinfo">統計情報</a></li>
 <li><a href="/qctext">参考書</a></li>
 <li><a href="/tools/simulate">ツール</a></li>
-<li><a href="/about">このサイトについて</a></li>
+<li class="nav-has-dropdown" id="nav-about">
+  <a href="/about" class="nav-dropdown-trigger">このサイトについて<span class="nav-dropdown-arrow" aria-hidden="true">▾</span></a>
+  <div class="nav-dropdown-panel nav-dropdown-panel--sm" id="nav-about-panel" role="region" aria-label="このサイトについて メニュー">
+    <div class="nav-dropdown-list">
+      <a href="/about" class="nav-dropdown-chapter-item">サイト概要</a>
+      <a href="/manual" class="nav-dropdown-chapter-item">使い方ガイド</a>
+      <a href="/contact" class="nav-dropdown-chapter-item">お問い合わせ</a>
+      <a href="/kiyaku" class="nav-dropdown-chapter-item">利用規約</a>
+      <a href="/privacy-policy" class="nav-dropdown-chapter-item">プライバシーポリシー</a>
+      <a href="/sitemap" class="nav-dropdown-chapter-item">サイトマップ</a>
+    </div>
+  </div>
+</li>
 </ul>
 
 </nav>
@@ -118,7 +130,21 @@ aria-label="グローバルナビゲーション"
       <li><a href="/statisinfo">統計情報</a></li>
       <li><a href="/qctext">参考書</a></li>
       <li><a href="/tools/simulate">ツール</a></li>
-      <li><a href="/about" onclick="window.closeHamburger && closeHamburger()">このサイトについて</a></li>
+      <li class="mobile-has-submenu">
+        <button class="mobile-submenu-toggle" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+          このサイトについて<span class="mobile-submenu-arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="mobile-submenu-panel">
+          <ul class="mobile-submenu-chapter-list">
+            <li><a href="/about" onclick="window.closeHamburger && closeHamburger()">サイト概要</a></li>
+            <li><a href="/manual" onclick="window.closeHamburger && closeHamburger()">使い方ガイド</a></li>
+            <li><a href="/contact" onclick="window.closeHamburger && closeHamburger()">お問い合わせ</a></li>
+            <li><a href="/kiyaku" onclick="window.closeHamburger && closeHamburger()">利用規約</a></li>
+            <li><a href="/privacy-policy" onclick="window.closeHamburger && closeHamburger()">プライバシーポリシー</a></li>
+            <li><a href="/sitemap" onclick="window.closeHamburger && closeHamburger()">サイトマップ</a></li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </nav>
   <div class="mobile-user-section">
@@ -216,9 +242,9 @@ aria-label="グローバルナビゲーション"
 })();
 
 // ナビドロップダウン：li とパネル両方をまたぐホバー制御 + クリック外で閉じる
-(function initNavDropdown() {
-  var li     = document.getElementById('nav-qctime');
-  var panel  = document.getElementById('nav-qctime-panel');
+function initNavDropdown(liId, panelId) {
+  var li     = document.getElementById(liId);
+  var panel  = document.getElementById(panelId);
   var header = document.getElementById('site-header');
   if (!li || !panel || !header) return;
 
@@ -238,20 +264,17 @@ aria-label="グローバルナビゲーション"
   }
 
   function scheduleClose() {
-    // 少し待ってから閉じる（li→panel間の隙間を通過しても閉じないように）
     closeTimer = setTimeout(function() {
       panel.classList.remove('is-open');
       closeTimer = null;
     }, 120);
   }
 
-  // li（トリガー）とパネル両方にホバー検知を設定
   li.addEventListener('mouseenter', openPanel);
   li.addEventListener('mouseleave', scheduleClose);
   panel.addEventListener('mouseenter', openPanel);
   panel.addEventListener('mouseleave', scheduleClose);
 
-  // ドロップダウン外のクリックで閉じる
   document.addEventListener('click', function(e) {
     if (!li.contains(e.target) && !panel.contains(e.target)) {
       if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
@@ -261,7 +284,10 @@ aria-label="グローバルナビゲーション"
 
   updatePosition();
   window.addEventListener('resize', updatePosition);
-})();
+}
+
+initNavDropdown('nav-qctime', 'nav-qctime-panel');
+initNavDropdown('nav-about',  'nav-about-panel');
 
 // モバイルサブメニュー開閉
 function toggleMobileSubmenu(btn) {
