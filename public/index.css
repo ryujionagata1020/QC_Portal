@@ -5070,6 +5070,10 @@ a.small-category-link:hover {
   color: #fff;
 }
 
+.top-hero-text h1 {
+  text-shadow: 2px 2px 8px rgba(139, 108, 207, 0.8), 0 0 20px rgba(139, 108, 207, 0.5);
+}
+
 .top-hero-text p {
   margin: 0;
   font-size: 1.25rem;
