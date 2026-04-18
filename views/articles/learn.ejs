@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+    <% var pageDescription = 'QC検定' + frontmatter.grade + '級「' + frontmatter.title + '」の解説記事。図や例を使ってわかりやすく説明しています。QC-Portalで品質管理を学ぼう。' %>
     <%- include("../_share/metadata.ejs") %>
     <title><%= frontmatter.title %> - QC-Portal</title>
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
