@@ -30,7 +30,7 @@ published: true
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -64,7 +64,7 @@ $$ 標準化された値 ＝ \frac{元のデータ － 平均値}{標準偏差} 
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -105,7 +105,7 @@ $$ 偏差値 ＝ 標準化した値 \times 10 ＋ 50 $$
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>

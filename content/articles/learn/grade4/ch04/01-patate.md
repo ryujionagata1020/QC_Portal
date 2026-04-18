@@ -39,7 +39,7 @@ published: true
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -56,7 +56,7 @@ published: true
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -85,7 +85,7 @@ published: true
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -108,7 +108,7 @@ QC検定4級において、「パレート図」はQC七つ道具の中でも最
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>

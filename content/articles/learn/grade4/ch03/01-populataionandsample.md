@@ -58,7 +58,7 @@ published: true
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -106,7 +106,7 @@ published: true
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -132,7 +132,7 @@ $$ 測定値 ＝ 真の値 ＋ サンプリング誤差 ＋ 測定誤差 $$
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -164,7 +164,7 @@ $$ 測定値 ＝ 真の値 ＋ サンプリング誤差 ＋ 測定誤差 $$
 <ins class="adsbygoogle"
   style="display:block"
   data-ad-client="ca-pub-4841029986576213"
-  data-ad-slot="XXXXXXXXXX"
+  data-ad-slot="5563450921"
   data-ad-format="auto"
   data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
