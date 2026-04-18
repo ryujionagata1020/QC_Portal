@@ -100,6 +100,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null;
   res.locals.isAuthenticated = req.isAuthenticated();
   res.locals.navByGrade = _navByGrade;
+  res.locals.canonicalUrl = 'https://qc-portals.com' + req.path;
   next();
 });
 
