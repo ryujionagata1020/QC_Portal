@@ -7866,6 +7866,15 @@ a.small-category-link:hover {
   text-decoration: underline;
 }
 
+.article-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
 /* 相関関係 画像左・説明右レイアウト */
 .article-content .scatter-correlation-list {
   display: flex;
