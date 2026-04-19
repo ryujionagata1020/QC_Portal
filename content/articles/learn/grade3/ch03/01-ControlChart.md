@@ -1,7 +1,7 @@
 ---
 title: 管理図
-grade: 4
-chapter: 11
+grade: 3
+chapter: 3
 section: 1
 chapter_title: 管理図
 question_category: ControlChart
@@ -26,7 +26,7 @@ published: true
 
 **【図1：管理図の基本構成イメージ】**
 
-![管理図の基本構成イメージ](/public/images/articles/grade4/ch11/管理図の基本構成イメージ.png)
+![管理図の基本構成イメージ](/public/images/articles/grade3/ch03/管理図の基本構成イメージ.png)
 
 上の図では、3本の横線が管理図の骨格を構成しています。
 
@@ -50,7 +50,7 @@ published: true
 
 管理図を用いることで、「**今のばらつきは偶然原因によるものだから静観してよいのか、それとも異常原因が発生したから直ちにラインを止めて処置をすべきか**」を客観的に判断することができるのです。
 
-![偶然原因と異常原因の比較](/public/images/articles/grade4/ch11/偶然原因と異常原因比較.png)
+![偶然原因と異常原因の比較](/public/images/articles/grade3/ch03/偶然原因と異常原因比較.png)
 
 ---
 
@@ -66,23 +66,23 @@ published: true
 
 *   **連（れん）**：打点が中心線（CL）に対して同じ側（上側ばかり、または下側ばかり）に連続して現れる状態です。例えば、9点が連続してCLの片側に偏っている場合は異常とみなします。
 
-    ![連の例](/public/images/articles/grade4/ch11/連.png)
+    ![連の例](/public/images/articles/grade3/ch03/連.png)
 
 *   **傾向（トレンド）**：打点が連続して上昇し続ける、あるいは下降し続ける状態です。工具の摩耗や薬液の劣化などが進行している場合によく見られます。
 
-    ![傾向（トレンド）の例](/public/images/articles/grade4/ch11/傾向.png)
+    ![傾向（トレンド）の例](/public/images/articles/grade3/ch03/傾向.png)
 
 *   **交互の増減**：打点が上下交互に規則的にジグザグと増減を繰り返す状態です。
 
-    ![交互の増減の例](/public/images/articles/grade4/ch11/交互.png)
+    ![交互の増減の例](/public/images/articles/grade3/ch03/交互.png)
 
 *   **限界線への接近**：連続するいくつかの点が、UCLまたはLCLの限界線付近に集中して現れる状態です。
 
-    ![限界線への接近の例](/public/images/articles/grade4/ch11/限界線.png)
+    ![限界線への接近の例](/public/images/articles/grade3/ch03/限界線.png)
 
 これらの「クセ」が見られた場合も、工程の背後に何らかの異常原因が潜んでいる可能性があるため、調査が必要です。
 
-![異常判定フロー](/public/images/articles/grade4/ch11/異常判定フロー.png)
+![異常判定フロー](/public/images/articles/grade3/ch03/異常判定フロー.png)
 
 ---
 
@@ -92,11 +92,11 @@ published: true
 
 *   **$\bar{X}$（エックスバー）管理図**：サンプルの「平均値（$\bar{X}$）」を打点し、工程の**平均値の変化**を管理します。
 
-    ![エックスバー管理図の例](/public/images/articles/grade4/ch11/エックスバー.png)
+    ![エックスバー管理図の例](/public/images/articles/grade3/ch03/エックスバー.png)
 
 *   **$R$（アール）管理図**：サンプルの「範囲（最大値－最小値：$R$）」を打点し、工程の**ばらつきの大きさの変化**を管理します。
 
-    ![アール管理図の例](/public/images/articles/grade4/ch11/アール.png)
+    ![アール管理図の例](/public/images/articles/grade3/ch03/アール.png)
 
 この2つの管理図を上下に並べて描き、平均値とばらつきの両面から同時に工程の状態を監視するのが一般的です。
 
@@ -107,9 +107,9 @@ published: true
 
 ### 5. 【QC検定対策】よく問われる出題パターン
 
-QC検定4級において、「管理図」に関する知識は頻出項目です。試験対策として、以下のポイントは確実に暗記しておきましょう。
+QC検定3級において、「管理図」に関する知識は頻出項目です。試験対策として、以下のポイントは確実に暗記しておきましょう。
 
-**📝 頻出ポイントのチェック**
+**📝 頻出ポイント**
 1.  **管理図の目的と定義**
     「工程における偶然原因による変動と異常原因による変動を区分し、工程を管理する図」という説明文が出たら、迷わず「管理図」を選択してください。
 2.  **3本の管理線の名称と略号**
