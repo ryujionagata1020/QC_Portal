@@ -1,7 +1,7 @@
 ---
 title: 管理図
 grade: 3
-chapter: 3
+chapter: 2
 section: 1
 chapter_title: 管理図
 question_category: ControlChart

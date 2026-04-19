@@ -6,7 +6,7 @@ section: 1
 chapter_title: データの取り方・まとめ方
 question_category: basic_statistics
 prev: null
-next: grade3/ch03/02-normal-distribution2
+next: grade3/ch03/01-ControlChart
 published: true
 ---
 
